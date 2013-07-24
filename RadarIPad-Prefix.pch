@@ -1,0 +1,45 @@
+//
+// Prefix header for all source files of the 'RadarIPad' target in the 'RadarIPad' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#define RGB(r, g, b) \
+[UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]
+#define RGBA(r, g, b, a) \
+[UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
+
+#define LOCALHOST @"192.168.72.50"
+#define HTTPURL @"http://192.168.72.50:8080/XXX"
+
+#define PORT 8080
+#define chat_Port 9999
+#define PLATEFORM_OS @"1"
+
+#define disconnect_time 60.0
+#define connect_fail 15.0
+#define TYPE_LOGIN 0
+#define TYPE_MSG_CHAT 1
+#define kDOCSFOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
+#define kCACHED_IMG_FOLDER @"cachedimages"
+#define docsdir [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES) lastObject]
+#define dbpath [docsdir stringByAppendingPathComponent:@"radarDB.db"]
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#endif
+
+#ifdef DEBUG
+#   define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#   define DLog(...)
+#endif
+
+
+#pragma mark - namespace
+#define LOGINSUCCESS @"LoginSuccess"
