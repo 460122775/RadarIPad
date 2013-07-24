@@ -37,7 +37,7 @@ static ApplicationController *applicationController;
 {
     [super viewDidLoad];
     //login when application start.
-    LoginViewController *loginViewController=[[LoginViewController alloc]init];
+    LoginViewController *loginViewController = [[LoginViewController alloc]init];
     loginViewController.navigationItem.hidesBackButton = YES;
     [self.navigationController pushViewController:loginViewController animated:YES];
 }
