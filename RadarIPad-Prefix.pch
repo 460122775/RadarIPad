@@ -43,3 +43,10 @@
 
 #pragma mark - namespace
 #define LOGINSUCCESS @"LoginSuccess"
+
+/** View Define**/
+#define Padding 5
+#define TitleColor RGB(0, 147, 255)
+#define ViewBackgroundColor [UIColor whiteColor]
+#define BlueBackGroundColor RGB(11, 154, 254)
+#define GrayColor RGB(216, 220, 225)

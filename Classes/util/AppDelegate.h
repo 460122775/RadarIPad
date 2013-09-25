@@ -8,12 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "ApplicationController.h"
+#import "HistoryViewController.h"
+#import "ControlViewController.h"
+#import "ProductViewController.h"
+#import "SystemViewController.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>{
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>{
     UINavigationController *rootController;
 }
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic, retain) UINavigationController *rootController;
+@property (strong, nonatomic) UITabBarController *tabBarController;
+@property (strong, nonatomic) UINavigationController *na;
+@property (strong, nonatomic) NSMutableArray *controllerArray;
+
+-(void)initTabBar;
 
 @end

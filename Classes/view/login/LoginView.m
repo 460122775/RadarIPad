@@ -40,11 +40,11 @@
     [scrollView setContentSize:CGSizeMake(scrollView.contentSize.width, scrollView.contentSize.height)];
     [self addSubview:scrollView];
     
-    logo = [[UIImageView alloc]initWithFrame:CGRectMake((self.frame.size.width - 100) / 2, 100, 100, 100)];
+    logo = [[UIImageView alloc]initWithFrame:CGRectMake((self.frame.size.width - 100) / 2, 150, 100, 100)];
     [logo setImage:[UIImage imageNamed:@"touxiang"]];
     [scrollView addSubview:logo];
     
-    usernameTextField = [[UITextField alloc]initWithFrame:CGRectMake((self.frame.size.width - 250) / 2, 240, 250, 40)];
+    usernameTextField = [[UITextField alloc]initWithFrame:CGRectMake((self.frame.size.width - 250) / 2, 285, 250, 40)];
     usernameTextField.delegate = self;
     usernameTextField.placeholder = @"请输入用户名";
     usernameTextField.background = [UIImage imageNamed:@"textfield_top"];
@@ -56,7 +56,7 @@
     [usernameTextField setReturnKeyType:UIReturnKeyNext];
     [scrollView addSubview:usernameTextField];
     
-    passwordTextField = [[UITextField alloc]initWithFrame:CGRectMake((self.frame.size.width - 250) / 2, 280, 250, 40)];
+    passwordTextField = [[UITextField alloc]initWithFrame:CGRectMake((self.frame.size.width - 250) / 2, 325, 250, 40)];
     passwordTextField.delegate=self;
     passwordTextField.placeholder=@"请输入密码";
     passwordTextField.background = [UIImage imageNamed:@"textfield_buttom"];
@@ -70,7 +70,7 @@
     [scrollView addSubview:passwordTextField];
     
     loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [loginBtn setFrame: CGRectMake(self.frame.size.width / 2 - 125, 350, 120, 42)];
+    [loginBtn setFrame: CGRectMake(self.frame.size.width / 2 - 125, 405, 120, 42)];
     [loginBtn setTitle:@"登  录" forState:UIControlStateNormal];
     [loginBtn setBackgroundImage:[UIImage imageNamed:@"login_normal"] forState:UIControlStateNormal];
     [loginBtn setBackgroundImage:[UIImage imageNamed:@"login_highlight"] forState:UIControlStateHighlighted];
@@ -78,7 +78,7 @@
     [scrollView addSubview:loginBtn];
     
     noLoginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [noLoginBtn setFrame: CGRectMake(self.frame.size.width / 2 + 5, 350, 120, 42)];
+    [noLoginBtn setFrame: CGRectMake(self.frame.size.width / 2 + 5, 405, 120, 42)];
     [noLoginBtn setTitle:@"游客登录" forState:UIControlStateNormal];
     [noLoginBtn setBackgroundImage:[UIImage imageNamed:@"login_normal"] forState:UIControlStateNormal];
     [noLoginBtn setBackgroundImage:[UIImage imageNamed:@"login_highlight"] forState:UIControlStateHighlighted];
@@ -91,6 +91,10 @@
     tap.enabled = YES;
     tap.cancelsTouchesInView = NO;
     [scrollView addGestureRecognizer:tap];
+    
+    //set normal value:
+    usernameTextField.text = @"admin";
+    passwordTextField.text = @"admin";
 }
 
 -(void)loginBtnClick

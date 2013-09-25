@@ -9,19 +9,72 @@
 #import "AppDelegate.h"
 
 @implementation AppDelegate
-@synthesize window, rootController;
+@synthesize window,na,tabBarController,controllerArray;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-    self.rootController = [[UINavigationController alloc] initWithRootViewController:[[ApplicationController alloc] init]];
-    self.window.rootViewController = self.rootController;
+    self.na = [[UINavigationController alloc] initWithRootViewController:[[ApplicationController alloc] init]];
+    self.window.rootViewController = self.na;
     self.window.backgroundColor = [UIColor whiteColor];
-    self.rootController.navigationBar.hidden = YES;
+    self.na.navigationBar.hidden = YES;
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+-(void)initTabBar
+{
+    if (self.tabBarController)
+    {
+        self.window.rootViewController = self.tabBarController;
+        self.tabBarController.selectedIndex = 0;
+        return;
+    }
+    self.tabBarController = [[UITabBarController alloc] init];
+    self.tabBarController.delegate = self;
+    self.controllerArray = [[NSMutableArray alloc] initWithCapacity:5];
+    UIViewController *controller;
+    
+    controller = [[MainViewController alloc] init];
+    self.na = [[UINavigationController alloc] initWithRootViewController:controller];
+    self.na.navigationBarHidden = NO;
+    self.na.navigationBar.barStyle = UIBarStyleBlackOpaque;
+    self.na.tabBarItem = [self.na.tabBarItem initWithTitle:@"产品首页" image:[UIImage imageNamed:@"first"] tag:0];
+    [self.controllerArray addObject:self.na];
+    
+    controller = [[HistoryViewController alloc] init];
+    self.na = [[UINavigationController alloc] initWithRootViewController:controller];
+    self.na.navigationBarHidden = NO;
+    self.na.navigationBar.barStyle = UIBarStyleBlackOpaque;
+    self.na.tabBarItem = [self.na.tabBarItem initWithTitle:@"历史查询" image:[UIImage imageNamed:@"first"] tag:3];
+    [self.controllerArray addObject:self.na];
+    
+    controller = [[ProductViewController alloc] init];
+    self.na = [[UINavigationController alloc] initWithRootViewController:controller];
+    self.na.navigationBarHidden = NO;
+    self.na.navigationBar.barStyle = UIBarStyleBlackOpaque;
+    self.na.tabBarItem = [self.na.tabBarItem initWithTitle:@"产品申请" image:[UIImage imageNamed:@"first"] tag:1];
+    [self.controllerArray addObject:self.na];
+    
+    controller = [[ControlViewController alloc] init];
+    self.na = [[UINavigationController alloc] initWithRootViewController:controller];
+    self.na.navigationBarHidden = NO;
+    self.na.navigationBar.barStyle = UIBarStyleBlackOpaque;
+    self.na.tabBarItem = [self.na.tabBarItem initWithTitle:@"控制管理" image:[UIImage imageNamed:@"first"] tag:2];
+    [self.controllerArray addObject:self.na];
+    
+    controller = [[SystemViewController alloc] init];
+    self.na = [[UINavigationController alloc] initWithRootViewController:controller];
+    self.na.navigationBarHidden = NO;
+    self.na.navigationBar.barStyle = UIBarStyleBlackOpaque;
+    self.na.tabBarItem = [self.na.tabBarItem initWithTitle:@"系统设置" image:[UIImage imageNamed:@"first"] tag:4];
+    [self.controllerArray addObject:self.na];
+    
+    self.tabBarController.viewControllers = self.controllerArray;
+    [self.window addSubview:self.tabBarController.view];
+    self.window.rootViewController = self.tabBarController;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

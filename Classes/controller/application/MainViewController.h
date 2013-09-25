@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProductSmallView.h"
+#import "MainView.h"
 
-@interface MainViewController : UIViewController
+@interface MainViewController : UIViewController{
+    UIBarButtonItem *leftBtn;
+    UIBarButtonItem *rightBtn;
+    
+    MainView *mainView;
+}
+
+@property(nonatomic, retain) NSMutableDictionary *productDic;
 
 @end

@@ -45,9 +45,11 @@ static ApplicationController *applicationController;
 - (void)loginSuccessControl:(NSNotification*) notification
 {
     userVo = [notification object];
-    mainViewController = [[MainViewController alloc] init];
-    mainViewController.navigationItem.hidesBackButton = YES;
-    [self.navigationController pushViewController:mainViewController animated:YES];
+//    mainViewController = [[MainViewController alloc] init];
+//    mainViewController.navigationItem.hidesBackButton = YES;
+//    [self.navigationController pushViewController:mainViewController animated:YES];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate initTabBar];
 }
 
 #pragma mark - InterfaceOrientation

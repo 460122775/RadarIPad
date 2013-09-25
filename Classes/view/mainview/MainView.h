@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProductSmallView.h"
 
-@interface MainView : UIView
+@interface MainView : UIView{
+    UIScrollView *productsScrollView;
+}
+
+@property(nonatomic, retain) NSMutableDictionary *productDic;
 
 @end

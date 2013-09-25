@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "MainViewController.h"
 #import "UserVo.h"
