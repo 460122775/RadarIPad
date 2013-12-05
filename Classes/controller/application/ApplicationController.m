@@ -20,6 +20,7 @@ static ApplicationController *applicationController;
                                                  selector: @selector(loginSuccessControl:)
                                                      name: LOGINSUCCESS
                                                    object: nil];
+        
     }
     return self;
 }

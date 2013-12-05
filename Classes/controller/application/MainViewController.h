@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "ProductSmallView.h"
 #import "MainView.h"
+#import "ProductDataTableView.h"
 
 @interface MainViewController : UIViewController{
     UIBarButtonItem *leftBtn;
     UIBarButtonItem *rightBtn;
     
     MainView *mainView;
+    ProductDataTableView *productDataTableView;
 }
 
 @property(nonatomic, retain) NSMutableDictionary *productDic;

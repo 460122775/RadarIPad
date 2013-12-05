@@ -41,12 +41,15 @@
 #endif
 
 
-#pragma mark - namespace
+#pragma mark - Notification
 #define LOGINSUCCESS @"LoginSuccess"
+#define IPADSOCKETNOTIFI @"IPADSOCKETNOTIFI"
 
 /** View Define**/
 #define Padding 5
-#define TitleColor RGB(0, 147, 255)
-#define ViewBackgroundColor [UIColor whiteColor]
-#define BlueBackGroundColor RGB(11, 154, 254)
+#define TitleColor RGB(0, 187, 242) //(0, 147, 255)
+#define ViewBackgroundColor RGB(249, 249, 249)
+#define BlueBackGroundColor RGB(0, 187, 242)//RGB(11, 154, 254)
+#define FontColor RGB(81, 80, 76)
+
 #define GrayColor RGB(216, 220, 225)

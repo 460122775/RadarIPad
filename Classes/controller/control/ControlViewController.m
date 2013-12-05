@@ -26,7 +26,7 @@
     [super viewDidLoad];
     self.navigationItem.hidesBackButton = NO;
     //init title bar.
-    self.title = @"控制管理";
+    self.title = @"雷达控制";
     //init view
     controlView = [[ControlView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width)];
     [self.view addSubview:controlView];

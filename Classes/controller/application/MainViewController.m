@@ -29,15 +29,13 @@
     self.title = @"首页";
     //init the title bar button.
     leftBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(leftBtnClick)];
-    [leftBtn setTitle:@"产品列表"];
     self.navigationItem.leftBarButtonItem = leftBtn;
     
     rightBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(rightBtnClick)];
-    [rightBtn setTitle:@"产品列表"];
     self.navigationItem.rightBarButtonItem = rightBtn;
     
     // test code ....
-    for (int i = 0; i < 8; i++)
+    for (int i = 0; i < 6; i++)
     {
         [self.productDic setValue:[[ProductSmallView alloc] init] forKey:[NSString stringWithFormat:@"Test%i", i]];
     }
@@ -48,6 +46,11 @@
 
 - (void)leftBtnClick
 {
+    if (!productDataTableView)
+    {
+        productDataTableView = [[ProductDataTableView alloc] initWithFrame:CGRectMake(0, 0, 300, self.view.frame.size.height - 100)];
+    }
+    // Animation of push out from left.
     
 }
 

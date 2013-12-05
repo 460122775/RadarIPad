@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SystemView.h"
 
-@interface SystemViewController : UIViewController
+@interface SystemViewController : UIViewController{
+    SystemView *systemView;
+}
 
 @end

@@ -21,17 +21,7 @@
     UISegmentedControl *radarStateSegment;
     UIView *radarStateContentView;
     
-    UILabel *logTitleLabel;
-    UITextView *contentTextView;
-    UILabel *commandLabel;
-    UITextField *commandInputTxfld;
-    
-    UILabel *controlTitle;
-    UIButton *addUserBtn;
-    UILabel *pageContentLabel;
-    UIButton *lastPageBtn;
-    UIButton *nextPageBtn;
-    UITableView *userTableView;
+    UITableView *taskTableView;
 }
 
 @end

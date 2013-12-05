@@ -38,7 +38,8 @@
     for (id key in self.productDic)
     {
         productSmallView = [self.productDic objectForKey:key];
-        productSmallView.frame = CGRectMake(Padding + (no % 3) * (width + Padding), Padding + (no / 3) * (width + Padding),
+        productSmallView.frame = CGRectMake(Padding + (no % 3) * (width + Padding),
+                                            Padding + (no / 3) * (width + Padding),
                                             width, width);
         [productsScrollView addSubview:productSmallView];
         DLog(@"%f, %f",productSmallView.frame.origin.x, productSmallView.frame.origin.y);

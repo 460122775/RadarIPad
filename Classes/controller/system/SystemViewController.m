@@ -8,17 +8,15 @@
 
 #import "SystemViewController.h"
 
-@interface SystemViewController ()
-
-@end
-
 @implementation SystemViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+    {
         // Custom initialization
+        self.view.backgroundColor = ViewBackgroundColor;
     }
     return self;
 }
@@ -26,7 +24,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    self.navigationItem.hidesBackButton = NO;
+    //init title bar.
+    self.title = @"系统设置";
+    //init view
+    systemView = [[SystemView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width)];
+    [self.view addSubview:systemView];
 }
 
 - (void)didReceiveMemoryWarning

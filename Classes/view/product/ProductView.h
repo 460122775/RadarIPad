@@ -11,12 +11,16 @@
 @interface ProductView : UIView<UITableViewDelegate, UITableViewDataSource>{
     NSMutableDictionary *productViewDic;
     
-    UIButton *productChooseBtn;
-    UILabel *productNameLabel;
-    UIView *parameterView;
+    UILabel *productTitleLabel;
     UITableView *productTableView;
-    UILabel *parameterAttentionLabel;
     
+    UILabel *productConfigTitleLabel;
+    UIView *productConfigView;
+    
+    UILabel *appliedProductTitleLabel;
+    UITableView *appliedProductTableView;
+    
+    UILabel *parameterAttentionLabel;
 }
 
 @end

@@ -19,7 +19,7 @@
                                                      name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasHidden)
                                                      name:UIKeyboardWillHideNotification object:nil];
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor clearColor];
     }
     return self;
 }
@@ -95,85 +95,20 @@
     [backgroundScrollView addSubview:radarStateSegment];
     
     radarStateContentView = [[UIView alloc] initWithFrame:CGRectMake(Padding, y, backgroundScrollView.frame.size.width - Padding * 2, 160)];
-    y += 170;
+    y += 230;
     radarStateContentView.layer.borderWidth = 1;
     radarStateContentView.layer.borderColor = GrayColor.CGColor;
     [backgroundScrollView addSubview:radarStateContentView];
     
-    //log & debug.
-    logTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(Padding, y, backgroundScrollView.frame.size.width - 2 * Padding, 30)];
-    y += 35;
-    logTitleLabel.backgroundColor = TitleColor;
-    logTitleLabel.font = [UIFont fontWithName:@"Heiti SC" size:16];
-    [logTitleLabel setTextColor:[UIColor whiteColor]];
-    [logTitleLabel setText:@"  日志与调试"];
-    [backgroundScrollView addSubview:logTitleLabel];
-    
-    contentTextView = [[UITextView alloc] initWithFrame:CGRectMake(Padding, y, backgroundScrollView.frame.size.width - 2 * Padding, 300)];
-    y += 305;
-    [contentTextView setEditable:NO];
-    contentTextView.layer.borderWidth = 1;
-    contentTextView.layer.borderColor = GrayColor.CGColor;
-    contentTextView.backgroundColor = [UIColor whiteColor];
-    [directionLabel setTextColor:[UIColor darkGrayColor]];
-    contentTextView.font = [UIFont fontWithName:@"Heiti SC" size:14];
-    contentTextView.text = @"这里写的是日志与调试的信息。";
-    [backgroundScrollView addSubview:contentTextView];
-    
-    commandLabel = [[UILabel alloc] initWithFrame:CGRectMake(Padding * 2, y, 100, 30)];
-    commandLabel.backgroundColor = [UIColor clearColor];
-    commandLabel.font = [UIFont fontWithName:@"Heiti SC" size:16];
-    [commandLabel setTextColor:[UIColor darkGrayColor]];
-    [commandLabel setText:@"管理员命令:"];
-    [backgroundScrollView addSubview:commandLabel];
-    
-    commandInputTxfld = [[UITextField alloc] initWithFrame:CGRectMake(Padding + 105, y, backgroundScrollView.frame.size.width - 2 * Padding - 105, 30)];
-    y += 40;
-    commandInputTxfld.layer.borderWidth = 1;
-    commandInputTxfld.layer.borderColor = GrayColor.CGColor;
-    commandInputTxfld.backgroundColor = [UIColor whiteColor];
-    commandInputTxfld.font = [UIFont fontWithName:@"Heiti SC" size:14];
-    commandInputTxfld.placeholder = @"请输入命令.";
-    commandInputTxfld.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    [backgroundScrollView addSubview:commandInputTxfld];
-    
-    //user control.
-    y = Padding;
-    controlTitle = [[UILabel alloc] initWithFrame:
-                    CGRectMake(Padding * 3 + backgroundScrollView.frame.size.width, y, self.frame.size.width - backgroundScrollView.frame.size.width - 4 * Padding, 30)];
-    y += 35;
-    controlTitle.backgroundColor = TitleColor;
-    controlTitle.font = [UIFont fontWithName:@"Heiti SC" size:16];
-    [controlTitle setTextColor:[UIColor whiteColor]];
-    controlTitle.text = @"  用户管理";
-    [self addSubview:controlTitle];
-    
-    userTableView = [[UITableView alloc] initWithFrame:CGRectMake(controlTitle.frame.origin.x, y, controlTitle.frame.size.width, self.frame.size.height - y - Padding - 100 - 40) style:UITableViewStyleGrouped];
+    taskTableView = [[UITableView alloc] initWithFrame:CGRectMake(Padding, y, backgroundScrollView.frame.size.width - Padding * 2, self.frame.size.height - y - Padding - 60) style:UITableViewStylePlain];
     y += self.frame.size.height - y - Padding - 100 - 40 + 5;
-    userTableView.delegate = self;
-    userTableView.dataSource = self;
-    userTableView.backgroundView = nil;
-    [self addSubview:userTableView];
-    
-    addUserBtn = [[UIButton alloc] initWithFrame:CGRectMake(controlTitle.frame.origin.x, y, 80, 40)];
-    [addUserBtn setTitle:@"添加" forState:UIControlStateNormal];
-    [addUserBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [self addSubview:addUserBtn];
-    
-    pageContentLabel = [[UILabel alloc] initWithFrame:CGRectMake(addUserBtn.frame.origin.x + 80, y, 250, 40)];
-    [pageContentLabel setText:@"当前第 1/1 页"];
-    [pageContentLabel setBackgroundColor:[UIColor clearColor]];
-    [self addSubview:pageContentLabel];
-    
-    lastPageBtn = [[UIButton alloc] initWithFrame:CGRectMake(pageContentLabel.frame.origin.x + 250, y, 80, 40)];
-    [lastPageBtn setTitle:@"上一页" forState:UIControlStateNormal];
-    [lastPageBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [self addSubview:lastPageBtn];
-    
-    nextPageBtn = [[UIButton alloc] initWithFrame:CGRectMake(lastPageBtn.frame.origin.x + 80, y, 80, 40)];
-    [nextPageBtn setTitle:@"下一页" forState:UIControlStateNormal];
-    [nextPageBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [self addSubview:nextPageBtn];
+    taskTableView.delegate = self;
+    taskTableView.dataSource = self;
+    taskTableView.backgroundColor = [UIColor clearColor];
+    taskTableView.backgroundView = nil;
+    taskTableView.layer.borderWidth = 1;
+    taskTableView.layer.borderColor = GrayColor.CGColor;
+    [self addSubview:taskTableView];
 }
 
 #pragma mark - text field delegate
@@ -189,13 +124,12 @@
 
 - (void)keyboardWasShown
 {
-    [backgroundScrollView setContentSize:CGSizeMake(self.frame.size.width, self.frame.size.height - 200)];
+    [backgroundScrollView setContentSize:CGSizeMake(self.frame.size.width * 0.45, self.frame.size.height - 200)];
 }
 
 - (void)keyboardWasHidden
 {
-    [backgroundScrollView setContentSize:CGSizeMake(self.frame.size.width, self.frame.size.height)];
-    [commandInputTxfld resignFirstResponder];
+    [backgroundScrollView setContentSize:CGSizeMake(self.frame.size.width * 0.45, self.frame.size.height)];
 }
 
 #pragma mark - tableview delegate
@@ -207,15 +141,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //set categories
-    static NSString *Identifier = @"HistoryCell";
-    UITableViewCell *cell = [userTableView dequeueReusableCellWithIdentifier: Identifier];
+    static NSString *Identifier = @"TASKCELL";
+    UITableViewCell *cell = [taskTableView dequeueReusableCellWithIdentifier: Identifier];
     if (cell == nil)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:Identifier];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        UIView *selectionview = [[UIView alloc]initWithFrame:cell.bounds];
-        [selectionview setBackgroundColor:[UIColor clearColor]];
-        cell.selectedBackgroundView=selectionview;
+        cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.bounds];
+        cell.backgroundColor = [UIColor clearColor];
+        cell.backgroundView = [UIView new] ;
+        cell.selectedBackgroundView = [UIView new];
     }
     return cell;
 }

@@ -22,37 +22,57 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    int yPosition = Padding;
     // init left bar.
-    productChooseBtn = [[UIButton alloc] initWithFrame:CGRectMake(Padding, yPosition, 200, 40)];
-    [productChooseBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [productChooseBtn setTitle:@"产品选择" forState:UIControlStateNormal];
-    [productChooseBtn setBackgroundColor:BlueBackGroundColor];
-    [self addSubview:productChooseBtn];
+    productTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(Padding, Padding + 65, 250, 40)];
+    [productTitleLabel setText:@"产品选择"];
+    [productTitleLabel setTextAlignment:NSTextAlignmentCenter];
+    [productTitleLabel setTextColor:[UIColor darkGrayColor]];
+    [productTitleLabel setBackgroundColor:[UIColor clearColor]];
+    [self addSubview:productTitleLabel];
     
-    productNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(Padding + 210, yPosition, 180, 40)];
-    yPosition += 45;
-    [productNameLabel setText:@"<<请选择"];
-    [productNameLabel setTextColor:[UIColor darkGrayColor]];
-    [self addSubview:productNameLabel];
+    productTableView = [[UITableView alloc] initWithFrame:CGRectMake(Padding, Padding + 105, 250, self.frame.size.height - 180)
+                                                    style:UITableViewStylePlain];
+    productTableView.delegate = self;
+    productTableView.dataSource = self;
+    productTableView.backgroundView = nil;
+    [productTableView setBackgroundColor:[UIColor clearColor]];
+    [productTableView.layer setBorderWidth:1];
+    [productTableView.layer setBorderColor:GrayColor.CGColor];
+    [self addSubview:productTableView];
+
+    productConfigTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(Padding + 250, Padding + 65, 300, 40)];
+    [productConfigTitleLabel setText:@"参数配置"];
+    [productConfigTitleLabel setTextAlignment:NSTextAlignmentCenter];
+    [productConfigTitleLabel setTextColor:[UIColor darkGrayColor]];
+    [productConfigTitleLabel setBackgroundColor:[UIColor clearColor]];
+    [self addSubview:productConfigTitleLabel];
     
-    parameterView = [[UIView alloc] initWithFrame:CGRectMake(Padding, yPosition, 400, self.frame.size.height - 100 - yPosition)];
-    parameterView.layer.borderColor = GrayColor.CGColor;
-    parameterView.layer.borderWidth = 2;
-    [self addSubview:parameterView];
+    productConfigView = [[UIView alloc] initWithFrame:CGRectMake(Padding + 260, Padding + 105, 300, self.frame.size.height - 180)];
+    productConfigView.layer.borderColor = GrayColor.CGColor;
+    productConfigView.layer.borderWidth = 1;
+    [self addSubview:productConfigView];
     
-    parameterAttentionLabel = [[UILabel alloc] initWithFrame:CGRectMake(Padding * 2, yPosition, 400, 40)];
+    parameterAttentionLabel = [[UILabel alloc] initWithFrame:CGRectMake(Padding + 270, Padding + 115, 400, 40)];
     [parameterAttentionLabel setBackgroundColor:[UIColor clearColor]];
     [parameterAttentionLabel setText:@"该产品没有需要配置的参数。"];
     [parameterAttentionLabel setTextColor:[UIColor darkGrayColor]];
     [self addSubview:parameterAttentionLabel];
     
     // init right bar.
-    productTableView = [[UITableView alloc] initWithFrame:CGRectMake(Padding + 400 + 50, Padding, self.frame.size.width - 400 - 50 - Padding * 2, self.frame.size.height - 100 - Padding) style:UITableViewStyleGrouped];
+    appliedProductTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(Padding + 550, Padding + 65, 480, 40)];
+    [appliedProductTitleLabel setText:@"已申请产品"];
+    [appliedProductTitleLabel setTextAlignment:NSTextAlignmentCenter];
+    [appliedProductTitleLabel setTextColor:[UIColor darkGrayColor]];
+    [appliedProductTitleLabel setBackgroundColor:[UIColor clearColor]];
+    [self addSubview:appliedProductTitleLabel];
+    
+    productTableView = [[UITableView alloc] initWithFrame:CGRectMake(Padding + 570, Padding + 105, 430, self.frame.size.height - 180) style:UITableViewStylePlain];
     productTableView.delegate = self;
     productTableView.dataSource = self;
     productTableView.backgroundView = nil;
     [productTableView setBackgroundColor:[UIColor clearColor]];
+    [productTableView.layer setBorderWidth:1];
+    [productTableView.layer setBorderColor:GrayColor.CGColor];
     [self addSubview:productTableView];
     
 }
@@ -60,21 +80,23 @@
 #pragma mark - tableview delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 15;
+    return 14;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //set categories
-    static NSString *Identifier = @"HistoryCell";
+    static NSString *Identifier = @"ProductTableViewCell";
     UITableViewCell *cell = [productTableView dequeueReusableCellWithIdentifier: Identifier];
     if (cell == nil)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:Identifier];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        UIView *selectionview = [[UIView alloc]initWithFrame:cell.bounds];
-        [selectionview setBackgroundColor:[UIColor clearColor]];
-        cell.selectedBackgroundView=selectionview;
+        cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.bounds];
+        cell.backgroundColor = [UIColor clearColor];
+        cell.backgroundView = [UIView new] ;
+        cell.selectedBackgroundView = [UIView new];
+
     }
     return cell;
 }
