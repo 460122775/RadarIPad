@@ -7,18 +7,32 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 #import "ProductSmallView.h"
 #import "MainView.h"
 #import "ProductDataTableView.h"
+#import "ProductModel.h"
+#import "ProductMenuViewController.h"
 
 @interface MainViewController : UIViewController{
     UIBarButtonItem *leftBtn;
     UIBarButtonItem *rightBtn;
     
     MainView *mainView;
-    ProductDataTableView *productDataTableView;
+    NSMutableDictionary *productDic;
+    NSMutableDictionary *productViewDic;
+    ProductMenuViewController *productMenuViewController;
+    UIViewController  *_currentMainController;
+
+    BOOL sideBarShowing;
+    UITapGestureRecognizer *_tapGestureRecognizer;
 }
 
-@property(nonatomic, retain) NSMutableDictionary *productDic;
+typedef enum _SideBarShowDirection
+{
+    SideBarShowDirectionNone = 0,
+    SideBarShowDirectionLeft = 1,
+    SideBarShowDirectionRight = 2
+}SideBarShowDirection;
 
 @end

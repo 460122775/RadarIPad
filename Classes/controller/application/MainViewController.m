@@ -10,12 +10,14 @@
 
 @implementation MainViewController
 
+const float MoveAnimationDuration = 0.3;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
-        self.productDic = [[NSMutableDictionary alloc] init];
+        productViewDic = [[NSMutableDictionary alloc] init];
         self.view.backgroundColor = ViewBackgroundColor;
     }
     return self;
@@ -24,45 +26,129 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	self.navigationItem.hidesBackButton = NO;
+	
     //init title bar.
     self.title = @"首页";
-    //init the title bar button.
-    leftBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(leftBtnClick)];
+    self.navigationItem.hidesBackButton = NO;
+    
+    leftBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(leftBtnClick)];
     self.navigationItem.leftBarButtonItem = leftBtn;
     
-    rightBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(rightBtnClick)];
+    rightBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(rightBtnClick)];
     self.navigationItem.rightBarButtonItem = rightBtn;
     
-    // test code ....
-    for (int i = 0; i < 6; i++)
-    {
-        [self.productDic setValue:[[ProductSmallView alloc] init] forKey:[NSString stringWithFormat:@"Test%i", i]];
-    }
-    mainView = [[MainView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width)];
-    mainView.productDic = self.productDic;
+    productMenuViewController = [[ProductMenuViewController alloc] init];
+    [self addChildViewController:productMenuViewController];
+    productMenuViewController.view.frame = self.view.bounds;
+    [self.view addSubview:productMenuViewController.view];
+    
+    mainView = [[MainView alloc] initWithFrame:CGRectMake(0, TitleBarHeight, ViewWidth, ViewHeight)];
+    mainView.backgroundColor = ViewBackgroundColor;
     [self.view addSubview:mainView];
+    mainView.layer.shadowOffset = CGSizeMake(0, 0);
+    mainView.layer.shadowColor = [UIColor blackColor].CGColor;
+    mainView.layer.shadowOpacity = 1;
+    
+    [self initProductView];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    // init
+    sideBarShowing = NO;
+    mainView.transform  = CGAffineTransformMakeTranslation(0, 0);
+}
+
+-(void)initProductView
+{
+    // First, get product dictionary.
+    productDic = [ProductModel getInstance].productDic;
+    // Second, create product small view by product dictionary.
+    int no = 0;
+    int width = (mainView.frame.size.width - Padding * 4) / 3;
+    ProductSmallView *productSmallView = nil;
+    for (id key in productDic)
+    {
+        productSmallView = [[ProductSmallView init]
+                            initWithFrame:CGRectMake(Padding + (no % 3) * (width + Padding),
+                                                     Padding + (no / 3) * (width + Padding),
+                                                     width, width)];
+        [mainView.productsScrollView addSubview:productSmallView];
+        [productSmallView setImageView:[productDic objectForKey:key]];
+        DLog(@"%f, %f",productSmallView.frame.origin.x, productSmallView.frame.origin.y);
+        no++;
+    }
+    if((no + 1) / 3 * (width + Padding) < mainView.frame.size.height - 100){
+        [mainView.productsScrollView setContentSize:CGSizeMake(mainView.frame.size.width, mainView.frame.size.height + 100)];
+    }else{
+        [mainView.productsScrollView setContentSize:CGSizeMake(mainView.frame.size.width, (no + 1) / 3 * (width + Padding) + 100)];
+    }
+}
+
+#pragma -mark animation
 - (void)leftBtnClick
 {
-    if (!productDataTableView)
+    if (!sideBarShowing)
     {
-        productDataTableView = [[ProductDataTableView alloc] initWithFrame:CGRectMake(0, 0, 300, self.view.frame.size.height - 100)];
+        [self moveAnimationWithDirection:SideBarShowDirectionLeft duration:MoveAnimationDuration];
+    }else{
+        [self moveAnimationWithDirection:SideBarShowDirectionNone duration:MoveAnimationDuration];
     }
-    // Animation of push out from left.
-    
 }
 
 - (void)rightBtnClick
 {
-    
+    if (!sideBarShowing)
+    {
+        [self moveAnimationWithDirection:SideBarShowDirectionRight duration:MoveAnimationDuration];
+    }else{
+        [self moveAnimationWithDirection:SideBarShowDirectionNone duration:MoveAnimationDuration];
+    }
+}
+
+- (void)moveAnimationWithDirection:(SideBarShowDirection)direction duration:(float)duration
+{
+    void (^animations)(void) =^{
+		switch (direction)
+        {
+            case SideBarShowDirectionNone:
+                mainView.transform  = CGAffineTransformMakeTranslation(0, 0); break;
+            case SideBarShowDirectionLeft:
+                mainView.transform  = CGAffineTransformMakeTranslation(800, 0); break;
+            case SideBarShowDirectionRight:
+                mainView.transform  = CGAffineTransformMakeTranslation(-200, 0); break;
+            default:break;
+        }
+	};
+    void (^complete)(BOOL) = ^(BOOL finished)
+    {
+        mainView.userInteractionEnabled = YES;
+        if (_tapGestureRecognizer)
+        {
+            [mainView removeGestureRecognizer:_tapGestureRecognizer];
+            _tapGestureRecognizer = nil;
+        }
+        if (direction == SideBarShowDirectionNone)
+        {
+            sideBarShowing = NO;
+        }else{
+            _tapGestureRecognizer = [[UITapGestureRecognizer  alloc] initWithTarget:self action:@selector(tapOnContentView:)];
+            [mainView addGestureRecognizer:_tapGestureRecognizer];
+            sideBarShowing = YES;
+        }
+	};
+    mainView.userInteractionEnabled = NO;
+    [UIView animateWithDuration:duration animations:animations completion:complete];
+}
+
+- (void)tapOnContentView:(UITapGestureRecognizer *)tapGestureRecognizer
+{
+    [self moveAnimationWithDirection:SideBarShowDirectionNone duration:MoveAnimationDuration];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

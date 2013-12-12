@@ -25,4 +25,14 @@
     // Drawing code
 }
 
+-(void)setImageView:(NSData*) imageData
+{
+    if (!imageData)
+    {
+        [imageView setBackgroundColor:GrayColor];
+    }else{
+        [imageView setImage:[UIImage imageWithData:imageData]];
+    }
+}
+
 @end

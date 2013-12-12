@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ProductSmallView : UIView{
-    
+    UIImageView* imageView;
 }
+
+-(void)setImageView:(NSData*) imageData;
 
 @end

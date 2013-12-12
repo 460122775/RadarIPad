@@ -10,9 +10,10 @@
 #import "ProductSmallView.h"
 
 @interface MainView : UIView{
-    UIScrollView *productsScrollView;
+
 }
 
-@property(nonatomic, retain) NSMutableDictionary *productDic;
+@property(nonatomic, retain) NSMutableDictionary* productDic;
+@property(nonatomic, retain) UIScrollView* productsScrollView;
 
 @end
