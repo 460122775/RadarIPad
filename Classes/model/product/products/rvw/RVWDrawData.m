@@ -12,17 +12,17 @@
 
 -(id)getImageData
 {
-    
+    return nil;
 }
 
 -(NSString*)getTipString
 {
-    
+    return nil;
 }
 
 -(id)getProductInfo
 {
-    
+    return nil;
 }
 
 @end

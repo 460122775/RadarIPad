@@ -10,13 +10,13 @@
 
 @implementation ProductModel
 
-@synthesize queue, productDic;
+@synthesize queue, firstProductArr, secondProductArr;
 
 static FMDatabase *db;
 static FMResultSet *rs;
 static ProductModel* instance;
 
-+(NSData*) test
++ (NSData*) test
 {
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)
                       objectAtIndex:0];
@@ -26,13 +26,24 @@ static ProductModel* instance;
     return data;
 }
 
+- (void)receiveProductAddressControl:(id) productAddressData
+{
+    // Add into dictionary after estinguish the productType.
+    NSString *productAddressString = (NSString*)productAddressData;
+    NSArray *addressArr = [productAddressString componentsSeparatedByString:@"/"];
+    productAddressString = [addressArr objectAtIndex:addressArr.count - 1];
+    addressArr = [productAddressString componentsSeparatedByString:@"."];
+    // Estinguish the product view, if has exist, then download data and draw product.
+    
+}
+
 #pragma -mark
 + (void)cacheFileByUrl:(NSString *)fileUrl block:(fileFinishBlock)afinishBlock
 {
     [ProductModel getInstance];
     NSString *fileName = [[NSUserDefaults standardUserDefaults] stringForKey:fileUrl];
     if(!fileName){
-        __block ASIHTTPRequest *request=[ASIHTTPRequest requestWithURL:[NSURL URLWithString:fileUrl]];
+        ASIHTTPRequest *request=[ASIHTTPRequest requestWithURL:[NSURL URLWithString:fileUrl]];
         [request setDelegate:self];
         [request setTimeOutSeconds:10.];
         [request setNumberOfTimesToRetryOnTimeout:1.];
@@ -93,12 +104,9 @@ static ProductModel* instance;
     {
         instance = [[ProductModel alloc] init];
         instance.queue = [[ASINetworkQueue alloc]init];
-    }
-    
-    // test code ....
-    for (int i = 0; i < 6; i++)
-    {
-        [instance.productDic setValue:[ProductModel test] forKey:[NSString stringWithFormat:@"%i", i]];
+        instance.firstProductArr = [[NSMutableArray alloc] init];
+        instance.secondProductArr = [[NSMutableArray alloc] init];
+        instance.appliedProductDic =[[NSMutableDictionary alloc] init];
     }
     return instance;
 }

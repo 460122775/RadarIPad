@@ -44,6 +44,7 @@
 #pragma -mark Notification
 #define LOGINSUCCESS @"LoginSuccess"
 #define IPADSOCKETNOTIFI @"IPADSOCKETNOTIFI"
+#define RECEIVEPRODUCTADDRESS @"RECEIVEPRODUCTADDRESS"
 
 #pragma -mark View Define
 #define Padding 5
@@ -51,12 +52,7 @@
 #define MenuBarHeight 55
 #define ViewWidth 1024
 #define ViewHeight 650
-#define TitleColor RGB(0, 187, 242) //(0, 147, 255)
-#define ViewBackgroundColor RGB(249, 249, 249)
-#define BlueBackGroundColor RGB(0, 187, 242)//RGB(11, 154, 254)
-#define FontColor RGB(81, 80, 76)
-#define GrayColor RGB(216, 220, 225)
-
+#define BackGroundColor RGB(50, 70, 139)
 #pragma -mark Product Type Define
 #define ProductType_R 3
 #define ProductType_V 4
