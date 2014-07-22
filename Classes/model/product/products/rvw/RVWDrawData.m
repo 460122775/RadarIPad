@@ -10,9 +10,9 @@
 
 @implementation RVWDrawData
 
--(id)getImageData
+-(void)getImageData:(UIImageView *) productImgView
 {
-    return nil;
+    
 }
 
 -(NSString*)getTipString
@@ -24,5 +24,7 @@
 {
     return nil;
 }
+
+
 
 @end

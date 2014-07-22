@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FMDatabaseQueue.h"
 
 @interface ColorModel : NSObject
 
-+ (id)getColorData:(int)colorType;
++ (void)drawColor:(int)colorType andColorImgView:(UIImageView *) colorImgView;
 
 @end

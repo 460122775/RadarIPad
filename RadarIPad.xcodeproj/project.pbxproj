@@ -59,6 +59,8 @@
 		017280AF1850A70A00347CC4 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 017280AE1850A70A00347CC4 /* icon@2x.png */; };
 		017280B21850ADBA00347CC4 /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 017280B01850ADBA00347CC4 /* first.png */; };
 		017280B31850ADBA00347CC4 /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 017280B11850ADBA00347CC4 /* first@2x.png */; };
+		01E903CB197DEB3300CF24CB /* ProductFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E903CA197DEB3300CF24CB /* ProductFactory.m */; };
+		01E903CF197DEE3C00CF24CB /* DBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E903CE197DEE3C00CF24CB /* DBModel.m */; };
 		01F9508A185AE484005282DB /* NetWorkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F95089185AE484005282DB /* NetWorkHelper.m */; };
 		01F9508E185B04B4005282DB /* ProductVo.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F9508D185B04B4005282DB /* ProductVo.m */; };
 		01F95091185B04D0005282DB /* ProductInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F95090185B04D0005282DB /* ProductInfo.m */; };
@@ -178,6 +180,10 @@
 		017280AE1850A70A00347CC4 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "Image/icon@2x.png"; sourceTree = SOURCE_ROOT; };
 		017280B01850ADBA00347CC4 /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = first.png; path = Image/first.png; sourceTree = SOURCE_ROOT; };
 		017280B11850ADBA00347CC4 /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "first@2x.png"; path = "Image/first@2x.png"; sourceTree = SOURCE_ROOT; };
+		01E903C9197DEB3300CF24CB /* ProductFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductFactory.h; path = Classes/model/product/common/ProductFactory.h; sourceTree = SOURCE_ROOT; };
+		01E903CA197DEB3300CF24CB /* ProductFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductFactory.m; path = Classes/model/product/common/ProductFactory.m; sourceTree = SOURCE_ROOT; };
+		01E903CD197DEE3C00CF24CB /* DBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBModel.h; path = Classes/model/db/DBModel.h; sourceTree = SOURCE_ROOT; };
+		01E903CE197DEE3C00CF24CB /* DBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBModel.m; path = Classes/model/db/DBModel.m; sourceTree = SOURCE_ROOT; };
 		01F95088185AE484005282DB /* NetWorkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetWorkHelper.h; path = Classes/model/socket/NetWorkHelper.h; sourceTree = SOURCE_ROOT; };
 		01F95089185AE484005282DB /* NetWorkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetWorkHelper.m; path = Classes/model/socket/NetWorkHelper.m; sourceTree = SOURCE_ROOT; };
 		01F9508C185B04B4005282DB /* ProductVo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductVo.h; path = Classes/model/vo/product/ProductVo.h; sourceTree = SOURCE_ROOT; };
@@ -394,6 +400,8 @@
 			isa = PBXGroup;
 			children = (
 				011FE52018555ADF000FEC42 /* color */,
+				01E903C9197DEB3300CF24CB /* ProductFactory.h */,
+				01E903CA197DEB3300CF24CB /* ProductFactory.m */,
 				015DDDA31851CA6500D9D78F /* ProductModel.h */,
 				015DDDA41851CA6500D9D78F /* ProductModel.m */,
 				015DDDA11851C55E00D9D78F /* ProductDefine.h */,
@@ -418,6 +426,22 @@
 				015DDDA91851CA9F00D9D78F /* RVWDefine.h */,
 			);
 			name = rvw;
+			sourceTree = "<group>";
+		};
+		01E903C8197DEAD300CF24CB /* init */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = init;
+			sourceTree = "<group>";
+		};
+		01E903CC197DEE2100CF24CB /* db */ = {
+			isa = PBXGroup;
+			children = (
+				01E903CD197DEE3C00CF24CB /* DBModel.h */,
+				01E903CE197DEE3C00CF24CB /* DBModel.m */,
+			);
+			name = db;
 			sourceTree = "<group>";
 		};
 		01F9508B185B0472005282DB /* product */ = {
@@ -542,6 +566,7 @@
 		C75962D01796F146008C48D3 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				01E903CC197DEE2100CF24CB /* db */,
 				015DDD851851B7FD00D9D78F /* product */,
 				C7E4F0F017F5799300B63B02 /* socket */,
 				C7E4F0EC17F5792800B63B02 /* user */,
@@ -553,6 +578,7 @@
 		C75962D21796F154008C48D3 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				01E903C8197DEAD300CF24CB /* init */,
 				C7274634179C2FD400FD5106 /* main */,
 			);
 			name = controller;
@@ -778,6 +804,7 @@
 			files = (
 				C7E4F11217F57A4C00B63B02 /* ASIFormDataRequest.m in Sources */,
 				01F9508E185B04B4005282DB /* ProductVo.m in Sources */,
+				01E903CF197DEE3C00CF24CB /* DBModel.m in Sources */,
 				015DDDA81851CA7F00D9D78F /* RVWDrawData.m in Sources */,
 				015DDD9A1851BB4700D9D78F /* FMResultSet.m in Sources */,
 				011FE52318555B07000FEC42 /* ColorModel.m in Sources */,
@@ -792,6 +819,7 @@
 				01128618197CEE57009B034F /* MainViewController.m in Sources */,
 				C7E4F11117F57A4C00B63B02 /* ASIDownloadCache.m in Sources */,
 				C798D02E17A0352900326F1C /* AppDelegate.m in Sources */,
+				01E903CB197DEB3300CF24CB /* ProductFactory.m in Sources */,
 				C7E4F11317F57A4C00B63B02 /* ASIHTTPRequest.m in Sources */,
 				C7E4F10D17F57A4C00B63B02 /* GCDAsyncUdpSocket.m in Sources */,
 				C7E4F11017F57A4C00B63B02 /* ASIDataDecompressor.m in Sources */,

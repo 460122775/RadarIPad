@@ -85,7 +85,7 @@ static ProductModel* instance;
 }
 
 +(BOOL) loadDB{
-    db = [FMDatabase databaseWithPath:dbpath];
+    db = [FMDatabase databaseWithPath:DBPath];
     if (![db open])
     {
         DLog(@"Could not open db.");

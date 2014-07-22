@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProductFactory.h"
+#import "ProductDrawDataProtocol.h"
 
 @interface MainViewController : UIViewController
 
@@ -20,9 +22,9 @@
 @property (strong, nonatomic) IBOutlet UIButton *btn_warning;
 
 @property (strong, nonatomic) IBOutlet UIImageView *productImgView;
-
 @property (strong, nonatomic) IBOutlet UIView *rightBarView;
+@property (strong, nonatomic) IBOutlet UIImageView *ColorImgView;
 
-@property (strong, nonatomic) IBOutlet UIView *productColorView;
+@property (strong, nonatomic) id<ProductDrawDataProtocol> currentProductModel;
 
 @end

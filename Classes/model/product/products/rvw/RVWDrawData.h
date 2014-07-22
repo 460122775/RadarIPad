@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ProductDrawDataProtocol.h"
+#import "ColorModel.h"
 
 @protocol ProductDrawDataProtocol;
 

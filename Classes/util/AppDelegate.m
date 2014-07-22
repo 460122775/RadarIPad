@@ -18,7 +18,14 @@
     self.rootViewController = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
     self.window.rootViewController = self.rootViewController;
     [self.window makeKeyAndVisible];
+    // Init data...
+    [self initControl];
     return YES;
+}
+
+- (void)initControl
+{
+    [DBModel initDB];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

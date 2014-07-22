@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController">
             <connections>
+                <outlet property="ColorImgView" destination="lhT-BW-Nnj" id="hni-gz-XZA"/>
                 <outlet property="btn_cartoon" destination="LaW-Zt-h0J" id="lQM-03-08q"/>
                 <outlet property="btn_current" destination="0iW-QZ-Qwx" id="vEJ-96-yPV"/>
                 <outlet property="btn_knife" destination="IJz-mu-gdg" id="sAV-D3-T6d"/>
@@ -14,7 +15,6 @@
                 <outlet property="btn_setting" destination="8Sf-A4-MEj" id="SSb-B9-8ah"/>
                 <outlet property="btn_shot" destination="qMA-cY-itn" id="zUK-eY-KSX"/>
                 <outlet property="btn_warning" destination="ZBg-Wg-Epm" id="q4e-6K-6LS"/>
-                <outlet property="productColorView" destination="HON-U1-hP0" id="ha6-MT-Y7B"/>
                 <outlet property="productImgView" destination="SXC-JS-jEV" id="GHF-jV-EeX"/>
                 <outlet property="rightBarView" destination="ppH-sA-sWJ" id="bNE-fi-1qh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -101,15 +101,15 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HON-U1-hP0">
-                    <rect key="frame" x="110" y="690" width="650" height="68"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
-                </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SXC-JS-jEV">
                     <rect key="frame" x="110" y="30" width="650" height="650"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.96984614158163263" green="0.96984614158163263" blue="0.96984614158163263" alpha="1" colorSpace="calibratedRGB"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lhT-BW-Nnj">
+                    <rect key="frame" x="110" y="690" width="650" height="68"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.19607843137254902" green="0.27450980392156865" blue="0.5490196078431373" alpha="1" colorSpace="calibratedRGB"/>

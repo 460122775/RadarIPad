@@ -12,7 +12,7 @@
 
 @required
 
--(id)getImageData;
+-(void)getImageData:(UIImageView *) productImgView;
 
 -(NSString*)getTipString;
 

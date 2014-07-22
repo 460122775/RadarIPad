@@ -12,99 +12,104 @@
 
 @implementation ColorModel
 
-static FMDatabase *db;
-static FMResultSet *rs;
-static const int colorArrayLength = 256;
+static FMDatabaseQueue *queue;
 static NSMutableDictionary* colorDataDic;
 
-- (void)initModel
++ (void)initModel
 {
-    colorDataDic = [NSMutableDictionary init];
-}
-
-#pragma -mark Model Control
-+ (id)getColorData:(int)colorType
-{
-    NSMutableDictionary *colorDic = [colorDataDic objectForKey:[NSString stringWithFormat:@"%i",colorType]];
-    if (!colorDic)
-    {
-        colorDic = [ColorModel selectControl:colorType];
-        if (!colorDic) return nil;
-        [colorDataDic setObject:colorDic forKey:[NSString stringWithFormat:@"%i",colorType]];
-    }
-    return colorDic;
+    if(colorDataDic == nil) colorDataDic = [[NSMutableDictionary alloc] init];
 }
 
 #pragma -mark DB Control
-+ (BOOL)loadDB
++(void)selectControl:(int) colorType
 {
-    db = [FMDatabase databaseWithPath:dbpath];
-    if (![db open])
+    [ColorModel initModel];
+    if ([colorDataDic objectForKey:[NSString stringWithFormat:@"%i",colorType]]) return;
+    FMDatabaseQueue *queue = [FMDatabaseQueue databaseQueueWithPath:DBPath];
+    if (queue)
     {
-        DLog(@"Could not open db.");
-        return NO;
-    }
-    [db beginTransaction];
-    [db executeUpdate:@"create table if not exists t_color (colortype integer PRIMARY KEY NOT NULL,colorname text,firstblockno integer,blockcnt integer,valuearea text,colorarea text,version text)"];
-    [db commit];
-    return YES;
-}
-
-+(id)selectControl:(int) colorType
-{
-    if ([self loadDB])
-    {
-        NSString *sql = [NSString stringWithFormat:@"select * from t_color where colorType=%i",colorType];
-        rs = [db executeQuery:sql];
-        NSMutableDictionary* colorDic = nil;
-        if([rs next])
-        {
-            colorDic = [NSMutableDictionary init];
-            [colorDic setValue:[NSString stringWithFormat:@"%i",[rs intForColumn:@"colortype"]] forKey:@"colorType"];
-            [colorDic setValue:[rs stringForColumn:@"colorname"] forKey:@"colorName"];
-            [colorDic setValue:[NSString stringWithFormat:@"%i",[rs intForColumn:@"firstblockno"]] forKey:@"firstBlockNo"];
-            [colorDic setValue:[NSString stringWithFormat:@"%i",[rs intForColumn:@"blockcnt"]] forKey:@"blockCnt"];
-            [colorDic setValue:[[rs stringForColumn:@"valuearea"] componentsSeparatedByString:@","]forKey:@"valueArea"];
-            [colorDic setValue:[[rs stringForColumn:@"colorarea"] componentsSeparatedByString:@","]forKey:@"colorArea"];
-            [colorDic setValue:[rs stringForColumn:@"version"] forKey:@"version"];
-        }
-        [rs close];
-        [db close];
-        return colorDic;
-    }
-    return nil;
-}
-
-+(void) insertControl:(NSMutableDictionary*) colorDic
-{
-    [self deleteControl:(int)[colorDic objectForKey:@"colorType"]];
-    if ([self loadDB])
-    {
-        NSString *sql= [NSString stringWithFormat:@"INSERT INTO t_color(colortype,colorname,firstblockno,blockcnt,valuearea,colorarea,version) values ('%i','%@','%i','%i','%@','%@','%@')",
-                        (int)[colorDic objectForKey:@"colorType"],
-                        (NSString*)[colorDic objectForKey:@"colorName"],
-                        (int)[colorDic objectForKey:@"firstBlockNo"],
-                        (int)[colorDic objectForKey:@"blockCnt"],
-                        (NSString*)[colorDic objectForKey:@"valueArea"],
-                        (NSString*)[colorDic objectForKey:@"colorArea"],
-                        (NSString*)[colorDic objectForKey:@"version"]
-        ];
-//        DLog(@">>>>>>>>>>>>>====%@",sql);
-        [db executeUpdate:sql];
-        [db close];
+        [queue inDatabase:^(FMDatabase *db) {
+            FMResultSet *rs = [db executeQuery:
+                               [NSString stringWithFormat:@"select * from t_color where colorType=%i",colorType]];
+            if([rs next])
+            {
+                [colorDataDic setValue:[[rs stringForColumn:@"colorData"] componentsSeparatedByString:@","]
+                            forKey:[NSString stringWithFormat:@"%i",[rs intForColumn:@"colorType"]]];
+            }
+            [rs close];
+        }];
+        [queue close];
     }
 }
 
-+(void) deleteControl:(int) colorType
++(void) insertControl:(NSString*) colorStr
 {
-    if ([self loadDB])
-    {
-        NSString *sql= [NSString stringWithFormat:@"delete from t_color where colorType=%i", colorType];
-//        DLog(@">>>>>>>>>>>>>====%@",sql);
-        [db executeUpdate:sql];
-        [db close];
-    }
+    
 }
 
++(void) deleteControl
+{
+    
+}
+
+#pragma -mark Draw Control
++ (void)drawColor:(int)colorType andColorImgView:(UIImageView *) colorImgView;
+{
+    [ColorModel selectControl:colorType];
+    NSArray *colorArray = [colorDataDic objectForKey:[NSString stringWithFormat:@"%i",colorType]];
+    if (!colorArray)
+    {
+        DLog(@">>>>>ERROR: No Color Data");
+        return;
+    }
+    
+    int paddingTop = 10;
+    int paddingLeft = 20;
+    int width = (int)(colorImgView.frame.size.width - paddingLeft * 2) / [(NSString*)colorArray[0] integerValue];
+    int height = (int)(colorImgView.frame.size.height - paddingTop * 2 - 20);
+    
+    
+    UIGraphicsBeginImageContext(colorImgView.frame.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetLineCap(context, kCGLineCapRound);
+    CGContextSetLineWidth(context, 1);
+    CGContextBeginPath(context);
+    // Draw first number...
+    NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12.0f], NSFontAttributeName, nil];
+    [(NSString*)colorArray[2] drawAtPoint:
+     CGPointMake(paddingLeft / 1.5, paddingTop + height + 7) withAttributes:dic];
+    // Draw middle
+    for (int i = 0; i < [(NSString*)colorArray[0] integerValue]; i++)
+    {
+        // Draw block...
+        CGContextSetRGBFillColor(context,
+                                   [(NSString*)colorArray[3 + i * 5] integerValue]/256.0,
+                                   [(NSString*)colorArray[4 + i * 5] integerValue]/256.0,
+                                   [(NSString*)colorArray[5 + i * 5] integerValue]/256.0, 1.0);
+        CGContextFillRect(context,
+                          CGRectMake(paddingLeft + i * width, paddingTop, width, height));
+        // Draw line...
+        CGContextMoveToPoint(context, paddingLeft + i * width + 1, paddingTop + height);
+        CGContextAddLineToPoint(context, paddingLeft + i * width + 1, paddingTop + height + 5);
+        CGContextSetRGBStrokeColor(context, 0, 0, 0, 0.5);
+        CGContextStrokePath(context);
+        // Draw font...
+        [(NSString*)colorArray[7 + i * 5] drawAtPoint:
+         CGPointMake((i + 1) * width + paddingLeft / 1.5, paddingTop + height + 7) withAttributes:dic];
+    }
+    // Draw line...
+    CGContextMoveToPoint(context,
+                         paddingLeft + [(NSString*)colorArray[0] integerValue] * width - 1, paddingTop + height);
+    CGContextAddLineToPoint(context,
+                            paddingLeft + [(NSString*)colorArray[0] integerValue] * width - 1, paddingTop + height + 5);
+    CGContextSetRGBStrokeColor(context, 0, 0, 0, 0.5);
+    CGContextStrokePath(context);
+    // Draw Unit...
+    [(NSString*)colorArray[1] drawAtPoint:
+     CGPointMake(([(NSString*)colorArray[0] integerValue] + 1) * width - paddingLeft / 1.8, paddingTop + height - 12) withAttributes:dic];
+    // Show image...
+    colorImgView.image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+}
 
 @end

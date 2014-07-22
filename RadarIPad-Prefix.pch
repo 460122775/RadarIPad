@@ -22,12 +22,12 @@
 
 #define disconnect_time 60.0
 #define connect_fail 15.0
-#define TYPE_LOGIN 0
-#define TYPE_MSG_CHAT 1
-#define kDOCSFOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
-#define kCACHED_IMG_FOLDER @"cachedimages"
+
+#define DocumentsPath [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 #define docsdir [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES) lastObject]
-#define dbpath [docsdir stringByAppendingPathComponent:@"test1.db"]
+#define DBPath [DocumentsPath stringByAppendingPathComponent:@"/db/db0_0.db"]
+
+
 
 #ifdef __OBJC__
 #import <UIKit/UIKit.h>
@@ -53,6 +53,7 @@
 #define ViewWidth 1024
 #define ViewHeight 650
 #define BackGroundColor RGB(50, 70, 139)
+
 #pragma -mark Product Type Define
 #define ProductType_R 3
 #define ProductType_V 4
