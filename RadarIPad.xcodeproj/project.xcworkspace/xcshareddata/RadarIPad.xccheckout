@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>582F0882-9CCA-46B3-9E35-C9B2ADE2492B</string>
+	<key>IDESourceControlProjectName</key>
+	<string>RadarIPad</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>C7A9C4BB-3E08-4AE7-88B6-CFBC3078A562</key>
+		<string>https://github.com/460122775/RadarIPad.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>RadarIPad.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>C7A9C4BB-3E08-4AE7-88B6-CFBC3078A562</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/460122775/RadarIPad.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>C7A9C4BB-3E08-4AE7-88B6-CFBC3078A562</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C7A9C4BB-3E08-4AE7-88B6-CFBC3078A562</string>
+			<key>IDESourceControlWCCName</key>
+			<string>RadarIPad</string>
+		</dict>
+	</array>
+</dict>
+</plist>
