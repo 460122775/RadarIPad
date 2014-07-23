@@ -14,8 +14,6 @@
 
 -(void)getImageData:(UIImageView *) productImgView;
 
--(NSString*)getTipString;
-
--(id)getProductInfo;
+-(void)getProductInfo:(UIView *) productInfoView;
 
 @end

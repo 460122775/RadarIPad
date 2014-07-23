@@ -27,8 +27,6 @@
 #define docsdir [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES) lastObject]
 #define DBPath [DocumentsPath stringByAppendingPathComponent:@"/db/db0_0.db"]
 
-
-
 #ifdef __OBJC__
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
@@ -52,9 +50,14 @@
 #define MenuBarHeight 55
 #define ViewWidth 1024
 #define ViewHeight 650
-#define BackGroundColor RGB(50, 70, 139)
+#define BackGroundBlueColor RGB(50, 70, 139)
+#define BackGroundGrayColor RGB(247, 247, 247)
+#define ProductTextColor RGB(50, 70, 139)
 
 #pragma -mark Product Type Define
 #define ProductType_R 3
 #define ProductType_V 4
 #define ProductType_W 5
+
+#pragma -mark Notification Name Define
+#define ProductAddressArrived @"ProductAddressArrived"

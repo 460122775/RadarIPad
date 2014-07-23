@@ -25,6 +25,7 @@
 
 - (void)initControl
 {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [DBModel initDB];
 }
 

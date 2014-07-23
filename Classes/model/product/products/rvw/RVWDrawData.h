@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "ProductDrawDataProtocol.h"
 #import "ColorModel.h"
+#import "ProductModel.h"
 
 @protocol ProductDrawDataProtocol;
 
-@interface RVWDrawData : NSObject<ProductDrawDataProtocol>{
+@interface RVWDrawData : ProductModel<ProductDrawDataProtocol>{
     
 }
 

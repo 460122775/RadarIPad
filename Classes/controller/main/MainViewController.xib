@@ -6,17 +6,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController">
             <connections>
-                <outlet property="ColorImgView" destination="lhT-BW-Nnj" id="hni-gz-XZA"/>
-                <outlet property="btn_cartoon" destination="LaW-Zt-h0J" id="lQM-03-08q"/>
-                <outlet property="btn_current" destination="0iW-QZ-Qwx" id="vEJ-96-yPV"/>
-                <outlet property="btn_knife" destination="IJz-mu-gdg" id="sAV-D3-T6d"/>
-                <outlet property="btn_position" destination="MfA-ym-gmi" id="ewz-3B-0zo"/>
-                <outlet property="btn_screenshot" destination="IsR-be-XLy" id="WH7-6U-k28"/>
+                <outlet property="btn_scrollView" destination="ac0-eG-4BU" id="zGT-7y-dg6"/>
                 <outlet property="btn_setting" destination="8Sf-A4-MEj" id="SSb-B9-8ah"/>
-                <outlet property="btn_shot" destination="qMA-cY-itn" id="zUK-eY-KSX"/>
                 <outlet property="btn_warning" destination="ZBg-Wg-Epm" id="q4e-6K-6LS"/>
-                <outlet property="productImgView" destination="SXC-JS-jEV" id="GHF-jV-EeX"/>
-                <outlet property="rightBarView" destination="ppH-sA-sWJ" id="bNE-fi-1qh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -26,104 +18,62 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ac0-eG-4BU">
-                    <rect key="frame" x="10" y="30" width="80" height="728"/>
+                    <rect key="frame" x="10" y="30" width="70" height="728"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qMA-cY-itn">
-                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" image="boom.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
-                        <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IJz-mu-gdg">
-                            <rect key="frame" x="0.0" y="92" width="80" height="80"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96251195789999999" green="0.96251195789999999" blue="0.96251195789999999" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" image="knife.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
-                        <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0iW-QZ-Qwx">
-                            <rect key="frame" x="0.0" y="184" width="80" height="80"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96251195789999999" green="0.96251195789999999" blue="0.96251195789999999" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" image="refresh.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
-                        <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LaW-Zt-h0J">
-                            <rect key="frame" x="0.0" y="276" width="80" height="80"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96251195789999999" green="0.96251195789999999" blue="0.96251195789999999" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" image="player.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
-                        <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IsR-be-XLy">
-                            <rect key="frame" x="0.0" y="369" width="80" height="80"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96251195789999999" green="0.96251195789999999" blue="0.96251195789999999" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" image="camara.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
-                        <button opaque="NO" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MfA-ym-gmi">
-                            <rect key="frame" x="0.0" y="462" width="152" height="80"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96251195789999999" green="0.96251195789999999" blue="0.96251195789999999" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" title="位置显示" image="position2.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
-                        <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Sf-A4-MEj">
-                            <rect key="frame" x="0.0" y="555" width="80" height="80"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96251195789999999" green="0.96251195789999999" blue="0.96251195789999999" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" image="config.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
                         <button opaque="NO" tag="7" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZBg-Wg-Epm">
-                            <rect key="frame" x="0.0" y="648" width="80" height="80"/>
+                            <rect key="frame" x="0.0" y="160" width="70" height="70"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.96251195789999999" green="0.96251195789999999" blue="0.96251195789999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" image="voice.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x05-jS-5FO">
+                            <rect key="frame" x="0.0" y="240" width="70" height="70"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.96251195789999999" green="0.96251195789999999" blue="0.96251195789999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" image="calendar.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hRP-FR-URf">
+                            <rect key="frame" x="0.0" y="80" width="70" height="70"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.96251195789999999" green="0.96251195789999999" blue="0.96251195789999999" alpha="1" colorSpace="calibratedRGB"/>
                             <state key="normal" image="message.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
+                        <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9eD-n1-qp2">
+                            <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.96251195789999999" green="0.96251195789999999" blue="0.96251195789999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" image="radar2.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" tag="9" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Sf-A4-MEj">
+                            <rect key="frame" x="0.0" y="657" width="70" height="70"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.96251195789999999" green="0.96251195789999999" blue="0.96251195789999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" image="config.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
                 </scrollView>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ppH-sA-sWJ">
-                    <rect key="frame" x="778" y="30" width="234" height="728"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
-                </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SXC-JS-jEV">
-                    <rect key="frame" x="110" y="30" width="650" height="650"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.96984614158163263" green="0.96984614158163263" blue="0.96984614158163263" alpha="1" colorSpace="calibratedRGB"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lhT-BW-Nnj">
-                    <rect key="frame" x="110" y="690" width="650" height="68"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
-                </imageView>
             </subviews>
             <color key="backgroundColor" red="0.19607843137254902" green="0.27450980392156865" blue="0.5490196078431373" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
         </view>
     </objects>
     <resources>
-        <image name="boom.png" width="80" height="80"/>
-        <image name="camara.png" width="80" height="80"/>
+        <image name="calendar.png" width="80" height="80"/>
         <image name="config.png" width="80" height="80"/>
-        <image name="knife.png" width="80" height="80"/>
         <image name="message.png" width="80" height="80"/>
-        <image name="player.png" width="80" height="80"/>
-        <image name="position2.png" width="80" height="80"/>
-        <image name="refresh.png" width="80" height="80"/>
+        <image name="radar2.png" width="80" height="80"/>
+        <image name="voice.png" width="80" height="80"/>
     </resources>
 </document>

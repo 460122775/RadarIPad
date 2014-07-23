@@ -48,6 +48,8 @@
 		011718491859571E000D821B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 011718471859571E000D821B /* Default.png */; };
 		0117184A1859571E000D821B /* Default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 011718481859571E000D821B /* Default~ipad.png */; };
 		011FE52318555B07000FEC42 /* ColorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011FE52218555B07000FEC42 /* ColorModel.m */; };
+		014E1DD5197F5D47001EC88C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 014E1DD4197F5D47001EC88C /* QuartzCore.framework */; };
+		014E1DDC197FA5D4001EC88C /* ProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 014E1DDB197FA5D4001EC88C /* ProductView.m */; };
 		015DDD961851BB4700D9D78F /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 015DDD8D1851BB4700D9D78F /* FMDatabase.m */; };
 		015DDD971851BB4700D9D78F /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 015DDD8F1851BB4700D9D78F /* FMDatabaseAdditions.m */; };
 		015DDD981851BB4700D9D78F /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 015DDD911851BB4700D9D78F /* FMDatabasePool.m */; };
@@ -160,6 +162,9 @@
 		011FE52118555B07000FEC42 /* ColorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorModel.h; path = Classes/model/product/common/color/ColorModel.h; sourceTree = SOURCE_ROOT; };
 		011FE52218555B07000FEC42 /* ColorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ColorModel.m; path = Classes/model/product/common/color/ColorModel.m; sourceTree = SOURCE_ROOT; };
 		011FE5241855C184000FEC42 /* ProductDrawDataProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ProductDrawDataProtocol.h; path = Classes/model/product/common/ProductDrawDataProtocol.h; sourceTree = SOURCE_ROOT; };
+		014E1DD4197F5D47001EC88C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		014E1DDA197FA5D4001EC88C /* ProductView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductView.h; path = Classes/controller/product/ProductView.h; sourceTree = SOURCE_ROOT; };
+		014E1DDB197FA5D4001EC88C /* ProductView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductView.m; path = Classes/controller/product/ProductView.m; sourceTree = SOURCE_ROOT; };
 		015DDD8C1851BB4700D9D78F /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = Classes/util/external/FMDB/FMDatabase.h; sourceTree = SOURCE_ROOT; };
 		015DDD8D1851BB4700D9D78F /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = Classes/util/external/FMDB/FMDatabase.m; sourceTree = SOURCE_ROOT; };
 		015DDD8E1851BB4700D9D78F /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = Classes/util/external/FMDB/FMDatabaseAdditions.h; sourceTree = SOURCE_ROOT; };
@@ -269,9 +274,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7E4F12917F57E9E00B63B02 /* MobileCoreServices.framework in Frameworks */,
 				C7E4F12717F57E8F00B63B02 /* libsqlite3.0.dylib in Frameworks */,
 				C7E4F12517F57E7300B63B02 /* libz.dylib in Frameworks */,
+				014E1DD5197F5D47001EC88C /* QuartzCore.framework in Frameworks */,
+				C7E4F12917F57E9E00B63B02 /* MobileCoreServices.framework in Frameworks */,
 				C7E4F12317F57DCF00B63B02 /* SystemConfiguration.framework in Frameworks */,
 				C7E4F12117F57DB800B63B02 /* Security.framework in Frameworks */,
 				C7E4F11F17F57DA700B63B02 /* CFNetwork.framework in Frameworks */,
@@ -368,6 +374,15 @@
 				011FE52218555B07000FEC42 /* ColorModel.m */,
 			);
 			name = color;
+			sourceTree = "<group>";
+		};
+		014E1DD9197FA5AD001EC88C /* product */ = {
+			isa = PBXGroup;
+			children = (
+				014E1DDA197FA5D4001EC88C /* ProductView.h */,
+				014E1DDB197FA5D4001EC88C /* ProductView.m */,
+			);
+			name = product;
 			sourceTree = "<group>";
 		};
 		015DDD851851B7FD00D9D78F /* product */ = {
@@ -504,9 +519,10 @@
 		C759628F1796EA4F008C48D3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C7E4F12817F57E9E00B63B02 /* MobileCoreServices.framework */,
 				C7E4F12617F57E8F00B63B02 /* libsqlite3.0.dylib */,
 				C7E4F12417F57E7300B63B02 /* libz.dylib */,
+				014E1DD4197F5D47001EC88C /* QuartzCore.framework */,
+				C7E4F12817F57E9E00B63B02 /* MobileCoreServices.framework */,
 				C7E4F12217F57DCF00B63B02 /* SystemConfiguration.framework */,
 				C7E4F12017F57DB800B63B02 /* Security.framework */,
 				C7E4F11E17F57DA700B63B02 /* CFNetwork.framework */,
@@ -578,6 +594,7 @@
 		C75962D21796F154008C48D3 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				014E1DD9197FA5AD001EC88C /* product */,
 				01E903C8197DEAD300CF24CB /* init */,
 				C7274634179C2FD400FD5106 /* main */,
 			);
@@ -828,6 +845,7 @@
 				015DDD971851BB4700D9D78F /* FMDatabaseAdditions.m in Sources */,
 				C7E4F10C17F57A4C00B63B02 /* GCDAsyncSocket.m in Sources */,
 				C7E4F10E17F57A4C00B63B02 /* ASIAuthenticationDialog.m in Sources */,
+				014E1DDC197FA5D4001EC88C /* ProductView.m in Sources */,
 				01F95091185B04D0005282DB /* ProductInfo.m in Sources */,
 				01F9508A185AE484005282DB /* NetWorkHelper.m in Sources */,
 				015DDD981851BB4700D9D78F /* FMDatabasePool.m in Sources */,
