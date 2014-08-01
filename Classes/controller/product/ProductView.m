@@ -24,8 +24,6 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    
-    
     // Left Area.
     self.productImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 660, 660)];
     [self.productImgView setBackgroundColor:BackGroundGrayColor];

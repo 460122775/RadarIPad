@@ -10,18 +10,28 @@
 #import "ProductFactory.h"
 #import "ProductDrawDataProtocol.h"
 #import "ProductView.h"
+#import "MessageView.h"
+#import "VoiceView.h"
+#import "HistoryView.h"
+#import "SettingView.h"
 
 @interface MainViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UIScrollView *btn_scrollView;
-
-@property (strong, nonatomic) IBOutlet UIButton *btn_setting;
-@property (strong, nonatomic) IBOutlet UIButton *btn_warning;
-
-@property (strong, nonatomic) ProductView *productView;
-
 @property (strong, nonatomic) id<ProductDrawDataProtocol> currentProductModel;
 
+@property (strong, nonatomic) ProductView *productView;
+@property (strong, nonatomic) HistoryView *historyView;
+@property (strong, nonatomic) MessageView *messageView;
+@property (strong, nonatomic) VoiceView *voiceView;
+@property (strong, nonatomic) SettingView *settingView;
+
 + (MainViewController*) instance;
+
+- (IBAction)productBtnClick:(id)sender;
+- (IBAction)historyBtnClick:(id)sender;
+- (IBAction)voiceBtnClick:(id)sender;
+- (IBAction)messageBtnClick:(id)sender;
+- (IBAction)settingBtnClick:(id)sender;
 
 @end

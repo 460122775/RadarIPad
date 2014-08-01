@@ -12,8 +12,8 @@
 
 @required
 
--(void)getImageData:(UIImageView *) productImgView;
+-(void)getImageData:(UIImageView *) productImgView andData:(NSData *) data;
 
--(void)getProductInfo:(UIView *) productInfoView;
+-(void)getProductInfo:(UIView *) productInfoView andData:(NSData *) data;
 
 @end

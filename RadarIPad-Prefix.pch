@@ -26,6 +26,7 @@
 #define DocumentsPath [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 #define docsdir [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES) lastObject]
 #define DBPath [DocumentsPath stringByAppendingPathComponent:@"/db/db0_0.db"]
+#define DataPath [DocumentsPath stringByAppendingPathComponent:@"/data"]
 
 #ifdef __OBJC__
 #import <UIKit/UIKit.h>

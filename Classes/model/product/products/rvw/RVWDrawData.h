@@ -10,11 +10,12 @@
 #import "ProductDrawDataProtocol.h"
 #import "ColorModel.h"
 #import "ProductModel.h"
+#import "ProductDefine.h"
 
 @protocol ProductDrawDataProtocol;
 
 @interface RVWDrawData : ProductModel<ProductDrawDataProtocol>{
-    
+    tagRealFile fileHeadStruct;
 }
 
 @end

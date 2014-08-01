@@ -10,7 +10,7 @@
 
 @implementation ProductFactory
 
-@synthesize queue, firstProductArr, secondProductArr;
+@synthesize queue, firstProductArr, secondProductArr, currentData;
 
 static FMDatabase *db;
 static FMResultSet *rs;
@@ -35,16 +35,6 @@ static ProductFactory* _instance;
     return nil;
 }
 
-+ (NSData*) test
-{
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)
-                      objectAtIndex:0];
-    
-    NSString *fileName = @"/data/20130808/20130808_104630.02.003.000_2.40.zdb";
-    NSData* data = (NSData*)[NSFileHandle fileHandleForReadingAtPath:[NSString stringWithFormat:@"%@/%@", path, fileName]];
-    return data;
-}
-
 - (void)receiveProductAddressControl:(id) productAddressData
 {
     // Add into dictionary after estinguish the productType.
@@ -52,7 +42,7 @@ static ProductFactory* _instance;
     NSArray *addressArr = [productAddressString componentsSeparatedByString:@"/"];
     productAddressString = [addressArr objectAtIndex:addressArr.count - 1];
     addressArr = [productAddressString componentsSeparatedByString:@"."];
-    // Estinguish the product view, if has exist, then download data and draw product.
+    // distinguish the product view, if has exist, then download data and draw product.
     
 }
 
@@ -61,60 +51,42 @@ static ProductFactory* _instance;
 {
     [ProductFactory instance];
     NSString *fileName = [[NSUserDefaults standardUserDefaults] stringForKey:fileUrl];
-    if(!fileName){
+    if(!fileName)
+    {
         ASIHTTPRequest *request=[ASIHTTPRequest requestWithURL:[NSURL URLWithString:fileUrl]];
         [request setDelegate:self];
         [request setTimeOutSeconds:10.];
         [request setNumberOfTimesToRetryOnTimeout:1.];
         [request setShouldContinueWhenAppEntersBackground:YES];
         [request setCompletionBlock:^{
-            afinishBlock([ProductFactory cacheFile:request andFileUrl:fileUrl]);
-            //            DLog("\nREQUEST SUCCESS >>>>%@",fileUrl);
+            NSString *filePath = [ProductFactory cacheFile:request andFileUrl:fileUrl];
+            if (filePath != nil && filePath.length > 0)
+            {
+                afinishBlock((NSData*)[NSFileHandle fileHandleForReadingAtPath:filePath]);
+            }
+//            DLog("\nREQUEST SUCCESS >>>>%@",fileUrl);
         }];
         [request setFailedBlock:^{
             DLog(@"\nREQUEST FAILED >>>>%@:::%@",fileUrl,[[request error] localizedDescription]);
         }];
         [_instance.queue addOperation:request];
         [_instance.queue go];
-    }else{
-        afinishBlock(fileName);
-        //        DLog("\nSUCCESS GET FILE>>>>>>>%@",fileName);
     }
 }
 
 +(NSString *)cacheFile:(ASIHTTPRequest *)request andFileUrl:(NSString*) fileUrl
 {
     //save file to the disk
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)
-                      objectAtIndex:0];
-    //Get the os time using as the name of image
-    NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
-    [dateformatter setDateFormat:@"YYYYMMDDHHmmssSSSS"];
-    long time =[[dateformatter stringFromDate:[NSDate date]] longLongValue];
-    
-    NSString *fileName = [fileUrl lastPathComponent];
+    BOOL bo = [[NSFileManager defaultManager] createDirectoryAtPath:DataPath withIntermediateDirectories:YES attributes:nil error:nil];
+    if (bo == false) return nil;
+    NSString *filePath = [DocumentsPath stringByAppendingPathComponent:fileUrl];
     //    DLog(@"%@",fileName);
-    [[request responseData] writeToFile:[NSString stringWithFormat:@"%@/%ld%@",path,-time,fileName] atomically:NO];
-    //    DLog(@"\n＝＝fileName: %@",[NSString stringWithFormat:@"%@",fileName]);
+    [[request responseData] writeToFile:filePath atomically:NO];
     //save image to the NSUserDefaults
-    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@/%ld%@",path,-time,fileName] forKey:fileUrl];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    //    DLog(@"\n>>>FilePath:%@==Key:%@",[NSString sstringWithFormat:@"%@/%@",path,fileName],fileUrl)
-    return [NSString stringWithFormat:@"%@/%ld%@",path,-time,fileName];
-}
-
-+(BOOL) loadDB{
-    db = [FMDatabase databaseWithPath:DBPath];
-    if (![db open])
-    {
-        DLog(@"Could not open db.");
-        return NO;
-    }
-    [db beginTransaction];
-    [db executeUpdate:@"create table if not exists t_product (name text PRIMARY KEY NOT NULL,posFile text, type integer, time text, layer integer, mcode text)"];
-    //    [db executeUpdate:@"create table if not exists t_system (key text,value text)"];
-    [db commit];
-    return YES;
+//    [[NSUserDefaults standardUserDefaults] setObject:filePath forKey:fileUrl];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//    DLog(@"\n>>>FilePath:%@==Key:%@",[NSString sstringWithFormat:@"%@/%@",path,fileName],fileUrl)
+    return filePath;
 }
 
 +(ProductFactory*)instance
@@ -128,6 +100,50 @@ static ProductFactory* _instance;
         _instance.appliedProductDic =[[NSMutableDictionary alloc] init];
     }
     return _instance;
+}
+
++(NSData *)uncompressZippedData:(NSData *)compressedData
+{
+    if ([compressedData length] == 0) return compressedData;
+    // The struct _YW_ZIP_HEADE [48 Byte] named 'tagYWZipHead'.
+    compressedData = [compressedData subdataWithRange:NSMakeRange(48, compressedData.length - 48)];
+    unsigned full_length = [compressedData length];
+    
+    unsigned half_length = [compressedData length] / 2;
+    NSMutableData *decompressed = [NSMutableData dataWithLength: full_length + half_length];
+    BOOL done = NO;
+    int status;
+    z_stream strm;
+    strm.next_in = (Bytef *)[compressedData bytes];
+    strm.avail_in = [compressedData length];
+    strm.total_out = 0;
+    strm.zalloc = Z_NULL;
+    strm.zfree = Z_NULL;
+    if (inflateInit2(&strm, 15 + 32) != Z_OK) return nil;
+    while (!done)
+    {
+        // Make sure we have enough room and reset the lengths.
+        if (strm.total_out >= [decompressed length]) {
+            [decompressed increaseLengthBy: half_length];
+        }
+        strm.next_out = [decompressed mutableBytes] + strm.total_out;
+        strm.avail_out = [decompressed length] - strm.total_out;
+        // Inflate another chunk.
+        status = inflate (&strm, Z_SYNC_FLUSH);
+        if (status == Z_STREAM_END) {
+            done = YES;
+        } else if (status != Z_OK) {
+            break;
+        }
+    }
+    if (inflateEnd (&strm) != Z_OK) return nil;
+    // Set real length.
+    if (done) {
+        [decompressed setLength: strm.total_out];
+        return [NSData dataWithData: decompressed];
+    } else {
+        return nil;
+    }  
 }
 
 

@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ProductDefine.h"
 #import "RVWDrawData.h"
 #import "ASIFormDataRequest.h"
 #import "ASINetworkQueue.h"
 #import "FMDatabase.h"
 #import "FMResultSet.h"
+#import "zlib.h"
 
 typedef struct _CPCMD
 {
@@ -24,7 +26,7 @@ typedef struct _CPCMD
     int     endflag;                //结束标记
 }tagCPCMD,CPCMD;
 
-typedef void (^fileFinishBlock)(NSString *url);
+typedef void (^fileFinishBlock)(NSData *data);
 
 @interface ProductFactory : NSObject{
     ASINetworkQueue *queue;
@@ -34,6 +36,7 @@ typedef void (^fileFinishBlock)(NSString *url);
 @property(nonatomic, retain) NSMutableArray *firstProductArr;
 @property(nonatomic, retain) NSMutableArray *secondProductArr;
 @property(nonatomic, retain) NSMutableDictionary *appliedProductDic;
+@property(nonatomic, retain) NSData *currentData;
 
 + (ProductFactory*)instance;
 
@@ -42,5 +45,9 @@ typedef void (^fileFinishBlock)(NSString *url);
 + (id)getProductModel:(int)productType;
 
 + (id)getProductModelByAddress:(NSString*)addressStr;
+
++ (void)cacheFileByUrl:(NSString *)fileUrl block:(fileFinishBlock)afinishBlock;
+
++(NSData *)uncompressZippedData:(NSData *)compressedData;
 
 @end
