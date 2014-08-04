@@ -18,7 +18,7 @@
 @interface MainViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UIScrollView *btn_scrollView;
-@property (strong, nonatomic) id<ProductDrawDataProtocol> currentProductModel;
+@property (strong, nonatomic) ProductModel<ProductDrawDataProtocol>* currentProductModel;
 
 @property (strong, nonatomic) ProductView *productView;
 @property (strong, nonatomic) HistoryView *historyView;

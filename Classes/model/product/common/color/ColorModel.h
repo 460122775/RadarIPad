@@ -11,6 +11,8 @@
 
 @interface ColorModel : NSObject
 
++ (NSMutableArray*) getCurrentColorDataArray;
+
 + (void)drawColor:(int)colorType andColorImgView:(UIImageView *) colorImgView;
 
 @end

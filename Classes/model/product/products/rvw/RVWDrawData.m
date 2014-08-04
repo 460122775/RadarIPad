@@ -18,8 +18,58 @@
 -(void)getImageData:(UIImageView *) productImgView andData:(NSData *) data
 {
     DLog(@">>>>>>>>Start Draw Product.[%i]", data.length);
-    
-    
+    [super getImageData:productImgView andData:data];
+    unsigned char *charvalue = (unsigned char *)[[data subdataWithRange:NSMakeRange(sizeof(fileHeadStruct), data.length - sizeof(fileHeadStruct))] bytes];
+    unsigned char value = 0;
+    int x_x0 = 0;
+    int y_y0 = 0;
+    int seta = 0;
+    int position = 0;
+    float r = 0.0;
+    float fAzi = 0.0;
+    NSMutableArray *colorDataArray = [ColorModel getCurrentColorDataArray];
+    NSArray *colorValueArray = nil;
+    UIGraphicsBeginImageContext(productImgView.frame.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    for (int x = 0; x < productImgView.frame.size.width; x++)
+    {
+        x_x0 = x - centX;
+        for (int y = 0; y < productImgView.frame.size.height; y++)
+        {
+            y_y0 = centY - y;
+            r = sqrt(x_x0 * x_x0 + y_y0 * y_y0);
+            if (r <= iRadius)
+            {
+                fAzi = atan2(x_x0, y_y0) * 180.0 / M_PI;
+                if (fAzi < 0) fAzi += 360.0;
+                seta = fAzi * rad360;
+                position = sizeofRadial * seta + 64 + (int)(r * _det);
+                if(position < data.length - 1)
+                {
+                    value = charvalue[position / sizeof(unsigned char) - 1];
+                }
+
+                if (value > 255) value = 255;
+                if (value > 1)
+                {
+                    colorValueArray = (NSArray*)([colorDataArray objectAtIndex:value]);
+                    CGContextSetRGBFillColor(context,
+                                             [(NSString*)colorValueArray[0] floatValue],
+                                             [(NSString*)colorValueArray[1] floatValue],
+                                             [(NSString*)colorValueArray[2] floatValue], 1.0);
+                    CGContextFillRect(context, CGRectMake(x, y, 1, 1));
+                    CGContextStrokePath(context);
+                }else{
+                    CGContextSetRGBFillColor(context, 0, 0, 0, 1.0);
+                    CGContextFillRect(context, CGRectMake(x, y, 1, 1));
+                    CGContextStrokePath(context);
+                }
+            }
+        }
+    }
+    // Show image...
+    productImgView.image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
 }
 
 -(void)getProductInfo:(UIView *)productInfoView andData:(NSData *) data

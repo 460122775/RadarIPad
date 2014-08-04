@@ -10,7 +10,7 @@
 
 @implementation ProductView
 
-@synthesize productImgView, colorImgView, rightBarView, radarInfoBarView, productInfoView,productControlView, productViewInitFinishControl;
+@synthesize productImgView, mapCircleView, colorImgView, rightBarView, radarInfoBarView, productInfoView,productControlView, productViewInitFinishControl;
 @synthesize btn_cartoon,btn_current,btn_knife,btn_position,btn_screenshot,btn_shot;
 
 - (id)initWithFrame:(CGRect)frame
@@ -29,9 +29,19 @@
     [self.productImgView setBackgroundColor:BackGroundGrayColor];
     [self addSubview:self.productImgView];
     
+    self.mapCircleView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 660, 660)];
+    [self.mapCircleView setBackgroundColor:[UIColor clearColor]];
+    [self addSubview:self.mapCircleView];
+    
+    pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(imgTouchedControl:)];
+    [pinchRecognizer setDelegate:self];
+    [self.mapCircleView addGestureRecognizer:pinchRecognizer];
+    [self.productImgView addGestureRecognizer:pinchRecognizer];
+    
     self.colorImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 660, 660, 68)];
     [self.colorImgView setBackgroundColor:BackGroundGrayColor];
     [self addSubview:self.colorImgView];
+    
     // Right Area.
     self.rightBarView = [[UIImageView alloc] initWithFrame:CGRectMake(661, 0, 258, 728)];
     [self.rightBarView setBackgroundColor:[UIColor clearColor]];
@@ -145,4 +155,30 @@
 {
     
 }
+
+#pragma -mark UIGestureRecognizerDelegate Method
+-(void)imgTouchedControl:(id)sender
+{
+    DLog(@"%f",lastScale);
+    [self bringSubviewToFront:[(UIPinchGestureRecognizer*)sender view]];
+    //当手指离开屏幕时,将lastscale设置为1.0
+    if([(UIPinchGestureRecognizer*)sender state] == UIGestureRecognizerStateEnded)
+    {
+        lastScale = 1.0;
+        return;
+    }
+    
+    CGFloat scale = 1.0 - (lastScale - [(UIPinchGestureRecognizer*)sender scale]);
+    CGAffineTransform currentTransform = [(UIPinchGestureRecognizer*)sender view].transform;
+    CGAffineTransform newTransform = CGAffineTransformScale(currentTransform, scale, scale);
+    [[(UIPinchGestureRecognizer*)sender view]setTransform:newTransform];
+    lastScale = [(UIPinchGestureRecognizer*)sender scale];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return ![gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]];
+}
+
 @end

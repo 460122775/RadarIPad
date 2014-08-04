@@ -15,7 +15,7 @@
 @protocol ProductDrawDataProtocol;
 
 @interface RVWDrawData : ProductModel<ProductDrawDataProtocol>{
-    tagRealFile fileHeadStruct;
+    
 }
 
 @end

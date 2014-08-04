@@ -54,16 +54,18 @@ static MainViewController *instance;
 - (void)productAddressReceived:(id) object
 {
     // Test Code.....
-    NSString *path = [DataPath stringByAppendingString:@"/20130808/20130808_121238.02.003.000_2.40.zdb"];
+    NSString *path = [DataPath stringByAppendingString:@"/20140701/20140701_000218.02.003.000_2.40.zdb"];
     NSData *data = [ProductFactory uncompressZippedData:[NSData dataWithContentsOfFile:path]];
     self.currentProductModel = [ProductFactory getProductModel:ProductType_R];
     [ColorModel drawColor:ProductType_R andColorImgView:self.productView.colorImgView];
     [self.currentProductModel getProductInfo: self.productView.productInfoView andData:data];
+    [self.currentProductModel setCenterPointX:self.productView.productImgView.frame.size.width / 2 andY:self.productView.productImgView.frame.size.width / 2];
     [self.currentProductModel getImageData:self.productView.productImgView andData:data];
+    [self.currentProductModel drawDistanceCircle:self.productView.mapCircleView];
     return;
     // Test end....
     
-    [ProductFactory cacheFileByUrl:@"20130808/20130808_121238.02.003.000_2.40.zdb" block:^(NSData *data)
+    [ProductFactory cacheFileByUrl:@"/20130808/20130808_121238.02.003.000_2.40.zdb" block:^(NSData *data)
      {
         self.currentProductModel = [ProductFactory getProductModel:ProductType_R];
         [ColorModel drawColor:ProductType_R andColorImgView:self.productView.colorImgView];

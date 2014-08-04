@@ -10,11 +10,13 @@
 
 typedef void (^ProductViewInitFinishControl)(void);
 
-@interface ProductView : UIView{
-    
+@interface ProductView : UIView<UIGestureRecognizerDelegate>{
+    UIPinchGestureRecognizer *pinchRecognizer;
+    CGFloat lastScale;
 }
 
 @property (strong, nonatomic) UIImageView *productImgView;
+@property (strong, nonatomic) UIImageView *mapCircleView;
 @property (strong, nonatomic) UIImageView *colorImgView;
 
 @property (strong, nonatomic) UIView *rightBarView;

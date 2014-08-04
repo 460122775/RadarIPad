@@ -14,10 +14,17 @@
 
 static FMDatabaseQueue *queue;
 static NSMutableDictionary* colorDataDic;
+static NSMutableArray *colorDataArray;
 
 + (void)initModel
 {
     if(colorDataDic == nil) colorDataDic = [[NSMutableDictionary alloc] init];
+    if(colorDataArray == nil) colorDataArray = [[NSMutableArray alloc] init];
+}
+
++ (NSMutableArray*) getCurrentColorDataArray
+{
+    return colorDataArray;
 }
 
 #pragma -mark DB Control
@@ -79,8 +86,25 @@ static NSMutableDictionary* colorDataDic;
     [(NSString*)colorArray[2] drawAtPoint:
      CGPointMake(paddingLeft / 1.5, paddingTop + height + 7) withAttributes:dic];
     // Draw middle
+    [colorDataArray removeAllObjects];
     for (int i = 0; i < [(NSString*)colorArray[0] integerValue]; i++)
     {
+        // Create color array of 256 length.
+        for (int j = 0; j < [(NSString*)colorArray[6 + i * 5] integerValue]; j++)
+        {
+            if (colorDataArray.count < 2)
+            {
+                [colorDataArray addObject:[[NSArray alloc] initWithObjects:@"0.0", @"0.0", @"0.0", nil]];
+            }else{
+                [colorDataArray addObject:
+                 [[NSArray alloc] initWithObjects:
+                  [NSString stringWithFormat:@"%f",[(NSString*)colorArray[3 + i * 5] integerValue]/256.0],
+                  [NSString stringWithFormat:@"%f",[(NSString*)colorArray[4 + i * 5] integerValue]/256.0],
+                  [NSString stringWithFormat:@"%f",[(NSString*)colorArray[5 + i * 5] integerValue]/256.0], nil]
+                 ];
+            }
+            
+        }
         // Draw block...
         CGContextSetRGBFillColor(context,
                                    [(NSString*)colorArray[3 + i * 5] integerValue]/256.0,
@@ -96,6 +120,13 @@ static NSMutableDictionary* colorDataDic;
         // Draw font...
         [(NSString*)colorArray[7 + i * 5] drawAtPoint:
          CGPointMake((i + 1) * width + paddingLeft / 1.5, paddingTop + height + 7) withAttributes:dic];
+    }
+    if (colorDataArray.count < 256)
+    {
+        for (int k = 0; k < 256 - colorDataArray.count; k++)
+        {
+            [colorDataArray addObject:[[NSArray alloc] initWithArray:[colorDataArray objectAtIndex:colorDataArray.count- 1]]];
+        }
     }
     // Draw line...
     CGContextMoveToPoint(context,
