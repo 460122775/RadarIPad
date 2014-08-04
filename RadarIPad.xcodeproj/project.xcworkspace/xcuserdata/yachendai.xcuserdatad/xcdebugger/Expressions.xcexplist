@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "+[ProductFactory uncompressZippedData:]:ProductFactory.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[RVWDrawData getProductInfo:andData:]:RVWDrawData.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "(char [20])self-&gt;fileHeadStruct.addSec..Nation">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
