@@ -51,9 +51,11 @@
 #define MenuBarHeight 55
 #define ViewWidth 1024
 #define ViewHeight 650
-#define BackGroundBlueColor RGB(50, 70, 139)
+#define ViewAlpha 0.8
+#define BackGroundBlueColor RGB(50, 70, 139)//47, 65, 127
+#define ForeGroundBlueColor RGB(247, 247, 247)
 #define BackGroundGrayColor RGB(247, 247, 247)
-#define ProductTextColor RGB(50, 70, 139)
+#define ProductTextColor RGB(50, 70, 139)//(50, 70, 139)
 
 #pragma -mark Product Type Define
 #define ProductType_R 3

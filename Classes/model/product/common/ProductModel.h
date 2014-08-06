@@ -17,9 +17,6 @@
     int labelWidth;
     
     int sizeofRadial;
-    int centX;
-    int centY;
-    int zoomValue;
     int maxDistance;
     float iRadius;
     float _det;
@@ -29,8 +26,12 @@
     tagRealFile fileHeadStruct;
 }
 
-- (void) setCenterPointX:(int)x andY:(int) y;
+@property (nonatomic, assign) float zoomValue;
+@property (nonatomic, assign) int centX;
+@property (nonatomic, assign) int centY;
+
 - (void) drawDistanceCircle:(UIImageView *) productImgView;
 - (void) constNeedCal:(UIImageView *) productImgView;
+- (CGPoint) getPointByPosition:(CGPoint) point andFrame:(CGRect)frame;
 
 @end

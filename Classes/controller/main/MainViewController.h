@@ -7,8 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ProductFactory.h"
-#import "ProductDrawDataProtocol.h"
 #import "ProductView.h"
 #import "MessageView.h"
 #import "VoiceView.h"
@@ -18,7 +16,6 @@
 @interface MainViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UIScrollView *btn_scrollView;
-@property (strong, nonatomic) ProductModel<ProductDrawDataProtocol>* currentProductModel;
 
 @property (strong, nonatomic) ProductView *productView;
 @property (strong, nonatomic) HistoryView *historyView;
@@ -30,8 +27,13 @@
 
 - (IBAction)productBtnClick:(id)sender;
 - (IBAction)historyBtnClick:(id)sender;
-- (IBAction)voiceBtnClick:(id)sender;
+- (IBAction)currentBtnClick:(id)sender;
+- (IBAction)playBtnClick:(id)sender;
+- (IBAction)camaraBtnClick:(id)sender;
+- (IBAction)knifeBtnClick:(id)sender;
+- (IBAction)positionBtnClick:(id)sender;
 - (IBAction)messageBtnClick:(id)sender;
+- (IBAction)voiceBtnClick:(id)sender;
 - (IBAction)settingBtnClick:(id)sender;
 
 @end

@@ -9,27 +9,22 @@
 #import "ProductModel.h"
 
 @implementation ProductModel
+@synthesize zoomValue, centX, centY;
 
 -(id)init
 {
     self = [super init];
-    productPaddingLeft = 5;
+    productPaddingLeft = 8;
     productPaddingTop = 5;
     VGap = 8;
-    labelWidth = 250;
-    zoomValue = 1;
+    labelWidth = 280;
+    self.zoomValue = 1.0;
     return self;
-}
-
-- (void) setCenterPointX:(int)x andY:(int) y
-{
-    centX = x;
-    centY = y;
 }
 
 - (void) constNeedCal:(UIImageView*) productImgView
 {
-    iRadius = productImgView.frame.size.height / 2.0 * zoomValue;
+    iRadius = productImgView.frame.size.height / 2.0 * self.zoomValue;
     // If R, LCS.
     _det = fileHeadStruct.obserSec.usRefBinNumber[0] / iRadius;
     _detM = fileHeadStruct.obserSec.usRefBinNumber[0] * fileHeadStruct.obserSec.iRefBinLen[0] / iRadius;
@@ -52,19 +47,19 @@
     CGContextSetRGBStrokeColor(context, 170 / 256.0, 170 / 256.0, 170 / 256.0, 1.0);
     // Draw distance line.
     int aaa = maxDistance / _detM * sqrt(2) / 2;
-    CGContextMoveToPoint(context, centX, centY - maxDistance / _detM);
-    CGContextAddLineToPoint(context, centX, centY + maxDistance / _detM);
-    CGContextMoveToPoint(context, centX + aaa, centY - aaa);
-    CGContextAddLineToPoint(context, centX - aaa, centY + aaa);
-    CGContextMoveToPoint(context, centX + maxDistance / _detM, centY);
-    CGContextAddLineToPoint(context, centX - maxDistance / _detM, centY);
-    CGContextMoveToPoint(context, centX + aaa, centY + aaa);
-    CGContextAddLineToPoint(context, centX - aaa, centY - aaa);
+    CGContextMoveToPoint(context, self.centX, self.centY - maxDistance / _detM);
+    CGContextAddLineToPoint(context, self.centX, self.centY + maxDistance / _detM);
+    CGContextMoveToPoint(context, self.centX + aaa, self.centY - aaa);
+    CGContextAddLineToPoint(context, self.centX - aaa, self.centY + aaa);
+    CGContextMoveToPoint(context, self.centX + maxDistance / _detM, self.centY);
+    CGContextAddLineToPoint(context, self.centX - maxDistance / _detM, self.centY);
+    CGContextMoveToPoint(context, self.centX + aaa, self.centY + aaa);
+    CGContextAddLineToPoint(context, self.centX - aaa, self.centY - aaa);
     CGContextStrokePath(context);
     // Draw circle line.
     for (int i = 1; i <= maxDistance / 50000; i++)
     {
-        CGContextAddArc(context, centX, centY, (i * 50000) / _detM, 0, 2 * M_PI, 0);
+        CGContextAddArc(context, self.centX, self.centY, (i * 50000) / _detM, 0, 2 * M_PI, 0);
         CGContextDrawPath(context, kCGPathStroke);
     }
     mapCircleImgView.image = UIGraphicsGetImageFromCurrentImageContext();
@@ -73,7 +68,13 @@
 
 -(void)getProductInfo:(UIView *)productInfoView andData:(NSData *) data
 {
+    
+}
 
+- (CGPoint) getPointByPosition:(CGPoint) point andFrame:(CGRect)frame
+{
+    point = CGPointMake(centX, centY);
+    return point;
 }
 
 @end

@@ -8,10 +8,15 @@
 
 #import "ProductView.h"
 
+#define ZoomStep 0.4
+#define dragStep 100
+#define ProductContainer_Width 640
+#define ProductContainer_height 640
+#define ProductThemeColor ForeGroundBlueColor
+
 @implementation ProductView
 
-@synthesize productImgView, mapCircleView, colorImgView, rightBarView, radarInfoBarView, productInfoView,productControlView, productViewInitFinishControl;
-@synthesize btn_cartoon,btn_current,btn_knife,btn_position,btn_screenshot,btn_shot;
+@synthesize productImgView, mapCircleView, colorImgView, rightBarView, radarInfoBarView, productInfoView, currentProductModel, currentProductData, productControlView, processControlView;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -25,160 +30,229 @@
 - (void)drawRect:(CGRect)rect
 {
     // Left Area.
-    self.productImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 660, 660)];
-    [self.productImgView setBackgroundColor:BackGroundGrayColor];
-    [self addSubview:self.productImgView];
+    self.productView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ProductContainer_Width, ProductContainer_height)];
+    [self.productView setBackgroundColor:ProductThemeColor];
+    [self.productView setClipsToBounds:YES];
+    [self addSubview:self.productView];
     
-    self.mapCircleView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 660, 660)];
+    self.productImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ProductContainer_Width, ProductContainer_height)];
+    [self.productImgView setBackgroundColor:[UIColor clearColor]];
+    [self.productView addSubview:self.productImgView];
+    
+    self.mapCircleView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ProductContainer_Width, ProductContainer_height)];
     [self.mapCircleView setBackgroundColor:[UIColor clearColor]];
-    [self addSubview:self.mapCircleView];
+    [self.productView addSubview:self.mapCircleView];
     
-    pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(imgTouchedControl:)];
-    [pinchRecognizer setDelegate:self];
-    [self.mapCircleView addGestureRecognizer:pinchRecognizer];
-    [self.productImgView addGestureRecognizer:pinchRecognizer];
+    zoomGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(imgZoomControl:)];
+    [self.productView addGestureRecognizer:zoomGestureRecognizer];
     
-    self.colorImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 660, 660, 68)];
-    [self.colorImgView setBackgroundColor:BackGroundGrayColor];
+    dragGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(imgDragControl:)];
+    dragGestureRecognizer.minimumNumberOfTouches = 1;
+    dragGestureRecognizer.maximumNumberOfTouches = 1;
+    [self.productView addGestureRecognizer:dragGestureRecognizer];
+    
+    self.processControlView = [[UIView alloc] initWithFrame:CGRectMake(0, ProductContainer_height, ProductContainer_Width, 20)];
+    [self.processControlView setBackgroundColor:ProductThemeColor];
+    [self addSubview:self.processControlView];
+    
+    self.colorImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, ProductContainer_height + 20, ProductContainer_Width, 68)];
+    [self.colorImgView setBackgroundColor:ProductThemeColor];
     [self addSubview:self.colorImgView];
     
     // Right Area.
-    self.rightBarView = [[UIImageView alloc] initWithFrame:CGRectMake(661, 0, 258, 728)];
+    self.rightBarView = [[UIView alloc] initWithFrame:CGRectMake(ProductContainer_Width + 1, 0, 288, 728)];
     [self.rightBarView setBackgroundColor:[UIColor clearColor]];
     [self addSubview:self.rightBarView];
-    
+
     // Radar Info.
-    self.radarInfoBarView = [[UIImageView alloc] initWithFrame:
+    self.radarInfoBarView = [[UIView alloc] initWithFrame:
                              CGRectMake(0, 0, self.rightBarView.frame.size.width, 35)];
-    [self.radarInfoBarView setBackgroundColor:BackGroundGrayColor];
+    [self.radarInfoBarView setBackgroundColor:ProductThemeColor];
     [self.rightBarView addSubview:self.radarInfoBarView];
     
-    UILabel *positionLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 8, 95, 20)];
+    UILabel *positionLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, 100, 20)];
     [positionLabel setTextColor:ProductTextColor];
     [positionLabel setText:@"方位:235.28"];
-    [positionLabel setFont:[UIFont systemFontOfSize:16]];
+    [positionLabel setFont:[UIFont systemFontOfSize:17]];
     [self.radarInfoBarView addSubview:positionLabel];
     
-    UILabel *eleLabel = [[UILabel alloc] initWithFrame:CGRectMake(3 + 95 + 2, 8, 75, 20)];
+    UILabel *eleLabel = [[UILabel alloc] initWithFrame:CGRectMake(113, 8, 80, 20)];
     [eleLabel setTextColor:ProductTextColor];
     [eleLabel setText:@"俯仰:19.8"];
-    [eleLabel setFont:[UIFont systemFontOfSize:16]];
+    [eleLabel setFont:[UIFont systemFontOfSize:17]];
     [self.radarInfoBarView addSubview:eleLabel];
     
-    UILabel *speedLabel = [[UILabel alloc] initWithFrame:CGRectMake(2 + 175, 8, 95, 20)];
+    UILabel *speedLabel = [[UILabel alloc] initWithFrame:CGRectMake(198, 8, 100, 20)];
     [speedLabel setTextColor:ProductTextColor];
     [speedLabel setText:@"速率:32.92"];
-    [speedLabel setFont:[UIFont systemFontOfSize:16]];
+    [speedLabel setFont:[UIFont systemFontOfSize:17]];
     [self.radarInfoBarView addSubview:speedLabel];
 
     // Product Info.
-    self.productInfoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 35 + 1, self.rightBarView.frame.size.width, 510)];
-    [self.productInfoView setBackgroundColor:BackGroundGrayColor];
+    self.productInfoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 35 + 1, self.rightBarView.frame.size.width, 280)];
+    [self.productInfoView setBackgroundColor:ProductThemeColor];
     [self.rightBarView addSubview:self.productInfoView];
     
     // Product Control.
-    self.productControlView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 35 + 510 + 2, self.rightBarView.frame.size.width, 181)];
-    [self.productControlView setBackgroundColor:BackGroundGrayColor];
+    self.productControlView = [[UIView alloc] initWithFrame:CGRectMake(0, 35 + 280 + 2, self.rightBarView.frame.size.width, 411)];
+    [self.productControlView setBackgroundColor:ProductThemeColor];
     [self.rightBarView addSubview:self.productControlView];
-    
-    self.btn_shot = [[UIButton alloc] initWithFrame:CGRectMake(5, 3, 80, 80)];
-    [self.btn_shot setBackgroundColor:BackGroundGrayColor];
-    [self.btn_shot setBackgroundImage:[UIImage imageNamed:@"boom.png"] forState:UIControlStateNormal];
-    [self.btn_shot setBackgroundImage:[UIImage imageNamed:@"boom.png"] forState:UIControlStateHighlighted];
-    [self.btn_shot addTarget:self action:@selector(shotBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.productControlView addSubview:self.btn_shot];
-    
-    self.btn_knife = [[UIButton alloc] initWithFrame:CGRectMake(5 + 80 + 5, 3, 80, 80)];
-    [self.btn_knife setBackgroundColor:BackGroundGrayColor];
-    [self.btn_knife setBackgroundImage:[UIImage imageNamed:@"knife.png"] forState:UIControlStateNormal];
-    [self.btn_knife setBackgroundImage:[UIImage imageNamed:@"knife.png"] forState:UIControlStateHighlighted];
-    [self.btn_knife addTarget:self action:@selector(knifeBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.productControlView addSubview:self.btn_knife];
 
-    self.btn_current = [[UIButton alloc] initWithFrame:CGRectMake(5 + 80 + 5 + 80 + 5, 3, 80, 80)];
-    [self.btn_current setBackgroundColor:BackGroundGrayColor];
-    [self.btn_current setBackgroundImage:[UIImage imageNamed:@"refresh.png"] forState:UIControlStateNormal];
-    [self.btn_current setBackgroundImage:[UIImage imageNamed:@"refresh.png"] forState:UIControlStateHighlighted];
-    [self.btn_current addTarget:self action:@selector(currentBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.productControlView addSubview:self.btn_current];
-    
-    self.btn_cartoon = [[UIButton alloc] initWithFrame:CGRectMake(5, 3 + 80 + 4, 80, 80)];
-    [self.btn_cartoon setBackgroundColor:BackGroundGrayColor];
-    [self.btn_cartoon setBackgroundImage:[UIImage imageNamed:@"player.png"] forState:UIControlStateNormal];
-    [self.btn_cartoon setBackgroundImage:[UIImage imageNamed:@"player.png"] forState:UIControlStateHighlighted];
-    [self.btn_cartoon addTarget:self action:@selector(cartoonBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.productControlView addSubview:self.btn_cartoon];
-
-    self.btn_screenshot = [[UIButton alloc] initWithFrame:CGRectMake(5 + 80 + 5,  3 + 80 + 4, 80, 80)];
-    [self.btn_screenshot setBackgroundColor:BackGroundGrayColor];
-    [self.btn_screenshot setBackgroundImage:[UIImage imageNamed:@"camara.png"] forState:UIControlStateNormal];
-    [self.btn_screenshot setBackgroundImage:[UIImage imageNamed:@"camara.png"] forState:UIControlStateHighlighted];
-    [self.btn_screenshot addTarget:self action:@selector(screenShotBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.productControlView addSubview:self.btn_screenshot];
-    
-    self.btn_position = [[UIButton alloc] initWithFrame:CGRectMake(5 + 80 + 5 + 80 + 5,  3 + 80 + 4, 80, 80)];
-    [self.btn_position setBackgroundColor:BackGroundGrayColor];
-    [self.btn_position setBackgroundImage:[UIImage imageNamed:@"position2.png"] forState:UIControlStateNormal];
-    [self.btn_position setBackgroundImage:[UIImage imageNamed:@"position2.png"] forState:UIControlStateHighlighted];
-    [self.btn_position addTarget:self action:@selector(positionBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.productControlView addSubview:self.btn_position];
-    
-    self.productViewInitFinishControl();
+    [self productAddressReceived];
 }
 
-- (void)shotBtnClick
+- (void)productAddressReceived
 {
+    // Test Code.....
+    NSString *path = [DataPath stringByAppendingString:@"/20140701/20140701_000218.02.003.000_2.40.zdb"];
+    self.currentProductData = [ProductFactory uncompressZippedData:[NSData dataWithContentsOfFile:path]];
+    self.currentProductModel = [ProductFactory getProductModel:ProductType_R];
+    [ColorModel drawColor:ProductType_R andColorImgView:self.colorImgView];
+    [self.currentProductModel getProductInfo: self.productInfoView andData:self.currentProductData];
+    self.currentProductModel.centX = self.productImgView.frame.size.width / 2;
+    self.currentProductModel.centY = self.productImgView.frame.size.height / 2;
+    [self drawProduct];
+    return;
+    // Test end....
     
+    [ProductFactory cacheFileByUrl:@"/20130808/20130808_121238.02.003.000_2.40.zdb" block:^(NSData *data)
+     {
+         self.currentProductModel = [ProductFactory getProductModel:ProductType_R];
+         [ColorModel drawColor:ProductType_R andColorImgView:self.colorImgView];
+         [self.currentProductModel getProductInfo: self.productInfoView andData:data];
+         [self.currentProductModel getImageData:self.productImgView andData:data];
+     }];
 }
 
+- (void)drawProduct
+{
+    [self.currentProductModel getImageData:self.productImgView andData:self.currentProductData];
+    [self.currentProductModel drawDistanceCircle:self.mapCircleView];
+    if (locationManager != nil)
+    {
+        [self updatePositionPoint];
+    }
+}
+
+#pragma -mark Btn Click Control
 - (void)knifeBtnClick
 {
     
 }
 
-- (void)currentBtnClick
+- (void)showCurrentProduct
 {
-    
+    [self productAddressReceived];
 }
 
-- (void)cartoonBtnClick
+- (void)screenShot
 {
+    UIGraphicsBeginImageContext(self.bounds.size);
+    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    UIImageWriteToSavedPhotosAlbum(image, nil, nil,nil);
     
+    NSArray *shareButtonTitleArray = [[NSArray alloc] init];
+    NSArray *shareButtonImageNameArray = [[NSArray alloc] init];
+    shareButtonTitleArray = @[@"短信",@"邮件",@"新浪微博",@"微信",@"微信朋友圈",@"Twitter"];
+    shareButtonImageNameArray = @[@"sns_icon_19",@"sns_icon_18",@"sns_icon_1",@"sns_icon_22",@"sns_icon_23",@"sns_icon_11"];
+    LXActivity *lxActivity = [[LXActivity alloc] initWithTitle:@"截图已保存至相册\n   需要分享到社交平台吗？" delegate:nil cancelButtonTitle:@"取消" ShareButtonTitles:shareButtonTitleArray withShareButtonImagesName:shareButtonImageNameArray];
+    [lxActivity showInView:self];
 }
 
-- (void)screenShotBtnClick
+- (void)showPosition
 {
-    
-}
-
-- (void)positionBtnClick
-{
-    
-}
-
-#pragma -mark UIGestureRecognizerDelegate Method
--(void)imgTouchedControl:(id)sender
-{
-    DLog(@"%f",lastScale);
-    [self bringSubviewToFront:[(UIPinchGestureRecognizer*)sender view]];
-    //当手指离开屏幕时,将lastscale设置为1.0
-    if([(UIPinchGestureRecognizer*)sender state] == UIGestureRecognizerStateEnded)
+    if (nil == locationManager)
     {
-        lastScale = 1.0;
-        return;
+        locationManager = [[CLLocationManager alloc] init];
+        locationManager.delegate = self;
+        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+        pulsingView = [[SVPulsingAnnotationView alloc] initWithFrame:CGRectMake(-100,-100,30,30)];
+        pulsingView.annotationColor = RGBA(0, 0, 255, 1);
+        pulsingView.canShowCallout = YES;
+        [self.productView addSubview:pulsingView];
+        // Set a movement threshold for new events
+        locationManager.distanceFilter = 500;
+        [locationManager startUpdatingLocation];
+    }else{
+        [locationManager stopUpdatingLocation];
+        locationManager = nil;
+        [pulsingView removeFromSuperview];
+        pulsingView = nil;
     }
-    
-    CGFloat scale = 1.0 - (lastScale - [(UIPinchGestureRecognizer*)sender scale]);
-    CGAffineTransform currentTransform = [(UIPinchGestureRecognizer*)sender view].transform;
-    CGAffineTransform newTransform = CGAffineTransformScale(currentTransform, scale, scale);
-    [[(UIPinchGestureRecognizer*)sender view]setTransform:newTransform];
-    lastScale = [(UIPinchGestureRecognizer*)sender scale];
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
-shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+#pragma -mark CLLocationManagerDelegate Method
+static CGPoint point;
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation
 {
-    return ![gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]];
+    // If it's a relatively recent event, turn off updates to save power
+    NSDate* eventDate = newLocation.timestamp;
+    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+    if (abs(howRecent) < 5.0)
+    {
+        point = CGPointMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude);
+        [self updatePositionPoint];
+    }
+}
+
+-(void) updatePositionPoint
+{
+    point = [self.currentProductModel getPointByPosition:point andFrame:self.productImgView.frame];
+    pulsingView.frame = CGRectMake(point.x, point.y, 20, 20);
+}
+
+#pragma -mark UIGestureRecognizer Method
+-(void)imgZoomControl:(UIPinchGestureRecognizer*)sender
+{
+    if([sender state] == UIGestureRecognizerStateEnded)
+    {
+        float currentScale = [(UIPinchGestureRecognizer*)sender scale];
+        if (currentScale > 1.0)
+        {
+            self.currentProductModel.zoomValue += (ZoomStep * (int)currentScale);
+        }else{
+            self.currentProductModel.zoomValue -= (ZoomStep * (int)((1 - currentScale) * 6));
+        }
+//        DLog(@">>>>>>>%f, %f", currentScale, self.currentProductModel.zoomValue);
+        if(self.currentProductModel.zoomValue > 10)
+        {
+            self.currentProductModel.zoomValue = 10;
+        }else if(self.currentProductModel.zoomValue < 0.6){
+            self.currentProductModel.zoomValue = 0.6;
+        }
+        [self drawProduct];
+    }
+}
+
+static CGPoint dragLocation;
+-(void)imgDragControl:(UIPanGestureRecognizer*)paramSender
+{
+    CGPoint location = [paramSender locationInView:paramSender.view.superview];
+    if (paramSender.state == UIGestureRecognizerStateBegan)
+    {
+        dragLocation.x = location.x;
+        dragLocation.y = location.y;
+    }else if (paramSender.state == UIGestureRecognizerStateEnded && paramSender.state != UIGestureRecognizerStateFailed){
+        if (abs(dragLocation.x - location.x) >= 10 || abs(dragLocation.y - location.y) >= 10)
+        {
+            self.currentProductModel.centX -= (dragLocation.x - location.x);
+            self.currentProductModel.centY -= (dragLocation.y - location.y);
+        }
+        self.productImgView.frame = CGRectMake(0, 0, ProductContainer_Width, ProductContainer_height);
+        self.mapCircleView.frame = CGRectMake(0, 0, ProductContainer_Width, ProductContainer_height);
+        [self drawProduct];
+    }else{
+        self.productImgView.frame = CGRectMake(location.x - dragLocation.x,
+                                               location.y - dragLocation.y,
+                                               ProductContainer_Width, ProductContainer_height);
+        self.mapCircleView.frame = CGRectMake(self.productImgView.frame.origin.x,
+                                              self.productImgView.frame.origin.y,
+                                              ProductContainer_Width, ProductContainer_height);
+    }
 }
 
 @end

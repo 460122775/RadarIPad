@@ -16,46 +16,92 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ac0-eG-4BU">
-                    <rect key="frame" x="10" y="30" width="70" height="728"/>
+                    <rect key="frame" x="10" y="30" width="65" height="728"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <button opaque="NO" tag="7" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZBg-Wg-Epm">
-                            <rect key="frame" x="0.0" y="160" width="70" height="70"/>
+                        <button opaque="NO" tag="7" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZBg-Wg-Epm">
+                            <rect key="frame" x="0.0" y="148" width="65" height="65"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96251195789999999" green="0.96251195789999999" blue="0.96251195789999999" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" image="voice.png">
+                            <state key="normal" image="refresh.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="voiceBtnClick:" destination="-1" eventType="touchUpInside" id="qyv-Sq-YC9"/>
+                                <action selector="currentBtnClick:" destination="-1" eventType="touchUpInside" id="xkd-Ql-qbx"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x05-jS-5FO">
-                            <rect key="frame" x="0.0" y="240" width="70" height="70"/>
+                            <rect key="frame" x="0.0" y="219" width="65" height="65"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96251195789999999" green="0.96251195789999999" blue="0.96251195789999999" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" image="calendar.png">
+                            <state key="normal" image="player.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="historyBtnClick:" destination="-1" eventType="touchUpInside" id="GqO-Fo-HiI"/>
+                                <action selector="playBtnClick:" destination="-1" eventType="touchUpInside" id="Op0-ka-krc"/>
                             </connections>
                         </button>
-                        <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hRP-FR-URf">
-                            <rect key="frame" x="0.0" y="80" width="70" height="70"/>
+                        <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QaU-RI-mer">
+                            <rect key="frame" x="0.0" y="294" width="65" height="65"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96251195789999999" green="0.96251195789999999" blue="0.96251195789999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" image="camara.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="camaraBtnClick:" destination="-1" eventType="touchUpInside" id="kTu-0N-Lkf"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uLV-WU-bPC">
+                            <rect key="frame" x="0.0" y="368" width="65" height="65"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="knife.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="knifeBtnClick:" destination="-1" eventType="touchUpInside" id="ePH-qK-ZBy"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ghv-pd-aVi">
+                            <rect key="frame" x="0.0" y="442" width="65" height="65"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="position2.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="positionBtnClick:" destination="-1" eventType="touchUpInside" id="XQR-bC-rit"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wKO-fv-OPx">
+                            <rect key="frame" x="0.0" y="516" width="65" height="65"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="message.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="messageBtnClick:" destination="-1" eventType="touchUpInside" id="jrX-qC-Ygl"/>
+                                <action selector="messageBtnClick:" destination="-1" eventType="touchUpInside" id="dYO-H0-zwB"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcI-UH-zgf">
+                            <rect key="frame" x="0.0" y="590" width="65" height="65"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="voice.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="voiceBtnClick:" destination="-1" eventType="touchUpInside" id="BkY-tS-fm7"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hRP-FR-URf">
+                            <rect key="frame" x="0.0" y="73" width="65" height="65"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="calendar.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="historyBtnClick:" destination="-1" eventType="touchUpInside" id="J4l-NX-5xr"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9eD-n1-qp2">
-                            <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                            <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96251195789999999" green="0.96251195789999999" blue="0.96251195789999999" alpha="1" colorSpace="calibratedRGB"/>
                             <state key="normal" image="radar2.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -64,9 +110,8 @@
                             </connections>
                         </button>
                         <button opaque="NO" tag="9" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Sf-A4-MEj">
-                            <rect key="frame" x="0.0" y="657" width="70" height="70"/>
+                            <rect key="frame" x="0.0" y="663" width="65" height="65"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96251195789999999" green="0.96251195789999999" blue="0.96251195789999999" alpha="1" colorSpace="calibratedRGB"/>
                             <state key="normal" image="config.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -84,9 +129,14 @@
     </objects>
     <resources>
         <image name="calendar.png" width="80" height="80"/>
+        <image name="camara.png" width="80" height="80"/>
         <image name="config.png" width="80" height="80"/>
+        <image name="knife.png" width="80" height="80"/>
         <image name="message.png" width="80" height="80"/>
+        <image name="player.png" width="80" height="80"/>
+        <image name="position2.png" width="80" height="80"/>
         <image name="radar2.png" width="80" height="80"/>
+        <image name="refresh.png" width="80" height="80"/>
         <image name="voice.png" width="80" height="80"/>
     </resources>
 </document>

@@ -82,7 +82,7 @@ static NSMutableArray *colorDataArray;
     CGContextSetLineWidth(context, 1);
     CGContextBeginPath(context);
     // Draw first number...
-    NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12.0f], NSFontAttributeName, nil];
+    NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12.0f], NSFontAttributeName, ProductTextColor, NSForegroundColorAttributeName,nil];
     [(NSString*)colorArray[2] drawAtPoint:
      CGPointMake(paddingLeft / 1.5, paddingTop + height + 7) withAttributes:dic];
     // Draw middle
@@ -115,7 +115,7 @@ static NSMutableArray *colorDataArray;
         // Draw line...
         CGContextMoveToPoint(context, paddingLeft + i * width + 1, paddingTop + height);
         CGContextAddLineToPoint(context, paddingLeft + i * width + 1, paddingTop + height + 5);
-        CGContextSetRGBStrokeColor(context, 0, 0, 0, 0.5);
+        CGContextSetRGBStrokeColor(context, 0.2, 0.27, 0.55, 1);//0.96, 0.96, 0.96
         CGContextStrokePath(context);
         // Draw font...
         [(NSString*)colorArray[7 + i * 5] drawAtPoint:
@@ -133,7 +133,7 @@ static NSMutableArray *colorDataArray;
                          paddingLeft + [(NSString*)colorArray[0] integerValue] * width - 1, paddingTop + height);
     CGContextAddLineToPoint(context,
                             paddingLeft + [(NSString*)colorArray[0] integerValue] * width - 1, paddingTop + height + 5);
-    CGContextSetRGBStrokeColor(context, 0, 0, 0, 0.5);
+    CGContextSetRGBStrokeColor(context, 0.2, 0.27, 0.55, 1);
     CGContextStrokePath(context);
     // Draw Unit...
     [(NSString*)colorArray[1] drawAtPoint:
