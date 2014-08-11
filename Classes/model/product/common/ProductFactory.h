@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ProductDefine.h"
+#import "ProductVo.h"
 #import "RVWDrawData.h"
 #import "ASIFormDataRequest.h"
 #import "ASINetworkQueue.h"
@@ -49,5 +50,7 @@ typedef void (^fileFinishBlock)(NSData *data);
 + (void)cacheFileByUrl:(NSString *)fileUrl block:(fileFinishBlock)afinishBlock;
 
 +(NSData *)uncompressZippedData:(NSData *)compressedData;
+
++(NSMutableArray*) getProductList:(NSMutableArray*)productListArr;
 
 @end

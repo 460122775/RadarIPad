@@ -70,7 +70,7 @@ static NSMutableArray *colorDataArray;
         return;
     }
     
-    int paddingTop = 10;
+    int paddingTop = 8;
     int paddingLeft = 20;
     int width = (int)(colorImgView.frame.size.width - paddingLeft * 2) / [(NSString*)colorArray[0] integerValue];
     int height = (int)(colorImgView.frame.size.height - paddingTop * 2 - 20);

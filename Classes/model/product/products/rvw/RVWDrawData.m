@@ -18,6 +18,7 @@
 -(void)getImageData:(UIImageView *) productImgView andData:(NSData *) data
 {
 //    DLog(@">>>>>>>>Start Draw Product.[%i]", data.length);
+    if (!data) return;
     [super getImageData:productImgView andData:data];
     unsigned char *charvalue = (unsigned char *)[[data subdataWithRange:NSMakeRange(sizeof(fileHeadStruct), data.length - sizeof(fileHeadStruct))] bytes];
     unsigned char value = 0;

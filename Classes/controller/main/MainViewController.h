@@ -10,7 +10,6 @@
 #import "ProductView.h"
 #import "MessageView.h"
 #import "VoiceView.h"
-#import "HistoryView.h"
 #import "SettingView.h"
 
 @interface MainViewController : UIViewController
@@ -18,7 +17,6 @@
 @property (strong, nonatomic) IBOutlet UIScrollView *btn_scrollView;
 
 @property (strong, nonatomic) ProductView *productView;
-@property (strong, nonatomic) HistoryView *historyView;
 @property (strong, nonatomic) MessageView *messageView;
 @property (strong, nonatomic) VoiceView *voiceView;
 @property (strong, nonatomic) SettingView *settingView;

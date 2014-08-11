@@ -19,6 +19,7 @@
     VGap = 8;
     labelWidth = 280;
     self.zoomValue = 1.0;
+    _detM = 1;
     return self;
 }
 

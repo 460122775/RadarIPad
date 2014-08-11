@@ -146,5 +146,33 @@ static ProductFactory* _instance;
     }  
 }
 
++(NSMutableArray*) getProductList:(NSMutableArray*)productListArr
+{
+    FMDatabaseQueue *queue = [FMDatabaseQueue databaseQueueWithPath:DBPath];
+    
+    if (queue)
+    {
+        [queue inDatabase:^(FMDatabase *db) {
+            FMResultSet *rs = [db executeQuery:
+                               [NSString stringWithFormat:@"select * from t_productcfg where needConfig=1"]];
+            ProductVo *vo = nil;
+            while([rs next])
+            {
+                vo = [[ProductVo alloc] init];
+                [vo setType:[rs intForColumn:@"type"]];
+                [vo setName:[rs stringForColumn:@"name"]];
+                [vo setEname:[rs stringForColumn:@"ename"]];
+                [vo setConfig:[rs stringForColumn:@"config"]];
+                [vo setUser_id:[rs intForColumn:@"user_id"]];
+                [vo setIsBaseProduct:[rs intForColumn:@"isBaseProduct"]];
+                [vo setNeedConfig:[rs intForColumn:@"needConfig"]];
+                [productListArr addObject:vo];
+            }
+            [rs close];
+        }];
+        [queue close];
+    }
+    return productListArr;
+}
 
 @end

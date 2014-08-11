@@ -10,7 +10,7 @@
 
 @implementation MainViewController
 
-@synthesize productView, historyView, messageView, voiceView, settingView, btn_scrollView;
+@synthesize productView, messageView, voiceView, settingView, btn_scrollView;
 
 static MainViewController *instance;
 
@@ -33,6 +33,8 @@ static MainViewController *instance;
 - (void)loadView
 {
     [super loadView];
+    [self.view setBackgroundColor:BackGroundBlueColor];
+    [self.btn_scrollView setBackgroundColor:ForeGroundBlueColor];
     [self productBtnClick:nil];
 }
 
@@ -48,8 +50,6 @@ static MainViewController *instance;
 #pragma -mark Btn Click Control
 - (IBAction)productBtnClick:(id)sender
 {
-    [self.view setBackgroundColor:BackGroundBlueColor];
-    [self.btn_scrollView setBackgroundColor:ForeGroundBlueColor];
     if(self.productView == nil)
     {
         self.productView = [[ProductView alloc] initWithFrame:CGRectMake(85, 30, 924, 728)];
@@ -60,10 +60,9 @@ static MainViewController *instance;
 
 - (IBAction)historyBtnClick:(id)sender
 {
-    if(self.historyView == nil)
+    if (self.productView != nil)
     {
-        self.historyView = [[HistoryView alloc] initWithFrame:CGRectMake(85, 30, 924, 728)];
-        [self.view addSubview:self.historyView];
+        [self.productView historyBtnClick];
     }
 }
 
@@ -135,8 +134,7 @@ static MainViewController *instance;
 {
     for(UIView *view in [self.view subviews])
     {
-        if(view == self.historyView) self.historyView = nil;
-        else if (view == self.voiceView) self.voiceView = nil;
+        if(view == self.voiceView) self.voiceView = nil;
         else if (view == self.settingView) self.settingView = nil;
         else if (view == self.messageView) self.messageView = nil;
         else if (view == self.btn_scrollView) continue;

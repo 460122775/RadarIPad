@@ -16,7 +16,7 @@
 
 @implementation ProductView
 
-@synthesize productImgView, mapCircleView, colorImgView, rightBarView, radarInfoBarView, productInfoView, currentProductModel, currentProductData, productControlView, processControlView;
+@synthesize productImgView, mapCircleView, colorImgView, rightBarView, radarInfoBarView, productInfoView, currentProductModel, currentProductData, productControlView, processControlView, slider;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -51,11 +51,29 @@
     dragGestureRecognizer.maximumNumberOfTouches = 1;
     [self.productView addGestureRecognizer:dragGestureRecognizer];
     
-    self.processControlView = [[UIView alloc] initWithFrame:CGRectMake(0, ProductContainer_height, ProductContainer_Width, 20)];
+    self.processControlView = [[UIView alloc] initWithFrame:CGRectMake(0, ProductContainer_height, ProductContainer_Width, 30)];
     [self.processControlView setBackgroundColor:ProductThemeColor];
     [self addSubview:self.processControlView];
     
-    self.colorImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, ProductContainer_height + 20, ProductContainer_Width, 68)];
+    //Bottom
+    self.slider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(18, 0, ProductContainer_Width - 40, 30)];
+//    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+//    [formatter setNumberStyle:NSNumberFormatterNoStyle];
+//    [self.slider setNumberFormatter:formatter];
+    self.slider.font = [UIFont fontWithName:@"Futura-CondensedExtraBold" size:26];
+    self.slider.popUpViewAnimatedColors = @[BackGroundBlueColor];
+    self.slider.maximumValue = 100;
+    self.slider.minimumValue = 0;
+    self.slider.popUpViewCornerRadius = 6;
+    self.slider.dataSource = self;
+//    self.slider.value = self.slider.maximumValue / 2;
+//    [self.slider setMaxFractionDigitsDisplayed:0];
+//    self.slider.popUpViewColor = [UIColor colorWithHue:0.55 saturation:0.8 brightness:0.9 alpha:0.7];
+//    self.slider.font = [UIFont fontWithName:@"Futura-CondensedExtraBold" size:22];
+//    self.slider.textColor = [UIColor colorWithHue:0.55 saturation:1.0 brightness:0.5 alpha:1];
+    [self.processControlView addSubview: self.slider];
+    
+    self.colorImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, ProductContainer_height + 30, ProductContainer_Width, 58)];
     [self.colorImgView setBackgroundColor:ProductThemeColor];
     [self addSubview:self.colorImgView];
     
@@ -97,14 +115,14 @@
     self.productControlView = [[UIView alloc] initWithFrame:CGRectMake(0, 35 + 280 + 2, self.rightBarView.frame.size.width, 411)];
     [self.productControlView setBackgroundColor:ProductThemeColor];
     [self.rightBarView addSubview:self.productControlView];
-
-    [self productAddressReceived];
+    
+    [self showCurrentProduct];
 }
 
 - (void)productAddressReceived
 {
     // Test Code.....
-    NSString *path = [DataPath stringByAppendingString:@"/20140701/20140701_000218.02.003.000_2.40.zdb"];
+    NSString *path = [DataPath stringByAppendingString:@"/20140701/Z/20140701_003003.02.003.000_2.40.zdb"];
     self.currentProductData = [ProductFactory uncompressZippedData:[NSData dataWithContentsOfFile:path]];
     self.currentProductModel = [ProductFactory getProductModel:ProductType_R];
     [ColorModel drawColor:ProductType_R andColorImgView:self.colorImgView];
@@ -134,6 +152,19 @@
     }
 }
 
+- (void)selectProduct:(id)productObject
+{
+    [historyView removeFromSuperview];
+    [self drawProduct];
+}
+
+- (NSString *)slider:(ASValueTrackingSlider *)slider stringForValue:(float)value;
+{
+    value = roundf(value);
+    NSString *s = [NSString stringWithFormat:@"拖动加速[%@]", [self.slider.numberFormatter stringFromNumber:@(value)]];
+    return s;
+}
+
 #pragma -mark Btn Click Control
 - (void)knifeBtnClick
 {
@@ -142,7 +173,38 @@
 
 - (void)showCurrentProduct
 {
+    if (historyView != nil)
+    {
+        [historyView removeFromSuperview];
+        historyView = nil;
+    }
+    if (historyProductListView != nil)
+    {
+        [historyProductListView removeFromSuperview];
+        historyProductListView = nil;
+    }
+    currentProductListView = [[CurrentProductListView alloc] initWithFrame:CGRectMake(0, 0, self.productControlView.frame.size.width, self.productControlView.frame.size.height)];
+    [self.productControlView addSubview:currentProductListView];
     [self productAddressReceived];
+}
+
+- (void)historyBtnClick
+{
+    if(historyView == nil)
+    {
+        historyView = [[[NSBundle mainBundle] loadNibNamed:@"HistoryView" owner:nil options:nil] objectAtIndex:0];
+        historyView.frame = CGRectMake(0, 0, 640, 728);
+    }
+    [self addSubview:historyView];
+    
+    if (currentProductListView != nil)
+    {
+        [currentProductListView removeFromSuperview];
+        currentProductListView = nil;
+    }
+    historyProductListView = [[HistoryProductListView alloc] initWithFrame:CGRectMake(0, 0, self.productControlView.frame.size.width, self.productControlView.frame.size.height)];
+    [self.productControlView addSubview:historyProductListView];
+    historyProductListView.delegate = self;
 }
 
 - (void)screenShot

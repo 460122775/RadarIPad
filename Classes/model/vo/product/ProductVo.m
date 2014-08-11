@@ -10,4 +10,6 @@
 
 @implementation ProductVo
 
+@synthesize type, name, ename, config, user_id, isBaseProduct, needConfig;
+
 @end
