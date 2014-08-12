@@ -46,4 +46,52 @@
     }
 }
 
++ (NSString*) getProductData:(int) type andCurrentData:(NSString*) currentData
+{
+//    DLog(@"1:%@", currentData);
+    FMDatabaseQueue *queue = [FMDatabaseQueue databaseQueueWithPath:DBPath];
+    if (queue)
+    {
+        __block NSString *resultStr = currentData;
+        [queue inDatabase:^(FMDatabase *db){
+            FMResultSet *rs = nil;
+            int layer = [[currentData substringWithRange:NSMakeRange(26, 2)] intValue];
+            int productType = [[currentData substringWithRange:NSMakeRange(29, 3)] intValue];
+            
+            if(type == 1 && layer >0)
+            {
+                layer--;
+                rs = [db executeQuery:[NSString
+                         stringWithFormat:@"select * from t_productdata where posFile like '%@%%' and type=%i and layer=%i", [currentData substringToIndex:26], productType, layer]];
+            }else if(type == 2 && layer < 13){
+                layer++;
+                rs = [db executeQuery:[NSString
+                                       stringWithFormat:@"select posFile from t_productdata where posFile like '%@%%' and type=%i and layer=%i", [currentData substringToIndex:26], productType, layer]];
+            }else if(type == 3){
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"yyyyMMdd_HHmmss"];
+                NSDate *date = [dateFormatter dateFromString:[currentData substringWithRange:NSMakeRange(10, 15)]];
+                rs = [db executeQuery:[NSString
+                                       stringWithFormat:@"select posFile from t_productdata where time < %f and type=%i and layer=%i order by time desc limit 1", date.timeIntervalSince1970, productType, layer]];
+            }else if (type == 4){
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"yyyyMMdd_HHmmss"];
+                NSDate *date = [dateFormatter dateFromString:[currentData substringWithRange:NSMakeRange(10, 15)]];
+                rs = [db executeQuery:[NSString
+                                       stringWithFormat:@"select posFile from t_productdata where time > %f and type=%i and layer=%i order by time asc limit 1", date.timeIntervalSince1970, productType, layer]];
+            }
+            if([rs next])
+            {
+                resultStr = [rs stringForColumn:@"posFile"];
+//                DLog(@"2:%@", currentData);
+            }
+            [rs close];
+        }];
+        [queue close];
+        if(resultStr != nil && resultStr.length > 0) currentData = resultStr;
+    }
+//    DLog(@"3:%@", currentData);
+    return currentData;
+}
+
 @end

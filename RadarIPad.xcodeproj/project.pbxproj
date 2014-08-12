@@ -80,6 +80,7 @@
 		012999591989DBF400F60F02 /* touxiang2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0129993D1989DBF400F60F02 /* touxiang2@2x.png */; };
 		014E1DD5197F5D47001EC88C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 014E1DD4197F5D47001EC88C /* QuartzCore.framework */; };
 		014E1DDC197FA5D4001EC88C /* ProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 014E1DDB197FA5D4001EC88C /* ProductView.m */; };
+		0152E3911999EA3700EEA9D5 /* RHIDrawData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0152E3901999EA3700EEA9D5 /* RHIDrawData.m */; };
 		015C607919985D7A001F3C47 /* HistoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 015C607819985D7A001F3C47 /* HistoryView.xib */; };
 		015C607C19985D92001F3C47 /* HistoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 015C607B19985D92001F3C47 /* HistoryView.m */; };
 		015C607F1998B0CC001F3C47 /* HistoryProductListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 015C607E1998B0CC001F3C47 /* HistoryProductListView.m */; };
@@ -176,7 +177,6 @@
 		0198B60A199200EF00A8A887 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0198B609199200EF00A8A887 /* MapKit.framework */; };
 		01E903CB197DEB3300CF24CB /* ProductFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E903CA197DEB3300CF24CB /* ProductFactory.m */; };
 		01E903CF197DEE3C00CF24CB /* DBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E903CE197DEE3C00CF24CB /* DBModel.m */; };
-		01F9508A185AE484005282DB /* NetWorkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F95089185AE484005282DB /* NetWorkHelper.m */; };
 		01F9508E185B04B4005282DB /* ProductVo.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F9508D185B04B4005282DB /* ProductVo.m */; };
 		01F95091185B04D0005282DB /* ProductInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F95090185B04D0005282DB /* ProductInfo.m */; };
 		C75962911796EA4F008C48D3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C75962901796EA4F008C48D3 /* UIKit.framework */; };
@@ -186,8 +186,6 @@
 		C798D02B17A0350800326F1C /* UserVo.m in Sources */ = {isa = PBXBuildFile; fileRef = C798D02A17A0350800326F1C /* UserVo.m */; };
 		C798D02E17A0352900326F1C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C798D02D17A0352900326F1C /* AppDelegate.m */; };
 		C7E4F0EF17F5795400B63B02 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E4F0EE17F5795400B63B02 /* UserModel.m */; };
-		C7E4F10C17F57A4C00B63B02 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E4F0F417F57A4C00B63B02 /* GCDAsyncSocket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C7E4F10D17F57A4C00B63B02 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E4F0F617F57A4C00B63B02 /* GCDAsyncUdpSocket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C7E4F10E17F57A4C00B63B02 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E4F0F917F57A4C00B63B02 /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C7E4F10F17F57A4C00B63B02 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E4F0FC17F57A4C00B63B02 /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C7E4F11017F57A4C00B63B02 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = C7E4F0FE17F57A4C00B63B02 /* ASIDataDecompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -284,6 +282,8 @@
 		014E1DD4197F5D47001EC88C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		014E1DDA197FA5D4001EC88C /* ProductView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductView.h; path = Classes/controller/product/ProductView.h; sourceTree = SOURCE_ROOT; };
 		014E1DDB197FA5D4001EC88C /* ProductView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductView.m; path = Classes/controller/product/ProductView.m; sourceTree = SOURCE_ROOT; };
+		0152E38F1999EA3700EEA9D5 /* RHIDrawData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RHIDrawData.h; path = Classes/model/product/products/rhi/RHIDrawData.h; sourceTree = SOURCE_ROOT; };
+		0152E3901999EA3700EEA9D5 /* RHIDrawData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RHIDrawData.m; path = Classes/model/product/products/rhi/RHIDrawData.m; sourceTree = SOURCE_ROOT; };
 		015C607819985D7A001F3C47 /* HistoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HistoryView.xib; path = Classes/controller/history/HistoryView.xib; sourceTree = SOURCE_ROOT; };
 		015C607A19985D92001F3C47 /* HistoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HistoryView.h; path = Classes/controller/history/HistoryView.h; sourceTree = SOURCE_ROOT; };
 		015C607B19985D92001F3C47 /* HistoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HistoryView.m; path = Classes/controller/history/HistoryView.m; sourceTree = SOURCE_ROOT; };
@@ -402,8 +402,6 @@
 		01E903CA197DEB3300CF24CB /* ProductFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductFactory.m; path = Classes/model/product/common/ProductFactory.m; sourceTree = SOURCE_ROOT; };
 		01E903CD197DEE3C00CF24CB /* DBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBModel.h; path = Classes/model/db/DBModel.h; sourceTree = SOURCE_ROOT; };
 		01E903CE197DEE3C00CF24CB /* DBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBModel.m; path = Classes/model/db/DBModel.m; sourceTree = SOURCE_ROOT; };
-		01F95088185AE484005282DB /* NetWorkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetWorkHelper.h; path = Classes/model/socket/NetWorkHelper.h; sourceTree = SOURCE_ROOT; };
-		01F95089185AE484005282DB /* NetWorkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetWorkHelper.m; path = Classes/model/socket/NetWorkHelper.m; sourceTree = SOURCE_ROOT; };
 		01F9508C185B04B4005282DB /* ProductVo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductVo.h; path = Classes/model/vo/product/ProductVo.h; sourceTree = SOURCE_ROOT; };
 		01F9508D185B04B4005282DB /* ProductVo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductVo.m; path = Classes/model/vo/product/ProductVo.m; sourceTree = SOURCE_ROOT; };
 		01F9508F185B04D0005282DB /* ProductInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductInfo.h; path = Classes/model/vo/product/ProductInfo.h; sourceTree = SOURCE_ROOT; };
@@ -422,10 +420,6 @@
 		C798D06B17A0357100326F1C /* RadarIPad-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RadarIPad-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		C7E4F0ED17F5795400B63B02 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserModel.h; path = Classes/model/user/UserModel.h; sourceTree = SOURCE_ROOT; };
 		C7E4F0EE17F5795400B63B02 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserModel.m; path = Classes/model/user/UserModel.m; sourceTree = SOURCE_ROOT; };
-		C7E4F0F317F57A4C00B63B02 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
-		C7E4F0F417F57A4C00B63B02 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
-		C7E4F0F517F57A4C00B63B02 /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
-		C7E4F0F617F57A4C00B63B02 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
 		C7E4F0F817F57A4C00B63B02 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		C7E4F0F917F57A4C00B63B02 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		C7E4F0FA17F57A4C00B63B02 /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -588,6 +582,15 @@
 			name = product;
 			sourceTree = "<group>";
 		};
+		0152E38B1999E9BA00EEA9D5 /* rhi */ = {
+			isa = PBXGroup;
+			children = (
+				0152E38F1999EA3700EEA9D5 /* RHIDrawData.h */,
+				0152E3901999EA3700EEA9D5 /* RHIDrawData.m */,
+			);
+			name = rhi;
+			sourceTree = "<group>";
+		};
 		015DDD851851B7FD00D9D78F /* product */ = {
 			isa = PBXGroup;
 			children = (
@@ -631,6 +634,7 @@
 		015DDD9D1851C04E00D9D78F /* products */ = {
 			isa = PBXGroup;
 			children = (
+				0152E38B1999E9BA00EEA9D5 /* rhi */,
 				015DDDA21851CA2F00D9D78F /* rvw */,
 			);
 			name = products;
@@ -967,8 +971,6 @@
 		C7E4F0F017F5799300B63B02 /* socket */ = {
 			isa = PBXGroup;
 			children = (
-				01F95088185AE484005282DB /* NetWorkHelper.h */,
-				01F95089185AE484005282DB /* NetWorkHelper.m */,
 			);
 			name = socket;
 			sourceTree = "<group>";
@@ -981,23 +983,10 @@
 				016F0CA61990D12900D2E9E4 /* LXActivity */,
 				015DDD9B1851BB4C00D9D78F /* FMDB */,
 				C7E4F11617F57B6C00B63B02 /* Reachability */,
-				C7E4F0F217F57A4C00B63B02 /* AsyncSocket */,
 				C7E4F0F717F57A4C00B63B02 /* ASI */,
 			);
 			name = external;
 			sourceTree = "<group>";
-		};
-		C7E4F0F217F57A4C00B63B02 /* AsyncSocket */ = {
-			isa = PBXGroup;
-			children = (
-				C7E4F0F317F57A4C00B63B02 /* GCDAsyncSocket.h */,
-				C7E4F0F417F57A4C00B63B02 /* GCDAsyncSocket.m */,
-				C7E4F0F517F57A4C00B63B02 /* GCDAsyncUdpSocket.h */,
-				C7E4F0F617F57A4C00B63B02 /* GCDAsyncUdpSocket.m */,
-			);
-			name = AsyncSocket;
-			path = Classes/util/external/AsyncSocket;
-			sourceTree = SOURCE_ROOT;
 		};
 		C7E4F0F717F57A4C00B63B02 /* ASI */ = {
 			isa = PBXGroup;
@@ -1268,7 +1257,6 @@
 				C798D02E17A0352900326F1C /* AppDelegate.m in Sources */,
 				01E903CB197DEB3300CF24CB /* ProductFactory.m in Sources */,
 				C7E4F11317F57A4C00B63B02 /* ASIHTTPRequest.m in Sources */,
-				C7E4F10D17F57A4C00B63B02 /* GCDAsyncUdpSocket.m in Sources */,
 				016F0CA91990D14500D2E9E4 /* LXActivity.m in Sources */,
 				C7E4F11017F57A4C00B63B02 /* ASIDataDecompressor.m in Sources */,
 				0198B6081991FF2B00A8A887 /* SVPulsingAnnotationView.m in Sources */,
@@ -1276,12 +1264,11 @@
 				C7E4F11517F57A4C00B63B02 /* ASINetworkQueue.m in Sources */,
 				015DDD971851BB4700D9D78F /* FMDatabaseAdditions.m in Sources */,
 				016121D21982033500107D1E /* VoiceView.m in Sources */,
-				C7E4F10C17F57A4C00B63B02 /* GCDAsyncSocket.m in Sources */,
 				C7E4F10E17F57A4C00B63B02 /* ASIAuthenticationDialog.m in Sources */,
 				014E1DDC197FA5D4001EC88C /* ProductView.m in Sources */,
 				01F95091185B04D0005282DB /* ProductInfo.m in Sources */,
-				01F9508A185AE484005282DB /* NetWorkHelper.m in Sources */,
 				015DDD981851BB4700D9D78F /* FMDatabasePool.m in Sources */,
+				0152E3911999EA3700EEA9D5 /* RHIDrawData.m in Sources */,
 				01768B7319931BCD00EFF920 /* ASValueTrackingSlider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

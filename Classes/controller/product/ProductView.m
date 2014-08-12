@@ -16,13 +16,15 @@
 
 @implementation ProductView
 
-@synthesize productImgView, mapCircleView, colorImgView, rightBarView, radarInfoBarView, productInfoView, currentProductModel, currentProductData, productControlView, processControlView, slider;
+@synthesize productImgView, mapCircleView, colorImgView, rightBarView, radarInfoBarView, productInfoView, currentProductModel, currentPath, currentProductData, productControlView, processControlView, slider;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         [self setBackgroundColor:BackGroundBlueColor];
+        // Test Code.....
+        self.currentPath = @"/20140701/20140701_001556.06.003.000_6.19.zdb";
     }
     return self;
 }
@@ -46,10 +48,16 @@
     zoomGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(imgZoomControl:)];
     [self.productView addGestureRecognizer:zoomGestureRecognizer];
     
-    dragGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(imgDragControl:)];
-    dragGestureRecognizer.minimumNumberOfTouches = 1;
-    dragGestureRecognizer.maximumNumberOfTouches = 1;
-    [self.productView addGestureRecognizer:dragGestureRecognizer];
+//    dragGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(imgDragControl:)];
+//    dragGestureRecognizer.minimumNumberOfTouches = 1;
+//    dragGestureRecognizer.maximumNumberOfTouches = 1;
+//    [self.productView addGestureRecognizer:dragGestureRecognizer];
+    
+    switchGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(imgSwitchcControl:)];
+    switchGestureRecognizer.minimumNumberOfTouches = 1;
+    switchGestureRecognizer.maximumNumberOfTouches = 1;
+    [self.productView addGestureRecognizer:switchGestureRecognizer];
+    
     
     self.processControlView = [[UIView alloc] initWithFrame:CGRectMake(0, ProductContainer_height, ProductContainer_Width, 30)];
     [self.processControlView setBackgroundColor:ProductThemeColor];
@@ -57,9 +65,6 @@
     
     //Bottom
     self.slider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(18, 0, ProductContainer_Width - 40, 30)];
-//    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-//    [formatter setNumberStyle:NSNumberFormatterNoStyle];
-//    [self.slider setNumberFormatter:formatter];
     self.slider.font = [UIFont fontWithName:@"Futura-CondensedExtraBold" size:26];
     self.slider.popUpViewAnimatedColors = @[BackGroundBlueColor];
     self.slider.maximumValue = 100;
@@ -122,8 +127,8 @@
 - (void)productAddressReceived
 {
     // Test Code.....
-    NSString *path = [DataPath stringByAppendingString:@"/20140701/Z/20140701_003003.02.003.000_2.40.zdb"];
-    self.currentProductData = [ProductFactory uncompressZippedData:[NSData dataWithContentsOfFile:path]];
+    self.currentProductData = [ProductFactory uncompressZippedData:
+                               [NSData dataWithContentsOfFile:[DataPath stringByAppendingString:self.currentPath]]];
     self.currentProductModel = [ProductFactory getProductModel:ProductType_R];
     [ColorModel drawColor:ProductType_R andColorImgView:self.colorImgView];
     [self.currentProductModel getProductInfo: self.productInfoView andData:self.currentProductData];
@@ -279,7 +284,6 @@ static CGPoint point;
         }else{
             self.currentProductModel.zoomValue -= (ZoomStep * (int)((1 - currentScale) * 6));
         }
-//        DLog(@">>>>>>>%f, %f", currentScale, self.currentProductModel.zoomValue);
         if(self.currentProductModel.zoomValue > 10)
         {
             self.currentProductModel.zoomValue = 10;
@@ -314,6 +318,41 @@ static CGPoint dragLocation;
         self.mapCircleView.frame = CGRectMake(self.productImgView.frame.origin.x,
                                               self.productImgView.frame.origin.y,
                                               ProductContainer_Width, ProductContainer_height);
+    }
+}
+
+-(void)imgSwitchcControl:(UIPanGestureRecognizer*)paramSender
+{
+    CGPoint location = [paramSender locationInView:paramSender.view.superview];
+    if (paramSender.state == UIGestureRecognizerStateBegan)
+    {
+        dragLocation.x = location.x;
+        dragLocation.y = location.y;
+    }else if (paramSender.state == UIGestureRecognizerStateEnded && paramSender.state != UIGestureRecognizerStateFailed){
+        // Gesture Valid...
+        if (abs(dragLocation.x - location.x) >= 10 || abs(dragLocation.y - location.y) >= 10)
+        {
+            // Horizontal.
+            if (abs(dragLocation.x - location.x) > abs(dragLocation.y - location.y))
+            {
+                // Turn left.
+                if (dragLocation.x - location.x > 0)
+                {
+                    self.currentPath = [DBModel getProductData:3 andCurrentData:self.currentPath];
+                }else{ // Turn right.
+                    self.currentPath = [DBModel getProductData:4 andCurrentData:self.currentPath];
+                }
+            }else{// Vertical.
+                // Turn up.
+                if (dragLocation.y - location.y > 0)
+                {
+                    self.currentPath = [DBModel getProductData:1 andCurrentData:self.currentPath];
+                }else{// Turn down.
+                    self.currentPath = [DBModel getProductData:2 andCurrentData:self.currentPath];
+                }
+            }
+            [self productAddressReceived];
+        }
     }
 }
 

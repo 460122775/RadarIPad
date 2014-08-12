@@ -77,6 +77,11 @@
 {
     [data getBytes:&fileHeadStruct range:NSMakeRange(0, sizeof(fileHeadStruct))];
     
+    for(UIView *view in [productInfoView subviews])
+    {
+        [view removeFromSuperview];
+    }
+    
     UILabel *productNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop, labelWidth, 20)];
     [productNameLabel setTextColor:ProductTextColor];
     [productNameLabel setText:[NSString stringWithFormat:@"产品名称：基本反射率(Z) ［%.2f°］", fileHeadStruct.obserSec.iElevation[0] / 100.f]];

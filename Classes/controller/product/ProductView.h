@@ -16,6 +16,7 @@
 #import "CurrentProductListView.h"
 #import "HistoryProductListView.h"
 #import "HistoryView.h"
+#import "DBModel.h"
 
 #import "LXActivity.h"
 #import "SVPulsingAnnotationView.h"
@@ -24,6 +25,7 @@
 @interface ProductView : UIView<CLLocationManagerDelegate, ASValueTrackingSliderDataSource, HistoryProductListProtocol>{
     UIPinchGestureRecognizer *zoomGestureRecognizer;
     UIPanGestureRecognizer *dragGestureRecognizer;
+    UIPanGestureRecognizer *switchGestureRecognizer;
     CLLocationManager *locationManager;
     SVPulsingAnnotationView *pulsingView;
     CurrentProductListView *currentProductListView;
@@ -44,6 +46,7 @@
 
 
 @property (strong, nonatomic) ProductModel<ProductDrawDataProtocol>* currentProductModel;
+@property (strong, nonatomic) NSString *currentPath;
 @property (strong, nonatomic) NSData* currentProductData;
 
 - (void)showPosition;

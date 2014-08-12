@@ -29,6 +29,7 @@
     // If R, LCS.
     _det = fileHeadStruct.obserSec.usRefBinNumber[0] / iRadius;
     _detM = fileHeadStruct.obserSec.usRefBinNumber[0] * fileHeadStruct.obserSec.iRefBinLen[0] / iRadius;
+    ikuchang = fileHeadStruct.obserSec.iRefBinLen[0] / 1000;
     maxDistance = fileHeadStruct.obserSec.usRefBinNumber[0] * fileHeadStruct.obserSec.iRefBinLen[0];
     rad360 = fileHeadStruct.obserSec.iRadialNum[0] / 360.0;
     sizeofRadial = fileHeadStruct.obserSec.usRefBinNumber[0] + 64;

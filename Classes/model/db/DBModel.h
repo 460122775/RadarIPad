@@ -14,4 +14,6 @@
 
 + (void)initDB;
 
++ (NSString*) getProductData:(int) type andCurrentData:(NSString*) currentData;
+
 @end

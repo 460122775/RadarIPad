@@ -18,6 +18,8 @@
     
     int sizeofRadial;
     int maxDistance;
+    int ikuchang;
+    int nRangbin;
     float iRadius;
     float _det;
     float _detM;    // Real distance of each pix.
