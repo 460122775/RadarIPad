@@ -35,15 +35,15 @@
 - (void)didMoveToSuperview
 {
     self.productDataArray = [[NSMutableArray alloc] initWithObjects:
-                             @"20140701_000218.00.007.000.zdb 377KB",
-                             @"20140701_000908.00.007.000.zdb 362kB",
-                             @"20140701_001556.00.007.000.zdb 370KB",
-                             @"20140701_002311.00.007.000.zdb 355KB",
-                             @"20140701_003003.00.007.000.zdb 345KB",
-                             @"20140701_003705.00.007.000.zdb 340KB",
-                             @"20140701_004358.00.007.000.zdb 337KB",
-                             @"20140701_005050.00.007.000.zdb 337KB",
-                             @"20140701_005740.00.007.000.zdb 340KB",
+                             @"20140701_000218.02.003.000_2.40 97KB",
+                             @"20140701_000908.02.003.000_2.40 92KB",
+                             @"20140701_001556.02.003.000_2.40 96KB",
+                             @"20140701_002311.02.003.000_2.40 86KB",
+                             @"20140701_003003.02.003.000_2.40 78KB",
+                             @"20140701_002311.02.003.000_2.40 75KB",
+                             @"20140701_001556.02.003.000_2.40 68KB",
+                             @"20140701_000908.02.003.000_2.40 92KB",
+                             @"20140701_000218.02.003.000_2.40 97KB",
                              nil];
 }
 
@@ -122,7 +122,15 @@
     }
     [_tableView cellForRowAtIndexPath:indexPath].backgroundColor = BackGroundBlueColor;
     ((UILabel*)[[_tableView cellForRowAtIndexPath:indexPath] viewWithTag:1]).textColor = [UIColor whiteColor];
-    [self.delegate selectProduct:nil];
+
+    //Test Code...
+    NSString *productStr = (NSString*)[self.productDataArray objectAtIndex:indexPath.row];
+    ProductInfo *vo = [[ProductInfo alloc] initWithPosFileStr:[NSString stringWithFormat:@"/%@.zdb",[productStr substringWithRange:NSMakeRange(0, productStr.length - 5)]]];
+    //Test End...
+    
+    [self.delegate selectProduct:vo];
+    productStr = nil;
+    vo = nil;
 }
 
 @end

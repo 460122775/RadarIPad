@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ProductDrawDataProtocol.h"
 #import "ProductDefine.h"
+#import "ProductInfo.h"
 
 @interface ProductModel: NSObject<ProductDrawDataProtocol>{
     int productPaddingTop;
@@ -31,6 +32,7 @@
 @property (nonatomic, assign) float zoomValue;
 @property (nonatomic, assign) int centX;
 @property (nonatomic, assign) int centY;
+@property (nonatomic, retain) ProductInfo *productInfo;
 
 - (void) drawDistanceCircle:(UIImageView *) productImgView;
 - (void) constNeedCal:(UIImageView *) productImgView;

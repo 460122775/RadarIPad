@@ -11,6 +11,7 @@
 #import "QuartzCore/QuartzCore.h"
 
 #import "ProductModel.h"
+#import "ProductVo.h"
 #import "ProductFactory.h"
 #import "ProductDrawDataProtocol.h"
 #import "CurrentProductListView.h"
@@ -22,20 +23,24 @@
 #import "SVPulsingAnnotationView.h"
 #import "ASValueTrackingSlider.h"
 
-@interface ProductView : UIView<CLLocationManagerDelegate, ASValueTrackingSliderDataSource, HistoryProductListProtocol>{
+@interface ProductView : UIView<CLLocationManagerDelegate, ASValueTrackingSliderDataSource,ASValueTrackingSliderDelegate,
+                            HistoryProductListProtocol, CurrentProductListDelegate>{
     UIPinchGestureRecognizer *zoomGestureRecognizer;
     UIPanGestureRecognizer *dragGestureRecognizer;
     UIPanGestureRecognizer *switchGestureRecognizer;
+    UIPanGestureRecognizer *knifeGestureRecognizer;
     CLLocationManager *locationManager;
     SVPulsingAnnotationView *pulsingView;
     CurrentProductListView *currentProductListView;
     HistoryProductListView *historyProductListView;
     HistoryView *historyView;
+    NSTimer *playTimer;
 }
 
 @property (strong, nonatomic) UIView *productView;
 @property (strong, nonatomic) UIImageView *productImgView;
 @property (strong, nonatomic) UIImageView *mapCircleView;
+@property (strong, nonatomic) UIImageView *knifeLineView;
 @property (strong, nonatomic) UIImageView *colorImgView;
 @property (strong, nonatomic) UIView *processControlView;
 @property (strong, nonatomic) ASValueTrackingSlider *slider;
@@ -46,7 +51,6 @@
 
 
 @property (strong, nonatomic) ProductModel<ProductDrawDataProtocol>* currentProductModel;
-@property (strong, nonatomic) NSString *currentPath;
 @property (strong, nonatomic) NSData* currentProductData;
 
 - (void)showPosition;
@@ -54,5 +58,7 @@
 - (void)showCurrentProduct;
 - (void)historyBtnClick;
 - (void)drawProduct;
+- (void)knifeBtnClick:(id) sender;
+- (void)playBtnClick;
 
 @end

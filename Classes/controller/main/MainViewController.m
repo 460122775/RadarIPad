@@ -76,7 +76,10 @@ static MainViewController *instance;
 
 - (IBAction)playBtnClick:(id)sender
 {
-    
+    if (self.productView != nil)
+    {
+        [self.productView playBtnClick];
+    }
 }
 
 - (IBAction)camaraBtnClick:(id)sender
@@ -89,7 +92,10 @@ static MainViewController *instance;
 
 - (IBAction)knifeBtnClick:(id)sender
 {
-    
+    if (self.productView != nil)
+    {
+        [self.productView knifeBtnClick:sender];
+    }
 }
 
 - (IBAction)positionBtnClick:(id)sender

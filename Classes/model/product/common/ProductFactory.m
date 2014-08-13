@@ -21,6 +21,8 @@ static ProductFactory* _instance;
     switch (productType)
     {
         case ProductType_R:
+        case ProductType_V:
+        case ProductType_W:
             return [[RVWDrawData alloc]init];
             break;
             

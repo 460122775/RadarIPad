@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ProductFactory.h"
-#import "ProductVo.h"
+#import "ProductInfo.h"
 
 @class ProductView;
 @protocol HistoryProductListProtocol <NSObject>

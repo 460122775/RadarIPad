@@ -20,4 +20,6 @@
 @property(nonatomic, retain)NSString *cName;
 @property(nonatomic, retain)NSString *eName;
 
+-(id)initWithPosFileStr:(NSString*) posFile;
+
 @end

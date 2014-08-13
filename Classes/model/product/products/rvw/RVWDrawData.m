@@ -84,7 +84,12 @@
     
     UILabel *productNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop, labelWidth, 20)];
     [productNameLabel setTextColor:ProductTextColor];
-    [productNameLabel setText:[NSString stringWithFormat:@"产品名称：基本反射率(Z) ［%.2f°］", fileHeadStruct.obserSec.iElevation[0] / 100.f]];
+    switch(self.productInfo.productType)
+    {
+        case ProductType_R:[productNameLabel setText:[NSString stringWithFormat:@"产品名称：基本反射率(Z) ［%.2f°］", fileHeadStruct.obserSec.iElevation[0] / 100.f]];break;
+        case ProductType_V:[productNameLabel setText:[NSString stringWithFormat:@"产品名称：基本反射率(V) ［%.2f°］", fileHeadStruct.obserSec.iElevation[0] / 100.f]];break;
+        case ProductType_W:[productNameLabel setText:[NSString stringWithFormat:@"产品名称：基本反射率(W) ［%.2f°］", fileHeadStruct.obserSec.iElevation[0] / 100.f]];break;
+    }
     [productInfoView addSubview:productNameLabel];
     
     UILabel *radarTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop + 20 + VGap, labelWidth, 20)];

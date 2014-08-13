@@ -8,12 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "ProductFactory.h"
-#import "ProductVo.h"
+#import "ProductInfo.h"
+
+@class ProductView;
+@protocol CurrentProductListDelegate <NSObject>
+
+@required
+- (void)selectProduct:(id)productObject;
+
+@end
 
 @interface CurrentProductListView : UIView<UITableViewDataSource, UITableViewDelegate>{
     UITableView *tableView;
 }
 
 @property(nonatomic, retain) NSMutableArray *productArray;
+@property(nonatomic, assign) id<CurrentProductListDelegate> delegate;
 
 @end

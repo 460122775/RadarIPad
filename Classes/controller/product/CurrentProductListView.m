@@ -104,6 +104,27 @@
     }
     [_tableView cellForRowAtIndexPath:indexPath].backgroundColor = BackGroundBlueColor;
     [_tableView cellForRowAtIndexPath:indexPath].textLabel.textColor = [UIColor whiteColor];
+    
+    //Test Code...
+    ProductInfo *vo = nil;
+    switch (((ProductVo*)[self.productArray objectAtIndex:indexPath.row]).type)
+    {
+        case ProductType_R:
+            vo = [[ProductInfo alloc] initWithPosFileStr:@"/20140701_001556.06.003.000_6.19.zdb"];
+            break;
+        case ProductType_V:
+            vo = [[ProductInfo alloc] initWithPosFileStr:@"/20140701_001556.06.004.000_6.19.zdb"];
+            break;
+        case ProductType_W:
+            vo = [[ProductInfo alloc] initWithPosFileStr:@"/20140701_001556.06.005.000_6.19.zdb"];
+            break;
+        default:
+            vo = nil;
+            return;
+    }
+    //Test End...
+    [self.delegate selectProduct:vo];
+    vo = nil;
 }
 
 @end

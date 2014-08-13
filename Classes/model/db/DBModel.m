@@ -28,11 +28,6 @@
             BOOL worked = [db executeUpdate:@"create table t_color (colorType integer, colorData text)"];
             FMDBQuickCheck(worked);
             
-            //**************Test Data***************
-            worked = [db executeUpdate:@"insert into t_color values (3, '17,dbz,-32,0,0,3,26,-20,127,194,229,30,-5,0,174,165,10,0,198,195,255,10,5,123,113,239,10,10,24,36,214,10,15,165,255,173,10,20,0,235,0,10,25,16,146,24,10,30,255,247,99,10,35,206,203,0,10,40,140,142,0,10,45,255,174,173,10,50,255,101,90,10,55,239,0,49,10,60,214,142,255,10,65,173,36,255,59,94.5')"];
-            //            FMDBQuickCheck(worked);
-            //**************Test Data***************
-            
             worked = [db executeUpdate:@"CREATE TABLE t_productcfg (type integer, name text, ename text, config text, user_id integer, needConfig integer, isBaseProduct integer) "];
             FMDBQuickCheck(worked);
             
@@ -55,28 +50,28 @@
         __block NSString *resultStr = currentData;
         [queue inDatabase:^(FMDatabase *db){
             FMResultSet *rs = nil;
-            int layer = [[currentData substringWithRange:NSMakeRange(26, 2)] intValue];
-            int productType = [[currentData substringWithRange:NSMakeRange(29, 3)] intValue];
+            int layer = [[currentData substringWithRange:NSMakeRange(17, 2)] intValue];
+            int productType = [[currentData substringWithRange:NSMakeRange(20, 3)] intValue];
             
             if(type == 1 && layer >0)
             {
                 layer--;
                 rs = [db executeQuery:[NSString
-                         stringWithFormat:@"select * from t_productdata where posFile like '%@%%' and type=%i and layer=%i", [currentData substringToIndex:26], productType, layer]];
+                         stringWithFormat:@"select * from t_productdata where posFile like '%@%%' and type=%i and layer=%i", [currentData substringToIndex:17], productType, layer]];
             }else if(type == 2 && layer < 13){
                 layer++;
                 rs = [db executeQuery:[NSString
-                                       stringWithFormat:@"select posFile from t_productdata where posFile like '%@%%' and type=%i and layer=%i", [currentData substringToIndex:26], productType, layer]];
+                                       stringWithFormat:@"select posFile from t_productdata where posFile like '%@%%' and type=%i and layer=%i", [currentData substringToIndex:17], productType, layer]];
             }else if(type == 3){
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                 [dateFormatter setDateFormat:@"yyyyMMdd_HHmmss"];
-                NSDate *date = [dateFormatter dateFromString:[currentData substringWithRange:NSMakeRange(10, 15)]];
+                NSDate *date = [dateFormatter dateFromString:[currentData substringWithRange:NSMakeRange(1, 15)]];
                 rs = [db executeQuery:[NSString
                                        stringWithFormat:@"select posFile from t_productdata where time < %f and type=%i and layer=%i order by time desc limit 1", date.timeIntervalSince1970, productType, layer]];
             }else if (type == 4){
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                 [dateFormatter setDateFormat:@"yyyyMMdd_HHmmss"];
-                NSDate *date = [dateFormatter dateFromString:[currentData substringWithRange:NSMakeRange(10, 15)]];
+                NSDate *date = [dateFormatter dateFromString:[currentData substringWithRange:NSMakeRange(1, 15)]];
                 rs = [db executeQuery:[NSString
                                        stringWithFormat:@"select posFile from t_productdata where time > %f and type=%i and layer=%i order by time asc limit 1", date.timeIntervalSince1970, productType, layer]];
             }
