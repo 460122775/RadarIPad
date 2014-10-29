@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController">
             <connections>
                 <outlet property="btn_scrollView" destination="ac0-eG-4BU" id="zGT-7y-dg6"/>
+                <outlet property="btn_scrollViewBg" destination="bZl-3T-Q2X" id="4cr-Zu-45B"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,125 +17,111 @@
             <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ac0-eG-4BU">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bZl-3T-Q2X">
                     <rect key="frame" x="10" y="30" width="65" height="728"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <button opaque="NO" tag="7" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZBg-Wg-Epm">
-                            <rect key="frame" x="0.0" y="73" width="65" height="65"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ac0-eG-4BU">
+                            <rect key="frame" x="0.0" y="0.0" width="65" height="728"/>
+                            <subviews>
+                                <button opaque="NO" tag="7" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZBg-Wg-Epm">
+                                    <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
+                                    <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
+                                    <state key="normal" image="refresh.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="currentBtnClick:" destination="-1" eventType="touchUpInside" id="xkd-Ql-qbx"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x05-jS-5FO">
+                                    <rect key="frame" x="0.0" y="146" width="65" height="65"/>
+                                    <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
+                                    <state key="normal" image="player.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="playBtnClick:" destination="-1" eventType="touchUpInside" id="Op0-ka-krc"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QaU-RI-mer">
+                                    <rect key="frame" x="0.0" y="219" width="65" height="65"/>
+                                    <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
+                                    <state key="normal" image="camara.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="camaraBtnClick:" destination="-1" eventType="touchUpInside" id="kTu-0N-Lkf"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uLV-WU-bPC">
+                                    <rect key="frame" x="0.0" y="293" width="65" height="65"/>
+                                    <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
+                                    <state key="normal" image="knife.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="knifeBtnClick:" destination="-1" eventType="touchUpInside" id="ePH-qK-ZBy"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ghv-pd-aVi">
+                                    <rect key="frame" x="0.0" y="367" width="65" height="65"/>
+                                    <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
+                                    <state key="normal" image="position2.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="positionBtnClick:" destination="-1" eventType="touchUpInside" id="XQR-bC-rit"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wKO-fv-OPx">
+                                    <rect key="frame" x="0.0" y="516" width="65" height="65"/>
+                                    <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
+                                    <state key="normal" image="message.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="messageBtnClick:" destination="-1" eventType="touchUpInside" id="dYO-H0-zwB"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcI-UH-zgf">
+                                    <rect key="frame" x="0.0" y="590" width="65" height="65"/>
+                                    <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
+                                    <state key="normal" image="voice.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="voiceBtnClick:" destination="-1" eventType="touchUpInside" id="BkY-tS-fm7"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="9" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Sf-A4-MEj">
+                                    <rect key="frame" x="0.0" y="663" width="65" height="65"/>
+                                    <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
+                                    <state key="normal" image="config.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="settingBtnClick:" destination="-1" eventType="touchUpInside" id="gQ1-Ub-yjA"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hRP-FR-URf">
+                                    <rect key="frame" x="0.0" y="73" width="65" height="65"/>
+                                    <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
+                                    <state key="normal" image="calendar.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="historyBtnClick:" destination="-1" eventType="touchUpInside" id="J4l-NX-5xr"/>
+                                    </connections>
+                                </button>
+                            </subviews>
                             <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" image="refresh.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="currentBtnClick:" destination="-1" eventType="touchUpInside" id="xkd-Ql-qbx"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x05-jS-5FO">
-                            <rect key="frame" x="0.0" y="220" width="65" height="65"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" image="player.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="playBtnClick:" destination="-1" eventType="touchUpInside" id="Op0-ka-krc"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QaU-RI-mer">
-                            <rect key="frame" x="0.0" y="294" width="65" height="65"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" image="camara.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="camaraBtnClick:" destination="-1" eventType="touchUpInside" id="kTu-0N-Lkf"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uLV-WU-bPC">
-                            <rect key="frame" x="0.0" y="368" width="65" height="65"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" image="knife.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="knifeBtnClick:" destination="-1" eventType="touchUpInside" id="ePH-qK-ZBy"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ghv-pd-aVi">
-                            <rect key="frame" x="0.0" y="442" width="65" height="65"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" image="position2.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="positionBtnClick:" destination="-1" eventType="touchUpInside" id="XQR-bC-rit"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wKO-fv-OPx">
-                            <rect key="frame" x="0.0" y="516" width="65" height="65"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" image="message.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="messageBtnClick:" destination="-1" eventType="touchUpInside" id="dYO-H0-zwB"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcI-UH-zgf">
-                            <rect key="frame" x="0.0" y="590" width="65" height="65"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" image="voice.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="voiceBtnClick:" destination="-1" eventType="touchUpInside" id="BkY-tS-fm7"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hRP-FR-URf">
-                            <rect key="frame" x="0.0" y="146" width="65" height="65"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" image="calendar.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="historyBtnClick:" destination="-1" eventType="touchUpInside" id="J4l-NX-5xr"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9eD-n1-qp2">
-                            <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" image="radar2.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="productBtnClick:" destination="-1" eventType="touchUpInside" id="i00-6l-24x"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" tag="9" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Sf-A4-MEj">
-                            <rect key="frame" x="0.0" y="663" width="65" height="65"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" image="config.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="settingBtnClick:" destination="-1" eventType="touchUpInside" id="gQ1-Ub-yjA"/>
-                            </connections>
-                        </button>
+                        </scrollView>
                     </subviews>
-                    <color key="backgroundColor" red="0.96984614160000004" green="0.96984614160000004" blue="0.96984614160000004" alpha="1" colorSpace="calibratedRGB"/>
-                </scrollView>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.19607843137254902" green="0.27450980392156865" blue="0.5490196078431373" alpha="1" colorSpace="calibratedRGB"/>
+            <nil key="simulatedStatusBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
         </view>
     </objects>
@@ -145,8 +133,12 @@
         <image name="message.png" width="80" height="80"/>
         <image name="player.png" width="80" height="80"/>
         <image name="position2.png" width="80" height="80"/>
-        <image name="radar2.png" width="80" height="80"/>
         <image name="refresh.png" width="80" height="80"/>
         <image name="voice.png" width="80" height="80"/>
     </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination"/>
+    </simulatedMetricsContainer>
 </document>

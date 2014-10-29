@@ -25,6 +25,8 @@
 @property(nonatomic, retain) NSMutableArray *productDataArray;
 @property(nonatomic, assign) id<HistoryProductListProtocol> delegate;
 
+- (void)resizeTableView;
+
 @end
 
 

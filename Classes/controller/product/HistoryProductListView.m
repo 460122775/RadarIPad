@@ -47,6 +47,13 @@
                              nil];
 }
 
+- (void)resizeTableView
+{
+    tableView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    [tableView reloadData];
+    [tableView reloadInputViews];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

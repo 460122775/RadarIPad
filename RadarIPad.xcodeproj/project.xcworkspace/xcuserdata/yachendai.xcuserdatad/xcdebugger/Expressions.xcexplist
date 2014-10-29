@@ -3,13 +3,51 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "-[ProductView productAddressReceived]:ProductView.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "sizeof(fileHeadStruct)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "+[ColorModel selectControl:]:ColorModel.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "+[ProductFactory uncompressZippedData:]:ProductFactory.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[ProductModel constNeedCal:]:ProductModel.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[ProductModel drawDistanceCircle:]:ProductModel.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "sizeof(unsigned int)">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "-[RVWDrawData getProductInfo:andData:]:RVWDrawData.m">
          <PersistentStrings>
             <PersistentString
                value = "(char [20])self-&gt;fileHeadStruct.addSec..Nation">
+            </PersistentString>
+            <PersistentString
+               value = "sizeof(fileHeadStruct.addSec.Height)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[HistoryProductListView tableView:cellForRowAtIndexPath:]:HistoryProductListView.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "indexPath.row">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -58,9 +58,9 @@ typedef struct _REAL_ADDR_SECTION  //【160】
             char Latitude[20];   //!< 格式N35度30'15"  【20】
         };
     };
-    long int LongitudeV; //!< 天线所在径度的数值表示，单位取1／360000度(东经为整，西径为负)   **  【4】
-    long int LatitudeV;  //!< 天线所在纬度的数值表示，单位取1／360000度(北纬为正，南纬为负)   **  【4】
-    long int Height;	 //!< 天线所在的海拔高度，以mm为单位                                **  【4】
+    int LongitudeV; //!< 天线所在径度的数值表示，单位取1／360000度(东经为整，西径为负)   **  【4】
+    int LatitudeV;  //!< 天线所在纬度的数值表示，单位取1／360000度(北纬为正，南纬为负)   **  【4】
+    int Height;	 //!< 天线所在的海拔高度，以mm为单位                                **  【4】
     short int Elevation; //!< 测站四周地物的最大仰角(以百分之一度为单位)  【2】
     short int Elevation1; //!< 测站的最佳观测仰角(地物回波强度10dbz)，以百分之一度为单位  【2】
     union{
@@ -85,7 +85,7 @@ typedef struct _REAL_CAPABILITY_SECTION // 【40】
                                          - 4：其它
                                          */
     unsigned int	iWaveLength;			//!< 波长，以微米为单位          **  【2】
-    unsigned long  int	 iPeakPower;	//!< 雷达峰值功率，以瓦为单位  【4】
+    unsigned int	 iPeakPower;	//!< 雷达峰值功率，以瓦为单位  【4】
     union{
         unsigned short int   iSidelobeLevel;	//!< 第一旁瓣电平，取绝对值（单位取百分之一dB）  【2】
         unsigned short int   iLogExtent; //!< 对数接收机动态范围，以百分之一dB为单位  【2】
@@ -161,7 +161,7 @@ typedef struct _REAL_OBSERVATION_SECTION  // 【1066】
     unsigned short int   iObsStartTimeHour;		//!< 观测开始时间 小时（00-23）  【2】
     unsigned short int   iObsStartTimeMinute;		//!< 观测开始时间 分（00-59）  【2】
     unsigned short int   iObsStartTimeSecond;		//!< 观测开始时间 秒（00-59）  【2】
-    unsigned long        iGPSStartTime;		//!< 开始GPS时间(无GPS填零)  【4】
+    unsigned int        iGPSStartTime;		//!< 开始GPS时间(无GPS填零)  【4】
     unsigned short int   iCalibrate;	/*! 定标情况  【2】
                                          - 0:没有定标
                                          - 1:自动定标
@@ -172,7 +172,7 @@ typedef struct _REAL_OBSERVATION_SECTION  // 【1066】
     unsigned short int   iVSample;			//!< 速度处理样本数  【2】
     union  // 【120】
     {
-        unsigned long id[30];				//!< ID 号，仅对体扫产品有用  【120】
+        unsigned int id[30];				//!< ID 号，仅对体扫产品有用  【120】
         float parame[30];                   //产品的参数  【120】
     };
     
@@ -212,7 +212,7 @@ typedef struct _REAL_OBSERVATION_SECTION  // 【1066】
     };
     unsigned short int   iRefBinLen[30];		//!< 各层反射率库长（或每个数据代表的长度）***，以米为单位   **  【60】
     unsigned short int   iFirstBinDis[30];		//!< 各层径向上的第一个库（或数据）的开始距离（以米为单位）  **  【60】
-    unsigned long  int   iPPIStartPos[30] ;  //!< 各层PPI 在文件中开始的位置(字节，含文件头)        **  【120】
+    unsigned int   iPPIStartPos[30] ;  //!< 各层PPI 在文件中开始的位置(字节，含文件头)        **  【120】
     short int iElevation[30];		/*!  各层的仰角，单位1/100度    **  【60】
                                      - 做PPI时
                                      -# 仅在第一层填写仰角数。
@@ -269,7 +269,7 @@ typedef struct _REAL_OBSERVATION_SECTION  // 【1066】
     unsigned short int   iObsEndTimeHour;	//!< 观测结束时间，时(00-23)  【2】
     unsigned short int   iObsEndTimeMinute;	//!< 观测结束时间，分(00-59)  【2】
     unsigned short int   iObsEndTimeSecond;	//!< 观测结束时间，秒(00-59)  【2】
-    unsigned long        iGPSEndTime;	//!< GPS时间(无GPS填零)  【4】
+    unsigned int        iGPSEndTime;	//!< GPS时间(无GPS填零)  【4】
     unsigned short int   iStructSize;	//!< 应写注结构(1)数组的大小。 【2】
     union  // 【100】
     {

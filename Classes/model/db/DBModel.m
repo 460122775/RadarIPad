@@ -22,7 +22,6 @@
         // delete the old db if it exists
         NSFileManager *fileManager = [NSFileManager defaultManager];
         [fileManager removeItemAtPath:DBPath error:nil];
-        
         FMDatabaseQueue *queue = [FMDatabaseQueue databaseQueueWithPath:DBPath];
         [queue inDatabase:^(FMDatabase *db) {
             BOOL worked = [db executeUpdate:@"create table t_color (colorType integer, colorData text)"];

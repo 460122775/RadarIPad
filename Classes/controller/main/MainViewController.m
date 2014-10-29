@@ -21,6 +21,7 @@ static MainViewController *instance;
         // Custom initialization
         instance = self;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productAddressReceived:) name:ProductAddressArrived object:nil];
+        DLog(@"%@", [DocumentsPath stringByAppendingPathComponent:@"/db/db0_0.db"]);
     }
     return self;
 }
@@ -35,7 +36,17 @@ static MainViewController *instance;
     [super loadView];
     [self.view setBackgroundColor:BackGroundBlueColor];
     [self.btn_scrollView setBackgroundColor:ForeGroundBlueColor];
-    [self productBtnClick:nil];
+    [self.btn_scrollView.layer setCornerRadius:5.0];
+    [self.btn_scrollView.layer setMasksToBounds: YES];
+    //阴影的颜色
+    [self.btn_scrollViewBg.layer setShadowColor: [UIColor blackColor].CGColor];
+    [self.btn_scrollViewBg.layer setShadowOffset: CGSizeMake(0, 0)];
+    //阴影透明度
+    [self.btn_scrollViewBg.layer setShadowOpacity: 1.0];
+    //阴影圆角度数
+    [self.btn_scrollViewBg.layer setShadowRadius: 5.0];
+    [self setProductView: [[ProductView alloc] initWithFrame:CGRectMake(85, 30, 924, 728)]];
+    [self.view addSubview:self.productView];
 }
 
 - (void)viewDidLoad
@@ -44,20 +55,7 @@ static MainViewController *instance;
     // Do any additional setup after loading the view from its nib.
 }
 
-#pragma -mark Product Control
-
-
 #pragma -mark Btn Click Control
-- (IBAction)productBtnClick:(id)sender
-{
-    if(self.productView == nil)
-    {
-        self.productView = [[ProductView alloc] initWithFrame:CGRectMake(85, 30, 924, 728)];
-    }
-    [self removeSubviews];
-    [self.view addSubview:self.productView];
-}
-
 - (IBAction)historyBtnClick:(id)sender
 {
     if (self.productView != nil)
@@ -152,7 +150,6 @@ static MainViewController *instance;
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

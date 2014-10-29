@@ -15,6 +15,7 @@
 @interface MainViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UIScrollView *btn_scrollView;
+@property (strong, nonatomic) IBOutlet UIView *btn_scrollViewBg;
 
 @property (strong, nonatomic) ProductView *productView;
 @property (strong, nonatomic) MessageView *messageView;
@@ -23,7 +24,6 @@
 
 + (MainViewController*) instance;
 
-- (IBAction)productBtnClick:(id)sender;
 - (IBAction)historyBtnClick:(id)sender;
 - (IBAction)currentBtnClick:(id)sender;
 - (IBAction)playBtnClick:(id)sender;

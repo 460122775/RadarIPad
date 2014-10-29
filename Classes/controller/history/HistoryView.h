@@ -11,7 +11,9 @@
 @interface HistoryView : UIView<UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *productArray;
-@property (strong, nonatomic) IBOutlet UIDatePicker *startTimeChooser;
+
+@property (strong, nonatomic) IBOutlet UIPickerView *startTimeChooser;
+
 @property (strong, nonatomic) IBOutlet UIDatePicker *endTimeChooser;
 @property (strong, nonatomic) IBOutlet UITableView *productTableView;
 

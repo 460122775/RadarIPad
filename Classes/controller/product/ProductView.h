@@ -23,18 +23,20 @@
 #import "SVPulsingAnnotationView.h"
 #import "ASValueTrackingSlider.h"
 
-@interface ProductView : UIView<CLLocationManagerDelegate, ASValueTrackingSliderDataSource,ASValueTrackingSliderDelegate,
-                            HistoryProductListProtocol, CurrentProductListDelegate>{
-    UIPinchGestureRecognizer *zoomGestureRecognizer;
-    UIPanGestureRecognizer *dragGestureRecognizer;
-    UIPanGestureRecognizer *switchGestureRecognizer;
-    UIPanGestureRecognizer *knifeGestureRecognizer;
-    CLLocationManager *locationManager;
-    SVPulsingAnnotationView *pulsingView;
-    CurrentProductListView *currentProductListView;
-    HistoryProductListView *historyProductListView;
-    HistoryView *historyView;
-    NSTimer *playTimer;
+@interface ProductView : UIView<CLLocationManagerDelegate, ASValueTrackingSliderDataSource,
+    ASValueTrackingSliderDelegate, HistoryProductListProtocol, CurrentProductListDelegate>{
+    
+        UIPinchGestureRecognizer *zoomGestureRecognizer;
+        UIPanGestureRecognizer *dragGestureRecognizer;
+        UIPanGestureRecognizer *switchGestureRecognizer;
+        UIPanGestureRecognizer *knifeGestureRecognizer;
+        CLLocationManager *locationManager;
+        SVPulsingAnnotationView *pulsingView;
+        CurrentProductListView *currentProductListView;
+        HistoryProductListView *historyProductListView;
+        HistoryView *historyView;
+        NSTimer *playTimer;
+        UIButton *knifeBtn;
 }
 
 @property (strong, nonatomic) UIView *productView;

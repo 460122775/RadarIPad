@@ -10,8 +10,8 @@
 
 #define ZoomStep 0.4
 #define dragStep 100
-#define ProductContainer_Width 640
-#define ProductContainer_height 640
+#define ProductContainer_Width 620
+#define ProductContainer_height 620
 #define ProductThemeColor ForeGroundBlueColor
 
 @implementation ProductView
@@ -58,12 +58,12 @@
     [self.productView addGestureRecognizer:switchGestureRecognizer];
     
     
-    self.processControlView = [[UIView alloc] initWithFrame:CGRectMake(0, ProductContainer_height, ProductContainer_Width, 30)];
+    self.processControlView = [[UIView alloc] initWithFrame:CGRectMake(0, ProductContainer_height, ProductContainer_Width, 50)];
     [self.processControlView setBackgroundColor:ProductThemeColor];
     [self addSubview:self.processControlView];
     
     //Bottom
-    self.slider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(18, 0, ProductContainer_Width - 40, 30)];
+    self.slider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(18, 0, ProductContainer_Width - 40, 40)];
     self.slider.font = [UIFont fontWithName:@"Futura-CondensedExtraBold" size:26];
     self.slider.popUpViewAnimatedColors = @[BackGroundBlueColor];
     self.slider.maximumValue = 100;
@@ -71,19 +71,15 @@
     self.slider.popUpViewCornerRadius = 6;
     self.slider.dataSource = self;
     self.slider.delegate = self;
-//    self.slider.value = self.slider.maximumValue / 2;
-//    [self.slider setMaxFractionDigitsDisplayed:0];
-//    self.slider.popUpViewColor = [UIColor colorWithHue:0.55 saturation:0.8 brightness:0.9 alpha:0.7];
-//    self.slider.font = [UIFont fontWithName:@"Futura-CondensedExtraBold" size:22];
-//    self.slider.textColor = [UIColor colorWithHue:0.55 saturation:1.0 brightness:0.5 alpha:1];
+    self.slider.enabled = NO;
     [self.processControlView addSubview: self.slider];
     
-    self.colorImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, ProductContainer_height + 30, ProductContainer_Width, 58)];
+    self.colorImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, ProductContainer_height + 40, ProductContainer_Width, 68)];
     [self.colorImgView setBackgroundColor:ProductThemeColor];
     [self addSubview:self.colorImgView];
     
     // Right Area.
-    self.rightBarView = [[UIView alloc] initWithFrame:CGRectMake(ProductContainer_Width + 1, 0, 288, 728)];
+    self.rightBarView = [[UIView alloc] initWithFrame:CGRectMake(ProductContainer_Width + 21, 0, 288, 728)];
     [self.rightBarView setBackgroundColor:[UIColor clearColor]];
     [self addSubview:self.rightBarView];
 
@@ -172,7 +168,12 @@
     self.currentProductModel.centX = self.productImgView.frame.size.width / 2;
     self.currentProductModel.centY = self.productImgView.frame.size.height / 2;
     [self drawProduct];
+    //Change the View.
     [historyView removeFromSuperview];
+    [historyProductListView removeFromSuperview];
+    historyProductListView.frame = CGRectMake(0, 0, self.productControlView.frame.size.width, 50);
+    [self.productControlView addSubview: historyProductListView];
+    [historyProductListView resizeTableView];
 }
 
 #pragma -mark ASValueTrackingSliderDataSource
@@ -204,6 +205,7 @@ static int lastIntValue = -1;
         return;
     }
     //Test Code...
+    if (self.slider.value - 1 >= historyProductListView.productDataArray.count) return;
     NSString *productStr = (NSString*)[historyProductListView.productDataArray objectAtIndex:self.slider.value - 1];
     ProductInfo *vo = [[ProductInfo alloc] initWithPosFileStr:[NSString stringWithFormat:@"/%@.zdb",[productStr substringWithRange:NSMakeRange(0, productStr.length - 5)]]];
     [self selectProduct:vo];
@@ -217,13 +219,12 @@ static int lastIntValue = -1;
 }
 
 #pragma -mark Btn Click Control
-static bool knifeStart = NO;
 - (void)knifeBtnClick:(id) sender
 {
-    UIButton *knifeBtn = (UIButton*)sender;
-    if (knifeStart == NO)
+    if(knifeBtn == nil) knifeBtn = (UIButton*)sender;
+    if (knifeBtn.tag != 1)
     {
-        knifeStart = YES;
+        knifeBtn.tag = 1;
         if (knifeGestureRecognizer == nil)
         {
             knifeGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(knifeDragControl:)];
@@ -240,7 +241,7 @@ static bool knifeStart = NO;
         [knifeBtn.layer setBorderColor:[[UIColor purpleColor] CGColor]];
         [knifeBtn.layer setBorderWidth:8];
     }else{
-        knifeStart = NO;
+        knifeBtn.tag = 0;
         knifeGestureRecognizer = nil;
         [self.knifeLineView removeFromSuperview];
         self.knifeLineView = nil;
@@ -265,6 +266,7 @@ static bool knifeStart = NO;
     [self.productControlView addSubview:currentProductListView];
     self.currentProductModel = nil;
     [self productAddressReceived];
+    self.slider.enabled = NO;
 }
 
 - (void)historyBtnClick
@@ -281,8 +283,8 @@ static bool knifeStart = NO;
         [currentProductListView removeFromSuperview];
         currentProductListView = nil;
     }
-    historyProductListView = [[HistoryProductListView alloc] initWithFrame:CGRectMake(0, 0, self.productControlView.frame.size.width, self.productControlView.frame.size.height)];
-    [self.productControlView addSubview:historyProductListView];
+    historyProductListView = [[HistoryProductListView alloc] initWithFrame:CGRectMake(0, 0, self.rightBarView.frame.size.width, self.rightBarView.frame.size.height)];
+    [self.rightBarView addSubview:historyProductListView];
     historyProductListView.delegate = self;
 }
 
@@ -295,6 +297,7 @@ static bool knifeStart = NO;
         self.slider.minimumValue = 1;
         self.slider.value = 1;
         [playTimer fire];
+        self.slider.enabled = YES;
     }
 }
 
@@ -383,7 +386,7 @@ static CGPoint point;
 static CGPoint dragLocation;
 -(void)imgDragControl:(UIPanGestureRecognizer*)paramSender
 {
-    if (knifeStart == YES) return;
+    if (knifeBtn != nil && knifeBtn.tag == 1) return;
     CGPoint location = [paramSender locationInView:paramSender.view.superview];
     if (paramSender.state == UIGestureRecognizerStateBegan)
     {
@@ -410,7 +413,7 @@ static CGPoint dragLocation;
 
 -(void)imgSwitchcControl:(UIPanGestureRecognizer*)paramSender
 {
-    if (knifeStart == YES) return;
+    if (knifeBtn != nil && knifeBtn.tag == 1) return;
     CGPoint location = [paramSender locationInView:paramSender.view.superview];
     if (paramSender.state == UIGestureRecognizerStateBegan)
     {
@@ -446,7 +449,7 @@ static CGPoint dragLocation;
 
 -(void)knifeDragControl:(UIPanGestureRecognizer*)paramSender
 {
-    if (knifeStart == NO) return;
+    if (knifeBtn != nil && knifeBtn.tag == 0) return;
     CGPoint location = [paramSender locationInView:paramSender.view.superview];
     if (paramSender.state == UIGestureRecognizerStateBegan)
     {
@@ -472,7 +475,6 @@ static CGPoint dragLocation;
         // Show image...
         self.knifeLineView.image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
-        knifeStart = NO;
     }
 }
 
