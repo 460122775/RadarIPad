@@ -16,13 +16,12 @@
 
 @implementation ProductView
 
-@synthesize productImgView, mapCircleView, colorImgView, rightBarView, radarInfoBarView, productInfoView, currentProductModel, currentProductData, productControlView, processControlView, slider, knifeLineView;
+@synthesize productImgView, productViewBg, mapCircleView, colorImgView, rightBarView, rightBarViewBg, radarInfoBarView, productInfoView, currentProductModel, currentProductData, productControlView, processControlView, slider, knifeLineView, imgContainerView;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setBackgroundColor:BackGroundBlueColor];
         // Test Code.....
     }
     return self;
@@ -31,36 +30,23 @@
 - (void)drawRect:(CGRect)rect
 {
     // Left Area.
-    self.productView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ProductContainer_Width, ProductContainer_height)];
-    [self.productView setBackgroundColor:ProductThemeColor];
     [self.productView setClipsToBounds:YES];
-    [self addSubview:self.productView];
-    
-    self.productImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ProductContainer_Width, ProductContainer_height)];
-    [self.productImgView setBackgroundColor:[UIColor clearColor]];
-    [self.productView addSubview:self.productImgView];
-    
-    self.mapCircleView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ProductContainer_Width, ProductContainer_height)];
-    [self.mapCircleView setBackgroundColor:[UIColor clearColor]];
-    [self.productView addSubview:self.mapCircleView];
-    
+    [ProductView setShadowTaste:self.productViewBg andForeView:self.productView];
+
     zoomGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(imgZoomControl:)];
-    [self.productView addGestureRecognizer:zoomGestureRecognizer];
+    [self.imgContainerView addGestureRecognizer:zoomGestureRecognizer];
     
 //    dragGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(imgDragControl:)];
 //    dragGestureRecognizer.minimumNumberOfTouches = 1;
 //    dragGestureRecognizer.maximumNumberOfTouches = 1;
-//    [self.productView addGestureRecognizer:dragGestureRecognizer];
+//    [self.imgContainerView addGestureRecognizer:dragGestureRecognizer];
     
     switchGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(imgSwitchcControl:)];
     switchGestureRecognizer.minimumNumberOfTouches = 1;
     switchGestureRecognizer.maximumNumberOfTouches = 1;
-    [self.productView addGestureRecognizer:switchGestureRecognizer];
+    [self.imgContainerView addGestureRecognizer:switchGestureRecognizer];
     
-    
-    self.processControlView = [[UIView alloc] initWithFrame:CGRectMake(0, ProductContainer_height, ProductContainer_Width, 50)];
     [self.processControlView setBackgroundColor:ProductThemeColor];
-    [self addSubview:self.processControlView];
     
     //Bottom
     self.slider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(18, 0, ProductContainer_Width - 40, 40)];
@@ -74,20 +60,12 @@
     self.slider.enabled = NO;
     [self.processControlView addSubview: self.slider];
     
-    self.colorImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, ProductContainer_height + 40, ProductContainer_Width, 68)];
+    // Set Color Bar.
     [self.colorImgView setBackgroundColor:ProductThemeColor];
-    [self addSubview:self.colorImgView];
-    
     // Right Area.
-    self.rightBarView = [[UIView alloc] initWithFrame:CGRectMake(ProductContainer_Width + 21, 0, 288, 728)];
-    [self.rightBarView setBackgroundColor:[UIColor clearColor]];
-    [self addSubview:self.rightBarView];
-
+    [ProductView setShadowTaste:self.rightBarViewBg andForeView:self.rightBarView];
     // Radar Info.
-    self.radarInfoBarView = [[UIView alloc] initWithFrame:
-                             CGRectMake(0, 0, self.rightBarView.frame.size.width, 35)];
     [self.radarInfoBarView setBackgroundColor:ProductThemeColor];
-    [self.rightBarView addSubview:self.radarInfoBarView];
     
     UILabel *positionLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, 100, 20)];
     [positionLabel setTextColor:ProductTextColor];
@@ -108,16 +86,24 @@
     [self.radarInfoBarView addSubview:speedLabel];
 
     // Product Info.
-    self.productInfoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 35 + 1, self.rightBarView.frame.size.width, 280)];
     [self.productInfoView setBackgroundColor:ProductThemeColor];
-    [self.rightBarView addSubview:self.productInfoView];
-    
     // Product Control.
-    self.productControlView = [[UIView alloc] initWithFrame:CGRectMake(0, 35 + 280 + 2, self.rightBarView.frame.size.width, 411)];
     [self.productControlView setBackgroundColor:ProductThemeColor];
-    [self.rightBarView addSubview:self.productControlView];
     
     [self showCurrentProduct];
+}
+
++ (void) setShadowTaste:(UIView *)backView andForeView:(UIView *)foreView
+{
+    [foreView.layer setCornerRadius:8.0];
+    [foreView.layer setMasksToBounds: YES];
+    //阴影的颜色
+    [backView.layer setShadowColor:[UIColor blackColor].CGColor];
+    [backView.layer setShadowOffset:CGSizeMake(1, 1)];
+    //阴影透明度
+    [backView.layer setShadowOpacity:0.8];
+    //阴影圆角度数
+    [backView.layer setShadowRadius:8.0];
 }
 
 - (void)productAddressReceived
@@ -230,15 +216,15 @@ static int lastIntValue = -1;
             knifeGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(knifeDragControl:)];
             knifeGestureRecognizer.minimumNumberOfTouches = 1;
             knifeGestureRecognizer.maximumNumberOfTouches = 1;
-            [self.productView addGestureRecognizer:knifeGestureRecognizer];
+            [self.imgContainerView addGestureRecognizer:knifeGestureRecognizer];
         }
         if (self.knifeLineView == nil)
         {
             self.knifeLineView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ProductContainer_Width, ProductContainer_height)];
             [self.knifeLineView setBackgroundColor:[UIColor clearColor]];
-            [self.productView addSubview:self.knifeLineView];
+            [self.imgContainerView addSubview:self.knifeLineView];
         }
-        [knifeBtn.layer setBorderColor:[[UIColor purpleColor] CGColor]];
+        [knifeBtn.layer setBorderColor:[BackGroundBlueColor CGColor]];
         [knifeBtn.layer setBorderWidth:8];
     }else{
         knifeBtn.tag = 0;

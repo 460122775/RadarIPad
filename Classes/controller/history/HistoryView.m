@@ -40,7 +40,7 @@
 
 - (IBAction)predetemineTimeSearchControl:(id)sender
 {
-    int timeInterval = ((UIButton*)sender).tag;
+//    int timeInterval = ((UIButton*)sender).tag;
 //    [self.startTimeChooser setDate:[[NSDate alloc] init]];
 //    [self.endTimeChooser setDate:[[NSDate alloc] initWithTimeInterval: -1 * timeInterval * 3600 / 2
 //                                                            sinceDate:self.startTimeChooser.date]];

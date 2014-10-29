@@ -137,7 +137,7 @@ static NSMutableArray *colorDataArray;
     CGContextStrokePath(context);
     // Draw Unit...
     [(NSString*)colorArray[1] drawAtPoint:
-     CGPointMake(([(NSString*)colorArray[0] integerValue] + 1) * width - paddingLeft / 1.8, paddingTop + height - 12) withAttributes:dic];
+     CGPointMake(([(NSString*)colorArray[0] integerValue] + 1) * width - paddingLeft / 1.5, paddingTop + height - 12) withAttributes:dic];
     // Show image...
     colorImgView.image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

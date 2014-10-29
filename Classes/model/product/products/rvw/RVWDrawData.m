@@ -104,7 +104,7 @@
     
     UILabel *siteLongitudeLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop + (20 + VGap) * 3, labelWidth, 20)];
     [siteLongitudeLabel setTextColor:ProductTextColor];
-    [siteLongitudeLabel setText:[NSString stringWithFormat:@"站点经度：E %li°%li′%li″",
+    [siteLongitudeLabel setText:[NSString stringWithFormat:@"站点经度：E %i°%i′%i″",
                                  fileHeadStruct.addSec.LongitudeV/360000,
                                  (fileHeadStruct.addSec.LongitudeV / 100) % 3600 / 60,
                                  (fileHeadStruct.addSec.LongitudeV / 100) % 60]];
@@ -112,7 +112,7 @@
     
     UILabel *siteLatitudeLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop + (20 + VGap) * 4, labelWidth, 20)];
     [siteLatitudeLabel setTextColor:ProductTextColor];
-    [siteLatitudeLabel setText:[NSString stringWithFormat:@"站点纬度：N %li°%li′%li″",
+    [siteLatitudeLabel setText:[NSString stringWithFormat:@"站点纬度：N %i°%i′%i″",
                                 fileHeadStruct.addSec.LatitudeV/360000,
                                 (fileHeadStruct.addSec.LatitudeV / 100) % 3600 / 60,
                                 (fileHeadStruct.addSec.LatitudeV / 100) % 60]];

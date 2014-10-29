@@ -36,16 +36,19 @@ static MainViewController *instance;
     [super loadView];
     [self.view setBackgroundColor:BackGroundBlueColor];
     [self.btn_scrollView setBackgroundColor:ForeGroundBlueColor];
-    [self.btn_scrollView.layer setCornerRadius:5.0];
-    [self.btn_scrollView.layer setMasksToBounds: YES];
-    //阴影的颜色
-    [self.btn_scrollViewBg.layer setShadowColor: [UIColor blackColor].CGColor];
-    [self.btn_scrollViewBg.layer setShadowOffset: CGSizeMake(0, 0)];
-    //阴影透明度
-    [self.btn_scrollViewBg.layer setShadowOpacity: 1.0];
-    //阴影圆角度数
-    [self.btn_scrollViewBg.layer setShadowRadius: 5.0];
-    [self setProductView: [[ProductView alloc] initWithFrame:CGRectMake(85, 30, 924, 728)]];
+    [ProductView setShadowTaste:self.btn_scrollViewBg andForeView:self.btn_scrollView];
+//    [self.btn_scrollView.layer setCornerRadius:5.0];
+//    [self.btn_scrollView.layer setMasksToBounds: YES];
+//    //阴影的颜色
+//    [self.btn_scrollViewBg.layer setShadowColor: [UIColor blackColor].CGColor];
+//    [self.btn_scrollViewBg.layer setShadowOffset: CGSizeMake(0, 0)];
+//    //阴影透明度
+//    [self.btn_scrollViewBg.layer setShadowOpacity: 1.0];
+//    //阴影圆角度数
+//    [self.btn_scrollViewBg.layer setShadowRadius: 5.0];
+    //Create Product View.
+    [self setProductView:[[[NSBundle mainBundle] loadNibNamed:@"ProductView" owner:nil options:nil] objectAtIndex:0]];
+    [self.productView setFrame:CGRectMake(85, 30, 924, 728)];
     [self.view addSubview:self.productView];
 }
 
@@ -66,8 +69,10 @@ static MainViewController *instance;
 
 - (IBAction)currentBtnClick:(id)sender
 {
+    [self removeSubviews];
     if (self.productView != nil)
     {
+        [self.view addSubview:self.productView];
         [self.productView showCurrentProduct];
     }
 }
@@ -141,11 +146,10 @@ static MainViewController *instance;
         if(view == self.voiceView) self.voiceView = nil;
         else if (view == self.settingView) self.settingView = nil;
         else if (view == self.messageView) self.messageView = nil;
-        else if (view == self.btn_scrollView) continue;
+        else if (view == self.btn_scrollViewBg) continue;
         [view removeFromSuperview];
     }
 }
-
 
 - (void)didReceiveMemoryWarning
 {
