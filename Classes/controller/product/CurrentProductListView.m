@@ -35,6 +35,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if(self.productArray != nil) return self.productArray.count;
     return 9;
 }
 
@@ -72,14 +73,18 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:Identifier];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.bounds];
-        [cell.textLabel setTextColor:ProductTextColor];
         [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
     }
-    if (indexPath.row % 2 == 1)
+    if(indexPath.row == selectIndex)
     {
-        cell.backgroundColor = [UIColor whiteColor];
+        [cell setBackgroundColor:BackGroundBlueColor];
+        [cell.textLabel setTextColor:[UIColor whiteColor]];
+    }else if(indexPath.row % 2 == 1){
+        [cell setBackgroundColor:[UIColor whiteColor]];
+        [cell.textLabel setTextColor:ProductTextColor];
     }else{
-        cell.backgroundColor = ForeGroundBlueColor;
+        [cell setBackgroundColor:ForeGroundBlueColor];
+        [cell.textLabel setTextColor:ProductTextColor];
     }
     if(indexPath.row > self.productArray.count - 1) return cell;
     ProductVo *vo = (ProductVo*)[self.productArray objectAtIndex:indexPath.row];
@@ -89,6 +94,7 @@
     return cell;
 }
 
+static int selectIndex = 0;
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     int index = 0;
@@ -107,6 +113,7 @@
     
     //Test Code...
     ProductInfo *vo = nil;
+    selectIndex = indexPath.row;
     switch (((ProductVo*)[self.productArray objectAtIndex:indexPath.row]).type)
     {
         case ProductType_R:

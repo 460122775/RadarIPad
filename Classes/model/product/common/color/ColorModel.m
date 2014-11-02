@@ -70,10 +70,10 @@ static NSMutableArray *colorDataArray;
         return;
     }
     
-    int paddingTop = 13;
+    int paddingTop = 5;
     int paddingLeft = 20;
-    int width = (int)(colorImgView.frame.size.width - paddingLeft * 2) / [(NSString*)colorArray[0] integerValue];
-    int height = (int)(colorImgView.frame.size.height - paddingTop * 2 - 20);
+    int width = (int)(colorImgView.frame.size.width - paddingLeft * 2) / [(NSString*)colorArray[0] integerValue] - 1;
+    int height = (int)(colorImgView.frame.size.height - paddingTop * 2 - 15);
     
     
     UIGraphicsBeginImageContext(colorImgView.frame.size);
@@ -84,7 +84,7 @@ static NSMutableArray *colorDataArray;
     // Draw first number...
     NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12.0f], NSFontAttributeName, ProductTextColor, NSForegroundColorAttributeName,nil];
     [(NSString*)colorArray[2] drawAtPoint:
-     CGPointMake(paddingLeft / 1.5, paddingTop + height + 7) withAttributes:dic];
+     CGPointMake(paddingLeft / 1.5, paddingTop + height + 3) withAttributes:dic];
     // Draw middle
     [colorDataArray removeAllObjects];
     for (int i = 0; i < [(NSString*)colorArray[0] integerValue]; i++)
@@ -119,7 +119,7 @@ static NSMutableArray *colorDataArray;
         CGContextStrokePath(context);
         // Draw font...
         [(NSString*)colorArray[7 + i * 5] drawAtPoint:
-         CGPointMake((i + 1) * width + paddingLeft / 1.5, paddingTop + height + 7) withAttributes:dic];
+         CGPointMake((i + 1) * width + paddingLeft / 1.5, paddingTop + height + 3) withAttributes:dic];
     }
     if (colorDataArray.count < 256)
     {
@@ -137,7 +137,7 @@ static NSMutableArray *colorDataArray;
     CGContextStrokePath(context);
     // Draw Unit...
     [(NSString*)colorArray[1] drawAtPoint:
-     CGPointMake(([(NSString*)colorArray[0] integerValue] + 1) * width - paddingLeft / 1.5, paddingTop + height - 12) withAttributes:dic];
+     CGPointMake(([(NSString*)colorArray[0] integerValue] + 1) * width - paddingLeft / 1.8, paddingTop + height - 12) withAttributes:dic];
     // Show image...
     colorImgView.image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

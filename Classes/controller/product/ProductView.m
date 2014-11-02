@@ -16,7 +16,7 @@
 
 @implementation ProductView
 
-@synthesize productImgView, productViewBg, mapCircleView, colorImgView, rightBarView, rightBarViewBg, radarInfoBarView, productInfoView, currentProductModel, currentProductData, productControlView, processControlView, slider, knifeLineView, imgContainerView;
+@synthesize productImgView, productViewBg, mapCircleView, colorImgView, rightBarView, rightBarViewBg, radarInfoBarView, productInfoView, currentProductModel, currentProductData, productControlView, processControlView, slider, knifeLineView, imgContainerView, historyDataArray, productTitleLabel;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -30,9 +30,21 @@
 - (void)drawRect:(CGRect)rect
 {
     // Left Area.
-    [self.productView setClipsToBounds:YES];
+    [self.imgContainerView setClipsToBounds:YES];
+    
+    // Set Shadow.
     [ProductView setShadowTaste:self.productViewBg andForeView:self.productView];
+    [ProductView setShadowTaste:self.rightBarViewBg andForeView:self.rightBarView];
+    
+    // Set background color.
+    [self.productTitleLabel setBackgroundColor:ProductThemeColor];
+    [self.processControlView setBackgroundColor:ProductThemeColor];
+    [self.colorImgView setBackgroundColor:ProductThemeColor];
+    [self.radarInfoBarView setBackgroundColor:ProductThemeColor];
+    [self.productInfoView setBackgroundColor:ProductThemeColor];
+    [self.productControlView setBackgroundColor:ProductThemeColor];
 
+    // Set Guesture.
     zoomGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(imgZoomControl:)];
     [self.imgContainerView addGestureRecognizer:zoomGestureRecognizer];
     
@@ -46,10 +58,8 @@
     switchGestureRecognizer.maximumNumberOfTouches = 1;
     [self.imgContainerView addGestureRecognizer:switchGestureRecognizer];
     
-    [self.processControlView setBackgroundColor:ProductThemeColor];
-    
     //Bottom
-    self.slider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(18, 0, ProductContainer_Width - 40, 40)];
+    self.slider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(18, 8, ProductContainer_Width - 40, 20)];
     self.slider.font = [UIFont fontWithName:@"Futura-CondensedExtraBold" size:26];
     self.slider.popUpViewAnimatedColors = @[BackGroundBlueColor];
     self.slider.maximumValue = 100;
@@ -59,13 +69,6 @@
     self.slider.delegate = self;
     self.slider.enabled = NO;
     [self.processControlView addSubview: self.slider];
-    
-    // Set Color Bar.
-    [self.colorImgView setBackgroundColor:ProductThemeColor];
-    // Right Area.
-    [ProductView setShadowTaste:self.rightBarViewBg andForeView:self.rightBarView];
-    // Radar Info.
-    [self.radarInfoBarView setBackgroundColor:ProductThemeColor];
     
     UILabel *positionLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, 100, 20)];
     [positionLabel setTextColor:ProductTextColor];
@@ -84,11 +87,6 @@
     [speedLabel setText:@"速率:32.92"];
     [speedLabel setFont:[UIFont systemFontOfSize:17]];
     [self.radarInfoBarView addSubview:speedLabel];
-
-    // Product Info.
-    [self.productInfoView setBackgroundColor:ProductThemeColor];
-    // Product Control.
-    [self.productControlView setBackgroundColor:ProductThemeColor];
     
     [self showCurrentProduct];
 }
@@ -101,9 +99,24 @@
     [backView.layer setShadowColor:[UIColor blackColor].CGColor];
     [backView.layer setShadowOffset:CGSizeMake(1, 1)];
     //阴影透明度
-    [backView.layer setShadowOpacity:0.8];
+    [backView.layer setShadowOpacity:1.0];
     //阴影圆角度数
     [backView.layer setShadowRadius:8.0];
+}
+
++ (void) setBtnSelectTaste:(UIButton *)btn
+{
+    if (btn.tag != 1)
+    {
+        btn.tag = 1;
+        [btn.layer setBorderColor:[BackGroundBlueColor CGColor]];
+        [btn.layer setBorderWidth:4];
+        [btn.layer setCornerRadius:10.0];
+    }else{
+        btn.tag = 0;
+        [btn.layer setBorderWidth:0];
+    }
+
 }
 
 - (void)productAddressReceived
@@ -117,7 +130,7 @@
     self.currentProductData = [ProductFactory uncompressZippedData:[NSData dataWithContentsOfFile:
                                 [DataPath stringByAppendingString:self.currentProductModel.productInfo.dataAddress]]];
     [ColorModel drawColor:self.currentProductModel.productInfo.productType andColorImgView:self.colorImgView];
-    [self.currentProductModel getProductInfo: self.productInfoView andData:self.currentProductData];
+    [self.currentProductModel getProductInfo: self.productInfoView TitleLabel:self.productTitleLabel Data:self.currentProductData];
     self.currentProductModel.centX = self.productImgView.frame.size.width / 2;
     self.currentProductModel.centY = self.productImgView.frame.size.height / 2;
     [self drawProduct];
@@ -128,7 +141,7 @@
      {
          self.currentProductModel = [ProductFactory getProductModel:self.currentProductModel.productInfo.productType];
          [ColorModel drawColor:self.currentProductModel.productInfo.productType andColorImgView:self.colorImgView];
-         [self.currentProductModel getProductInfo: self.productInfoView andData:data];
+         [self.currentProductModel getProductInfo: self.productInfoView TitleLabel:self.productTitleLabel Data:data];
          [self.currentProductModel getImageData:self.productImgView andData:data];
      }];
 }
@@ -150,16 +163,10 @@
     self.currentProductData = [ProductFactory uncompressZippedData:
                                [NSData dataWithContentsOfFile:[DataPath stringByAppendingString:self.currentProductModel.productInfo.dataAddress]]];
     [ColorModel drawColor:self.currentProductModel.productInfo.productType andColorImgView:self.colorImgView];
-    [self.currentProductModel getProductInfo: self.productInfoView andData:self.currentProductData];
+    [self.currentProductModel getProductInfo: self.productInfoView TitleLabel:self.productTitleLabel Data:self.currentProductData];
     self.currentProductModel.centX = self.productImgView.frame.size.width / 2;
     self.currentProductModel.centY = self.productImgView.frame.size.height / 2;
     [self drawProduct];
-    //Change the View.
-    [historyView removeFromSuperview];
-    [historyProductListView removeFromSuperview];
-    historyProductListView.frame = CGRectMake(0, 0, self.productControlView.frame.size.width, 50);
-    [self.productControlView addSubview: historyProductListView];
-    [historyProductListView resizeTableView];
 }
 
 #pragma -mark ASValueTrackingSliderDataSource
@@ -184,15 +191,15 @@ static int lastIntValue = -1;
 
 -(void) playTimerFired:(id) sender
 {
-    if (playTimer!= nil && self.slider.value > historyProductListView.productDataArray.count)
+    if (playTimer!= nil && self.slider.value > self.historyDataArray.count)
     {
         [playTimer invalidate];
         playTimer = nil;
         return;
     }
     //Test Code...
-    if (self.slider.value - 1 >= historyProductListView.productDataArray.count) return;
-    NSString *productStr = (NSString*)[historyProductListView.productDataArray objectAtIndex:self.slider.value - 1];
+    if (self.slider.value - 1 >= self.historyDataArray.count) return;
+    NSString *productStr = (NSString*)[self.historyDataArray objectAtIndex:self.slider.value - 1];
     ProductInfo *vo = [[ProductInfo alloc] initWithPosFileStr:[NSString stringWithFormat:@"/%@.zdb",[productStr substringWithRange:NSMakeRange(0, productStr.length - 5)]]];
     [self selectProduct:vo];
     productStr = nil;
@@ -210,7 +217,7 @@ static int lastIntValue = -1;
     if(knifeBtn == nil) knifeBtn = (UIButton*)sender;
     if (knifeBtn.tag != 1)
     {
-        knifeBtn.tag = 1;
+        [ProductView setBtnSelectTaste:knifeBtn];
         if (knifeGestureRecognizer == nil)
         {
             knifeGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(knifeDragControl:)];
@@ -224,29 +231,16 @@ static int lastIntValue = -1;
             [self.knifeLineView setBackgroundColor:[UIColor clearColor]];
             [self.imgContainerView addSubview:self.knifeLineView];
         }
-        [knifeBtn.layer setBorderColor:[BackGroundBlueColor CGColor]];
-        [knifeBtn.layer setBorderWidth:8];
     }else{
-        knifeBtn.tag = 0;
+        [ProductView setBtnSelectTaste:knifeBtn];
         knifeGestureRecognizer = nil;
         [self.knifeLineView removeFromSuperview];
         self.knifeLineView = nil;
-        [knifeBtn.layer setBorderWidth:0];
     }
 }
 
 - (void)showCurrentProduct
 {
-    if (historyView != nil)
-    {
-        [historyView removeFromSuperview];
-        historyView = nil;
-    }
-    if (historyProductListView != nil)
-    {
-        [historyProductListView removeFromSuperview];
-        historyProductListView = nil;
-    }
     currentProductListView = [[CurrentProductListView alloc] initWithFrame:CGRectMake(0, 0, self.productControlView.frame.size.width, self.productControlView.frame.size.height)];
     currentProductListView.delegate = self;
     [self.productControlView addSubview:currentProductListView];
@@ -255,36 +249,15 @@ static int lastIntValue = -1;
     self.slider.enabled = NO;
 }
 
-- (void)historyBtnClick
+- (void)playBtnClick:(NSMutableArray*)_historyDataArray
 {
-    if(historyView == nil)
-    {
-        historyView = [[[NSBundle mainBundle] loadNibNamed:@"HistoryView" owner:nil options:nil] objectAtIndex:0];
-        historyView.frame = CGRectMake(0, 0, 640, 728);
-    }
-    [self addSubview:historyView];
-    
-    if (currentProductListView != nil)
-    {
-        [currentProductListView removeFromSuperview];
-        currentProductListView = nil;
-    }
-    historyProductListView = [[HistoryProductListView alloc] initWithFrame:CGRectMake(0, 0, self.rightBarView.frame.size.width, self.rightBarView.frame.size.height)];
-    [self.rightBarView addSubview:historyProductListView];
-    historyProductListView.delegate = self;
-}
-
-- (void)playBtnClick
-{
-    if (historyProductListView != nil)
-    {
-        playTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(playTimerFired:) userInfo:nil repeats:YES];
-        self.slider.maximumValue = historyProductListView.productDataArray.count + 1;
-        self.slider.minimumValue = 1;
-        self.slider.value = 1;
-        [playTimer fire];
-        self.slider.enabled = YES;
-    }
+    self.historyDataArray = _historyDataArray;
+    playTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(playTimerFired:) userInfo:nil repeats:YES];
+    self.slider.maximumValue = self.historyDataArray.count + 1;
+    self.slider.minimumValue = 1;
+    self.slider.value = 1;
+    [playTimer fire];
+    self.slider.enabled = YES;
 }
 
 - (void)screenShot
@@ -313,10 +286,11 @@ static int lastIntValue = -1;
         pulsingView = [[SVPulsingAnnotationView alloc] initWithFrame:CGRectMake(-100,-100,30,30)];
         pulsingView.annotationColor = RGBA(0, 0, 255, 1);
         pulsingView.canShowCallout = YES;
-        [self.productView addSubview:pulsingView];
+        [self.imgContainerView addSubview:pulsingView];
         // Set a movement threshold for new events
         locationManager.distanceFilter = 500;
         [locationManager startUpdatingLocation];
+        [self updatePositionPoint];
     }else{
         [locationManager stopUpdatingLocation];
         locationManager = nil;
@@ -373,11 +347,15 @@ static CGPoint dragLocation;
 -(void)imgDragControl:(UIPanGestureRecognizer*)paramSender
 {
     if (knifeBtn != nil && knifeBtn.tag == 1) return;
-    CGPoint location = [paramSender locationInView:paramSender.view.superview];
+    CGPoint location = [paramSender locationInView:paramSender.view];
     if (paramSender.state == UIGestureRecognizerStateBegan)
     {
         dragLocation.x = location.x;
         dragLocation.y = location.y;
+        if (locationManager != nil)
+        {
+            pulsingView.frame = CGRectMake(-100, -100, 20, 20);
+        }
     }else if (paramSender.state == UIGestureRecognizerStateEnded && paramSender.state != UIGestureRecognizerStateFailed){
         if (abs(dragLocation.x - location.x) >= 10 || abs(dragLocation.y - location.y) >= 10)
         {
@@ -400,7 +378,7 @@ static CGPoint dragLocation;
 -(void)imgSwitchcControl:(UIPanGestureRecognizer*)paramSender
 {
     if (knifeBtn != nil && knifeBtn.tag == 1) return;
-    CGPoint location = [paramSender locationInView:paramSender.view.superview];
+    CGPoint location = [paramSender locationInView:paramSender.view];
     if (paramSender.state == UIGestureRecognizerStateBegan)
     {
         dragLocation.x = location.x;
@@ -436,11 +414,12 @@ static CGPoint dragLocation;
 -(void)knifeDragControl:(UIPanGestureRecognizer*)paramSender
 {
     if (knifeBtn != nil && knifeBtn.tag == 0) return;
-    CGPoint location = [paramSender locationInView:paramSender.view.superview];
+    CGPoint location = [paramSender locationInView:paramSender.view];
     if (paramSender.state == UIGestureRecognizerStateBegan)
     {
         dragLocation.x = location.x;
         dragLocation.y = location.y;
+        DLog(@"%f, %f",location.x, location.y);
     }else if (paramSender.state == UIGestureRecognizerStateEnded && paramSender.state != UIGestureRecognizerStateFailed){
         
         if (abs(dragLocation.x - location.x) >= 10 || abs(dragLocation.y - location.y) >= 10)
@@ -453,7 +432,7 @@ static CGPoint dragLocation;
         CGContextSetLineCap(context, kCGLineCapRound);
         CGContextSetLineWidth(context, 3);
         CGContextBeginPath(context);
-        
+        DLog(@"%f, %f",location.x, location.y);
         CGContextMoveToPoint(context, dragLocation.x, dragLocation.y);
         CGContextAddLineToPoint(context, location.x, location.y);
         CGContextSetRGBStrokeColor(context, 1, 1, 1, 1);

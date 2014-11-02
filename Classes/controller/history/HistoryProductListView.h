@@ -18,12 +18,11 @@
 
 @end
 
-@interface HistoryProductListView : UIView<UITableViewDataSource, UITableViewDelegate>{
-    UITableView *tableView;
-}
+@interface HistoryProductListView : UIView<UITableViewDataSource, UITableViewDelegate>
 
 @property(nonatomic, retain) NSMutableArray *productDataArray;
 @property(nonatomic, assign) id<HistoryProductListProtocol> delegate;
+@property (strong, nonatomic) UITableView *tableView;
 
 - (void)resizeTableView;
 

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProductView.h"
 
 @interface MessageView : UIView{
     UITableView *tableView;
@@ -15,5 +16,10 @@
     UIButton *sendBtn;
     UITextView *textView;
 }
+
+@property (strong, nonatomic) IBOutlet UIView *leftListViewBg;
+@property (strong, nonatomic) IBOutlet UITableView *leftTableView;
+@property (strong, nonatomic) IBOutlet UIView *rightViewBg;
+@property (strong, nonatomic) IBOutlet UIView *rightView;
 
 @end

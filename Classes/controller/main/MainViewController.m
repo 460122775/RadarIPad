@@ -8,9 +8,16 @@
 
 #import "MainViewController.h"
 
+#define RightViewWidth 924
+#define RightViewHeight 728
+#define ViewGap 15
+#define HPadding 10
+#define VPadding 30
+#define RightViewXPoint HPadding + ViewGap + 65
+
 @implementation MainViewController
 
-@synthesize productView, messageView, voiceView, settingView, btn_scrollView;
+@synthesize productView, historyView, messageView, voiceView, settingView, btn_scrollView;
 
 static MainViewController *instance;
 
@@ -21,7 +28,7 @@ static MainViewController *instance;
         // Custom initialization
         instance = self;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productAddressReceived:) name:ProductAddressArrived object:nil];
-        DLog(@"%@", [DocumentsPath stringByAppendingPathComponent:@"/db/db0_0.db"]);
+//        DLog(@"%@", [DocumentsPath stringByAppendingPathComponent:@"/db/db0_0.db"]);
     }
     return self;
 }
@@ -37,18 +44,9 @@ static MainViewController *instance;
     [self.view setBackgroundColor:BackGroundBlueColor];
     [self.btn_scrollView setBackgroundColor:ForeGroundBlueColor];
     [ProductView setShadowTaste:self.btn_scrollViewBg andForeView:self.btn_scrollView];
-//    [self.btn_scrollView.layer setCornerRadius:5.0];
-//    [self.btn_scrollView.layer setMasksToBounds: YES];
-//    //阴影的颜色
-//    [self.btn_scrollViewBg.layer setShadowColor: [UIColor blackColor].CGColor];
-//    [self.btn_scrollViewBg.layer setShadowOffset: CGSizeMake(0, 0)];
-//    //阴影透明度
-//    [self.btn_scrollViewBg.layer setShadowOpacity: 1.0];
-//    //阴影圆角度数
-//    [self.btn_scrollViewBg.layer setShadowRadius: 5.0];
     //Create Product View.
     [self setProductView:[[[NSBundle mainBundle] loadNibNamed:@"ProductView" owner:nil options:nil] objectAtIndex:0]];
-    [self.productView setFrame:CGRectMake(85, 30, 924, 728)];
+    [self.productView setFrame:CGRectMake(RightViewXPoint, VPadding, RightViewWidth, RightViewHeight)];
     [self.view addSubview:self.productView];
 }
 
@@ -61,27 +59,29 @@ static MainViewController *instance;
 #pragma -mark Btn Click Control
 - (IBAction)historyBtnClick:(id)sender
 {
-    if (self.productView != nil)
+    if ([(UIButton*)sender tag] != 1)
     {
-        [self.productView historyBtnClick];
-    }
-}
-
-- (IBAction)currentBtnClick:(id)sender
-{
-    [self removeSubviews];
-    if (self.productView != nil)
-    {
+        [ProductView setBtnSelectTaste:(UIButton*)sender];
+        if(self.historyView == nil)
+        {
+            self.historyView = [[[NSBundle mainBundle] loadNibNamed:@"HistoryView" owner:nil options:nil] objectAtIndex:0];
+            self.historyView.frame = CGRectMake(RightViewXPoint, VPadding, RightViewWidth, 728);
+        }
+        [self.view addSubview:self.historyView];
+        [self.productView removeFromSuperview];
+    }else{
+        [ProductView setBtnSelectTaste:(UIButton*)sender];
+        //Change the View.
         [self.view addSubview:self.productView];
-        [self.productView showCurrentProduct];
+        [self.historyView removeFromSuperview];
     }
 }
 
 - (IBAction)playBtnClick:(id)sender
 {
-    if (self.productView != nil)
+    if (self.productView != nil && self.historyView != nil)
     {
-        [self.productView playBtnClick];
+        [self.productView playBtnClick:self.historyView.historyProductListView.productDataArray];
     }
 }
 
@@ -103,6 +103,7 @@ static MainViewController *instance;
 
 - (IBAction)positionBtnClick:(id)sender
 {
+    [ProductView setBtnSelectTaste:(UIButton*)sender];
     if (self.productView != nil)
     {
         [self.productView showPosition];
@@ -111,43 +112,75 @@ static MainViewController *instance;
 
 - (IBAction)messageBtnClick:(id)sender
 {
-    if(self.messageView == nil)
+    if ([(UIButton*)sender tag] != 1)
     {
-        self.messageView = [[MessageView alloc] initWithFrame:CGRectMake(90, 30, 924, 728)];
+        [ProductView setBtnSelectTaste:(UIButton*)sender];
+        if(self.messageView == nil)
+        {
+            self.messageView = [[[NSBundle mainBundle] loadNibNamed:@"MessageView" owner:nil options:nil] objectAtIndex:0];
+            self.messageView.frame = CGRectMake(RightViewXPoint, VPadding, RightViewWidth, RightViewHeight);
+        }
+        [self removeSubviewsExceptView:self.messageView];
+    }else{
+        [ProductView setBtnSelectTaste:(UIButton*)sender];
+        [self.messageView removeFromSuperview];
     }
-    [self removeSubviews];
-    [self.view addSubview:self.messageView];
 }
 
 - (IBAction)voiceBtnClick:(id)sender
 {
-    if(self.voiceView == nil)
+    if ([(UIButton*)sender tag] != 1)
     {
-        self.voiceView = [[VoiceView alloc] initWithFrame:CGRectMake(90, 30, 924, 728)];
+        [ProductView setBtnSelectTaste:(UIButton*)sender];
+        if(self.voiceView == nil)
+        {
+            self.voiceView = [[[NSBundle mainBundle] loadNibNamed:@"VoiceView" owner:nil options:nil] objectAtIndex:0];
+            self.voiceView.frame = CGRectMake(RightViewXPoint, VPadding, RightViewWidth, RightViewHeight);
+        }
+
+        [self removeSubviewsExceptView:self.voiceView];
+    }else{
+        [ProductView setBtnSelectTaste:(UIButton*)sender];
+        [self.voiceView removeFromSuperview];
     }
-    [self removeSubviews];
-    [self.view addSubview:self.voiceView];
+    
 }
 
 - (IBAction)settingBtnClick:(id)sender
 {
-    if(self.settingView == nil)
+    if ([(UIButton*)sender tag] != 1)
     {
-        self.settingView = [[SettingView alloc] initWithFrame:CGRectMake(90, 30, 924, 728)];
+        [ProductView setBtnSelectTaste:(UIButton*)sender];
+        if(self.settingView == nil)
+        {
+            
+            self.settingView = [[[NSBundle mainBundle] loadNibNamed:@"SettingView" owner:nil options:nil] objectAtIndex:0];
+            self.settingView.frame = CGRectMake(RightViewXPoint, VPadding, RightViewWidth, RightViewHeight);
+        }
+        [self removeSubviewsExceptView:self.settingView];
+    }else{
+        [ProductView setBtnSelectTaste:(UIButton*)sender];
+        [self.settingView removeFromSuperview];
     }
-    [self removeSubviews];
-    [self.view addSubview:self.settingView];
 }
 
-- (void)removeSubviews
+- (void)removeSubviewsExceptView:(UIView*) addView
 {
     for(UIView *view in [self.view subviews])
     {
-        if(view == self.voiceView) self.voiceView = nil;
-        else if (view == self.settingView) self.settingView = nil;
-        else if (view == self.messageView) self.messageView = nil;
-        else if (view == self.btn_scrollViewBg) continue;
-        [view removeFromSuperview];
+        if(view != self.btn_scrollViewBg)
+        {
+            [view removeFromSuperview];
+        }
+//            self.voiceView = nil;
+//        else if (view == self.settingView) self.settingView = nil;
+//        else if (view == self.messageView) self.messageView = nil;
+//        else if (view == self.btn_scrollViewBg) continue;
+    }
+    [self.view addSubview:addView];
+    if (addView != self.productView)
+    {
+        
     }
 }
 

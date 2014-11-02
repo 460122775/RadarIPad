@@ -73,7 +73,7 @@
     UIGraphicsEndImageContext();
 }
 
--(void)getProductInfo:(UIView *)productInfoView andData:(NSData *) data
+-(void)getProductInfo:(UIView *) productInfoView TitleLabel:(UILabel*)titleLabel Data:(NSData *) data
 {
     [data getBytes:&fileHeadStruct range:NSMakeRange(0, sizeof(fileHeadStruct))];
     
@@ -82,27 +82,17 @@
         [view removeFromSuperview];
     }
     
-    UILabel *productNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop, labelWidth, 20)];
-    [productNameLabel setTextColor:ProductTextColor];
-    switch(self.productInfo.productType)
-    {
-        case ProductType_R:[productNameLabel setText:[NSString stringWithFormat:@"产品名称：基本反射率(Z) ［%.2f°］", fileHeadStruct.obserSec.iElevation[0] / 100.f]];break;
-        case ProductType_V:[productNameLabel setText:[NSString stringWithFormat:@"产品名称：基本反射率(V) ［%.2f°］", fileHeadStruct.obserSec.iElevation[0] / 100.f]];break;
-        case ProductType_W:[productNameLabel setText:[NSString stringWithFormat:@"产品名称：基本反射率(W) ［%.2f°］", fileHeadStruct.obserSec.iElevation[0] / 100.f]];break;
-    }
-    [productInfoView addSubview:productNameLabel];
-    
-    UILabel *radarTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop + 20 + VGap, labelWidth, 20)];
+    UILabel *radarTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop, labelWidth, 20)];
     [radarTypeLabel setTextColor:ProductTextColor];
     [radarTypeLabel setText:[NSString stringWithFormat:@"雷达型号：%s", fileHeadStruct.addSec.RadarType]];
     [productInfoView addSubview:radarTypeLabel];
     
-    UILabel *siteNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop + (20 + VGap) * 2, labelWidth, 20)];
+    UILabel *siteNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop + (20 + VGap) * 1, labelWidth, 20)];
     [siteNameLabel setTextColor:ProductTextColor];
     [siteNameLabel setText:[NSString stringWithFormat:@"站点名称：%s", fileHeadStruct.addSec.Station]];
     [productInfoView addSubview:siteNameLabel];
     
-    UILabel *siteLongitudeLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop + (20 + VGap) * 3, labelWidth, 20)];
+    UILabel *siteLongitudeLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop + (20 + VGap) * 2, labelWidth, 20)];
     [siteLongitudeLabel setTextColor:ProductTextColor];
     [siteLongitudeLabel setText:[NSString stringWithFormat:@"站点经度：E %i°%i′%i″",
                                  fileHeadStruct.addSec.LongitudeV/360000,
@@ -110,7 +100,7 @@
                                  (fileHeadStruct.addSec.LongitudeV / 100) % 60]];
     [productInfoView addSubview:siteLongitudeLabel];
     
-    UILabel *siteLatitudeLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop + (20 + VGap) * 4, labelWidth, 20)];
+    UILabel *siteLatitudeLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop + (20 + VGap) * 3, labelWidth, 20)];
     [siteLatitudeLabel setTextColor:ProductTextColor];
     [siteLatitudeLabel setText:[NSString stringWithFormat:@"站点纬度：N %i°%i′%i″",
                                 fileHeadStruct.addSec.LatitudeV/360000,
@@ -118,31 +108,38 @@
                                 (fileHeadStruct.addSec.LatitudeV / 100) % 60]];
     [productInfoView addSubview:siteLatitudeLabel];
     
-    UILabel *heightLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop + (20 + VGap) * 5, labelWidth, 20)];
+    UILabel *heightLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop + (20 + VGap) * 4, labelWidth, 20)];
     [heightLabel setTextColor:ProductTextColor];
     [heightLabel setText:[NSString stringWithFormat:@"天线海拔：%.f m", fileHeadStruct.addSec.Height/1000.0f]];
     [productInfoView addSubview:heightLabel];
     
-    UILabel *maxDistanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop + (20 + VGap) * 6, labelWidth, 20)];
+    UILabel *maxDistanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop + (20 + VGap) * 5, labelWidth, 20)];
     [maxDistanceLabel setTextColor:ProductTextColor];
     [maxDistanceLabel setText:[NSString stringWithFormat:@"最大测距：%i km", fileHeadStruct.obserSec.iRefBinLen[0] * fileHeadStruct.obserSec.usRefBinNumber[0]/1000]];
     [productInfoView addSubview:maxDistanceLabel];
     
-    UILabel *distancePixLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop + (20 + VGap) * 7, labelWidth, 20)];
+    UILabel *distancePixLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop + (20 + VGap) * 6, labelWidth, 20)];
     [distancePixLabel setTextColor:ProductTextColor];
     [distancePixLabel setText:[NSString stringWithFormat:@"距离分辨率：%i m", fileHeadStruct.obserSec.iRefBinLen[0]]];
     [productInfoView addSubview:distancePixLabel];
     
-    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop + (20 + VGap) * 8, labelWidth, 20)];
-    [dateLabel setTextColor:ProductTextColor];
-    [dateLabel setText:[NSString stringWithFormat:@"日       期：%04i/%02i/%02i  %02i:%02i:%02i",
+    
+//    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(productPaddingLeft, productPaddingTop + (20 + VGap) * 8, labelWidth, 20)];
+//    [dateLabel setTextColor:ProductTextColor];
+    [titleLabel setTextColor:ProductTextColor];
+    [titleLabel setText:[NSString stringWithFormat:@"%04i-%02i-%02i %02i:%02i:%02i",
                         fileHeadStruct.obserSec.iObsStartTimeYear,
                         fileHeadStruct.obserSec.iObsStartTimeMonth,
                         fileHeadStruct.obserSec.iObsStartTimeDay,
                         fileHeadStruct.obserSec.iObsStartTimeHour,
                         fileHeadStruct.obserSec.iObsStartTimeMinute,
                         fileHeadStruct.obserSec.iObsStartTimeSecond]];
-    [productInfoView addSubview:dateLabel];
+    switch(self.productInfo.productType)
+    {
+        case ProductType_R:[titleLabel setText:[NSString stringWithFormat:@"%@   基本反射率(Z) ［%.2f°］", titleLabel.text, fileHeadStruct.obserSec.iElevation[0] / 100.f]];break;
+        case ProductType_V:[titleLabel setText:[NSString stringWithFormat:@"%@   基本反射率(V) ［%.2f°］", titleLabel.text, fileHeadStruct.obserSec.iElevation[0] / 100.f]];break;
+        case ProductType_W:[titleLabel setText:[NSString stringWithFormat:@"%@   基本反射率(W) ［%.2f°］", titleLabel.text, fileHeadStruct.obserSec.iElevation[0] / 100.f]];break;
+    }
 }
 
 

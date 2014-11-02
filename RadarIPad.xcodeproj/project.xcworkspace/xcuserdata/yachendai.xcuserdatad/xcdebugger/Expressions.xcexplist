@@ -33,6 +33,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[ProductView knifeBtnClick:]:ProductView.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "knifeBtn.tag">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[RVWDrawData getProductInfo:andData:]:RVWDrawData.m">
          <PersistentStrings>
             <PersistentString

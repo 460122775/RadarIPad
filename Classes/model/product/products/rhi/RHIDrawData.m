@@ -171,7 +171,7 @@ static float Ymax = 20;
     UIGraphicsEndImageContext();
 }
 
--(void)getProductInfo:(UIView *)productInfoView andData:(NSData *) data
+-(void)getProductInfo:(UIView *) productInfoView TitleLabel:(UILabel*)titleLabel Data:(NSData *) data
 {
     [data getBytes:&fileHeadStruct range:NSMakeRange(0, sizeof(fileHeadStruct))];
     

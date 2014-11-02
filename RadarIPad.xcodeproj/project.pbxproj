@@ -83,7 +83,6 @@
 		0152E3911999EA3700EEA9D5 /* RHIDrawData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0152E3901999EA3700EEA9D5 /* RHIDrawData.m */; };
 		015C607919985D7A001F3C47 /* HistoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 015C607819985D7A001F3C47 /* HistoryView.xib */; };
 		015C607C19985D92001F3C47 /* HistoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 015C607B19985D92001F3C47 /* HistoryView.m */; };
-		015C607F1998B0CC001F3C47 /* HistoryProductListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 015C607E1998B0CC001F3C47 /* HistoryProductListView.m */; };
 		015DDD961851BB4700D9D78F /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 015DDD8D1851BB4700D9D78F /* FMDatabase.m */; };
 		015DDD971851BB4700D9D78F /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 015DDD8F1851BB4700D9D78F /* FMDatabaseAdditions.m */; };
 		015DDD981851BB4700D9D78F /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 015DDD911851BB4700D9D78F /* FMDatabasePool.m */; };
@@ -169,6 +168,7 @@
 		016F0CA51990D11E00D2E9E4 /* sns_icon_39@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 016F0C5E1990D11E00D2E9E4 /* sns_icon_39@2x.png */; };
 		016F0CA91990D14500D2E9E4 /* LXActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 016F0CA81990D14500D2E9E4 /* LXActivity.m */; };
 		017639491A00ECF6005E71FF /* ProductView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 017639481A00ECF6005E71FF /* ProductView.xib */; };
+		0176394C1A013A1F005E71FF /* HistoryProductListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0176394B1A013A1F005E71FF /* HistoryProductListView.m */; };
 		01768B7219931BCD00EFF920 /* ASValuePopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01768B6F19931BCD00EFF920 /* ASValuePopUpView.m */; };
 		01768B7319931BCD00EFF920 /* ASValueTrackingSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 01768B7119931BCD00EFF920 /* ASValueTrackingSlider.m */; };
 		01768B761993283300EFF920 /* CurrentProductListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01768B751993283300EFF920 /* CurrentProductListView.m */; };
@@ -176,6 +176,9 @@
 		0198B6041991CD2900A8A887 /* readme.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0198B6031991CD2900A8A887 /* readme.rtf */; };
 		0198B6081991FF2B00A8A887 /* SVPulsingAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0198B6071991FF2B00A8A887 /* SVPulsingAnnotationView.m */; };
 		0198B60A199200EF00A8A887 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0198B609199200EF00A8A887 /* MapKit.framework */; };
+		01C067941A023CF60044CC95 /* MessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01C067931A023CF60044CC95 /* MessageView.xib */; };
+		01C067961A023D050044CC95 /* VoiceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01C067951A023D050044CC95 /* VoiceView.xib */; };
+		01C067981A023D100044CC95 /* SettingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01C067971A023D100044CC95 /* SettingView.xib */; };
 		01C0EA7519FFE6E000788876 /* DateAndTimePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C0EA7419FFE6E000788876 /* DateAndTimePickerViewController.m */; };
 		01E903CB197DEB3300CF24CB /* ProductFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E903CA197DEB3300CF24CB /* ProductFactory.m */; };
 		01E903CF197DEE3C00CF24CB /* DBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E903CE197DEE3C00CF24CB /* DBModel.m */; };
@@ -289,8 +292,6 @@
 		015C607819985D7A001F3C47 /* HistoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HistoryView.xib; path = Classes/controller/history/HistoryView.xib; sourceTree = SOURCE_ROOT; };
 		015C607A19985D92001F3C47 /* HistoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HistoryView.h; path = Classes/controller/history/HistoryView.h; sourceTree = SOURCE_ROOT; };
 		015C607B19985D92001F3C47 /* HistoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HistoryView.m; path = Classes/controller/history/HistoryView.m; sourceTree = SOURCE_ROOT; };
-		015C607D1998B0CC001F3C47 /* HistoryProductListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HistoryProductListView.h; path = Classes/controller/product/HistoryProductListView.h; sourceTree = SOURCE_ROOT; };
-		015C607E1998B0CC001F3C47 /* HistoryProductListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HistoryProductListView.m; path = Classes/controller/product/HistoryProductListView.m; sourceTree = SOURCE_ROOT; };
 		015DDD8C1851BB4700D9D78F /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = Classes/util/external/FMDB/FMDatabase.h; sourceTree = SOURCE_ROOT; };
 		015DDD8D1851BB4700D9D78F /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = Classes/util/external/FMDB/FMDatabase.m; sourceTree = SOURCE_ROOT; };
 		015DDD8E1851BB4700D9D78F /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = Classes/util/external/FMDB/FMDatabaseAdditions.h; sourceTree = SOURCE_ROOT; };
@@ -389,6 +390,8 @@
 		016F0CA71990D14500D2E9E4 /* LXActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LXActivity.h; path = Classes/util/external/LXActivity/LXActivity.h; sourceTree = SOURCE_ROOT; };
 		016F0CA81990D14500D2E9E4 /* LXActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LXActivity.m; path = Classes/util/external/LXActivity/LXActivity.m; sourceTree = SOURCE_ROOT; };
 		017639481A00ECF6005E71FF /* ProductView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProductView.xib; path = Classes/controller/product/ProductView.xib; sourceTree = SOURCE_ROOT; };
+		0176394A1A013A1F005E71FF /* HistoryProductListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HistoryProductListView.h; path = Classes/controller/history/HistoryProductListView.h; sourceTree = SOURCE_ROOT; };
+		0176394B1A013A1F005E71FF /* HistoryProductListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HistoryProductListView.m; path = Classes/controller/history/HistoryProductListView.m; sourceTree = SOURCE_ROOT; };
 		01768B6E19931BCD00EFF920 /* ASValuePopUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASValuePopUpView.h; path = Classes/util/external/ASValueTrackingSlider/ASValuePopUpView.h; sourceTree = SOURCE_ROOT; };
 		01768B6F19931BCD00EFF920 /* ASValuePopUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASValuePopUpView.m; path = Classes/util/external/ASValueTrackingSlider/ASValuePopUpView.m; sourceTree = SOURCE_ROOT; };
 		01768B7019931BCD00EFF920 /* ASValueTrackingSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASValueTrackingSlider.h; path = Classes/util/external/ASValueTrackingSlider/ASValueTrackingSlider.h; sourceTree = SOURCE_ROOT; };
@@ -401,6 +404,9 @@
 		0198B6071991FF2B00A8A887 /* SVPulsingAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVPulsingAnnotationView.m; path = Classes/util/external/SVPulsingAnnotationView/SVPulsingAnnotationView.m; sourceTree = SOURCE_ROOT; };
 		0198B609199200EF00A8A887 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		01B51A5C198B3B58006B461A /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
+		01C067931A023CF60044CC95 /* MessageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MessageView.xib; path = Classes/controller/message/MessageView.xib; sourceTree = SOURCE_ROOT; };
+		01C067951A023D050044CC95 /* VoiceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VoiceView.xib; sourceTree = SOURCE_ROOT; };
+		01C067971A023D100044CC95 /* SettingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingView.xib; sourceTree = SOURCE_ROOT; };
 		01C0EA7319FFE6E000788876 /* DateAndTimePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateAndTimePickerViewController.h; path = Classes/controller/history/DateAndTimePickerViewController.h; sourceTree = SOURCE_ROOT; };
 		01C0EA7419FFE6E000788876 /* DateAndTimePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateAndTimePickerViewController.m; path = Classes/controller/history/DateAndTimePickerViewController.m; sourceTree = SOURCE_ROOT; };
 		01E903C9197DEB3300CF24CB /* ProductFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductFactory.h; path = Classes/model/product/common/ProductFactory.h; sourceTree = SOURCE_ROOT; };
@@ -582,8 +588,6 @@
 				017639481A00ECF6005E71FF /* ProductView.xib */,
 				01768B741993283300EFF920 /* CurrentProductListView.h */,
 				01768B751993283300EFF920 /* CurrentProductListView.m */,
-				015C607D1998B0CC001F3C47 /* HistoryProductListView.h */,
-				015C607E1998B0CC001F3C47 /* HistoryProductListView.m */,
 			);
 			name = product;
 			sourceTree = "<group>";
@@ -661,9 +665,11 @@
 			children = (
 				01C0EA7319FFE6E000788876 /* DateAndTimePickerViewController.h */,
 				01C0EA7419FFE6E000788876 /* DateAndTimePickerViewController.m */,
-				015C607819985D7A001F3C47 /* HistoryView.xib */,
+				0176394A1A013A1F005E71FF /* HistoryProductListView.h */,
+				0176394B1A013A1F005E71FF /* HistoryProductListView.m */,
 				015C607A19985D92001F3C47 /* HistoryView.h */,
 				015C607B19985D92001F3C47 /* HistoryView.m */,
+				015C607819985D7A001F3C47 /* HistoryView.xib */,
 			);
 			name = history;
 			sourceTree = "<group>";
@@ -673,6 +679,7 @@
 			children = (
 				016121D01982033500107D1E /* VoiceView.h */,
 				016121D11982033500107D1E /* VoiceView.m */,
+				01C067951A023D050044CC95 /* VoiceView.xib */,
 			);
 			name = voice;
 			sourceTree = "<group>";
@@ -682,6 +689,7 @@
 			children = (
 				016121CD1982031900107D1E /* MessageView.h */,
 				016121CE1982031900107D1E /* MessageView.m */,
+				01C067931A023CF60044CC95 /* MessageView.xib */,
 			);
 			name = message;
 			sourceTree = "<group>";
@@ -691,6 +699,7 @@
 			children = (
 				016121CA198202F700107D1E /* SettingView.h */,
 				016121CB198202F700107D1E /* SettingView.m */,
+				01C067971A023D100044CC95 /* SettingView.xib */,
 			);
 			name = setting;
 			sourceTree = "<group>";
@@ -949,9 +958,9 @@
 			children = (
 				C7274634179C2FD400FD5106 /* main */,
 				014E1DD9197FA5AD001EC88C /* product */,
-				016121C7198202CF00107D1E /* voice */,
 				016121C31981FF8C00107D1E /* history */,
 				016121C8198202D500107D1E /* message */,
+				016121C7198202CF00107D1E /* voice */,
 				016121C9198202DB00107D1E /* setting */,
 			);
 			name = controller;
@@ -1107,6 +1116,7 @@
 				017639491A00ECF6005E71FF /* ProductView.xib in Resources */,
 				016F0C8F1990D11E00D2E9E4 /* sns_icon_24@2x.png in Resources */,
 				016F0C631990D11E00D2E9E4 /* sns_icon_2@2x.png in Resources */,
+				01C067961A023D050044CC95 /* VoiceView.xib in Resources */,
 				016F0C151990CE8B00D2E9E4 /* Checkmark.png in Resources */,
 				016F0C971990D11E00D2E9E4 /* sns_icon_28@2x.png in Resources */,
 				016F0C751990D11E00D2E9E4 /* sns_icon_11@2x.png in Resources */,
@@ -1170,6 +1180,7 @@
 				016F0C9B1990D11E00D2E9E4 /* sns_icon_34@2x.png in Resources */,
 				016F0C8D1990D11E00D2E9E4 /* sns_icon_23@2x.png in Resources */,
 				012999551989DBF400F60F02 /* textfield_middle.png in Resources */,
+				01C067941A023CF60044CC95 /* MessageView.xib in Resources */,
 				0129994F1989DBF400F60F02 /* login_normal@2x.png in Resources */,
 				016F0C811990D11E00D2E9E4 /* sns_icon_17@2x.png in Resources */,
 				012999491989DBF400F60F02 /* friendlist_cellbtn_normal.png in Resources */,
@@ -1177,6 +1188,7 @@
 				0129994E1989DBF400F60F02 /* login_normal.png in Resources */,
 				012999451989DBF400F60F02 /* cellselectbtn_normal.png in Resources */,
 				0129993E1989DBF400F60F02 /* btn_buttom_highlighted.png in Resources */,
+				01C067981A023D100044CC95 /* SettingView.xib in Resources */,
 				012999591989DBF400F60F02 /* touxiang2@2x.png in Resources */,
 				016F0CA11990D11E00D2E9E4 /* sns_icon_37@2x.png in Resources */,
 				012999101989DBDF00F60F02 /* radar.png in Resources */,
@@ -1245,6 +1257,7 @@
 				016121CC198202F700107D1E /* SettingView.m in Sources */,
 				01768B7219931BCD00EFF920 /* ASValuePopUpView.m in Sources */,
 				01F9508E185B04B4005282DB /* ProductVo.m in Sources */,
+				0176394C1A013A1F005E71FF /* HistoryProductListView.m in Sources */,
 				01E903CF197DEE3C00CF24CB /* DBModel.m in Sources */,
 				01C0EA7519FFE6E000788876 /* DateAndTimePickerViewController.m in Sources */,
 				015DDDA81851CA7F00D9D78F /* RVWDrawData.m in Sources */,
@@ -1263,7 +1276,6 @@
 				015C607C19985D92001F3C47 /* HistoryView.m in Sources */,
 				01128618197CEE57009B034F /* MainViewController.m in Sources */,
 				C7E4F11117F57A4C00B63B02 /* ASIDownloadCache.m in Sources */,
-				015C607F1998B0CC001F3C47 /* HistoryProductListView.m in Sources */,
 				C798D02E17A0352900326F1C /* AppDelegate.m in Sources */,
 				01E903CB197DEB3300CF24CB /* ProductFactory.m in Sources */,
 				C7E4F11317F57A4C00B63B02 /* ASIHTTPRequest.m in Sources */,

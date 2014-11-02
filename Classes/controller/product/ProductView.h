@@ -33,12 +33,11 @@
         CLLocationManager *locationManager;
         SVPulsingAnnotationView *pulsingView;
         CurrentProductListView *currentProductListView;
-        HistoryProductListView *historyProductListView;
-        HistoryView *historyView;
         NSTimer *playTimer;
         UIButton *knifeBtn;
 }
 
+@property (strong, nonatomic) IBOutlet UILabel *productTitleLabel;
 @property (strong, nonatomic) IBOutlet UIView *productViewBg;
 @property (strong, nonatomic) IBOutlet UIView *productView;
 @property (strong, nonatomic) IBOutlet UIView *imgContainerView;
@@ -59,15 +58,16 @@
 
 @property (strong, nonatomic) ProductModel<ProductDrawDataProtocol>* currentProductModel;
 @property (strong, nonatomic) NSData* currentProductData;
+@property (strong, nonatomic) NSMutableArray *historyDataArray;
 
 - (void)showPosition;
 - (void)screenShot;
 - (void)showCurrentProduct;
-- (void)historyBtnClick;
 - (void)drawProduct;
 - (void)knifeBtnClick:(id) sender;
-- (void)playBtnClick;
+- (void)playBtnClick:(NSMutableArray*)historyDataArray;
 
 + (void) setShadowTaste:(UIView *)backView andForeView:(UIView *)foreView;
++ (void) setBtnSelectTaste:(UIButton *)btn;
 
 @end

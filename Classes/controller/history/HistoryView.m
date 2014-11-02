@@ -10,7 +10,7 @@
 
 @implementation HistoryView
 
-@synthesize startTimeChooser, endTimeChooser, productTableView, productArray;
+@synthesize startTimeChooser, endTimeChooser, productTableView, historyProductListView, productArray, productConfigViewBg, conditionView, conditionViewBg, historyProductListViewBg;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -24,6 +24,9 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
+    [ProductView setShadowTaste:productConfigViewBg andForeView:productTableView];
+    [ProductView setShadowTaste:conditionViewBg andForeView:conditionView];
+    [ProductView setShadowTaste:self.historyProductListViewBg andForeView:self.historyProductListView];
 }
 
 - (void)didMoveToSuperview
@@ -52,6 +55,11 @@
 }
 
 #pragma mark - Table view data source
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 40;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 17;

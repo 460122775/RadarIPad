@@ -8,17 +8,24 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ProductView">
-            <rect key="frame" x="0.0" y="0.0" width="929" height="728"/>
+            <rect key="frame" x="0.0" y="0.0" width="924" height="728"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M8H-U4-yzs">
-                    <rect key="frame" x="5" y="0.0" width="620" height="728"/>
+                    <rect key="frame" x="0.0" y="0.0" width="620" height="728"/>
                     <subviews>
                         <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Itu-Cl-Abn">
                             <rect key="frame" x="0.0" y="0.0" width="620" height="728"/>
                             <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9he-yJ-ENX">
+                                    <rect key="frame" x="0.0" y="0.0" width="620" height="35"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pq8-Nv-aHV">
-                                    <rect key="frame" x="0.0" y="0.0" width="620" height="620"/>
+                                    <rect key="frame" x="0.0" y="35" width="620" height="620"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MOE-1z-t3z">
                                             <rect key="frame" x="0.0" y="0.0" width="620" height="620"/>
@@ -32,13 +39,13 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vhE-mj-nwh">
-                                    <rect key="frame" x="0.0" y="621" width="620" height="107"/>
+                                    <rect key="frame" x="0.0" y="656" width="620" height="72"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qt9-Bv-svI">
-                                            <rect key="frame" x="0.0" y="40" width="620" height="67"/>
+                                            <rect key="frame" x="0.0" y="30" width="620" height="42"/>
                                         </imageView>
                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3bb-3A-4io">
-                                            <rect key="frame" x="0.0" y="0.0" width="620" height="40"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="620" height="30"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                     </subviews>
@@ -51,7 +58,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nzC-ak-SV2">
-                    <rect key="frame" x="640" y="0.0" width="289" height="728"/>
+                    <rect key="frame" x="635" y="0.0" width="289" height="728"/>
                     <subviews>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K5Q-8b-Joo">
                             <rect key="frame" x="0.0" y="0.0" width="289" height="728"/>
@@ -61,11 +68,11 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="byO-a7-2br">
-                                    <rect key="frame" x="0.0" y="36" width="289" height="280"/>
+                                    <rect key="frame" x="0.0" y="36" width="289" height="200"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tni-Ul-bnw">
-                                    <rect key="frame" x="0.0" y="317" width="289" height="411"/>
+                                    <rect key="frame" x="0.0" y="237" width="289" height="491"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                             </subviews>
@@ -89,6 +96,7 @@
                 <outlet property="productControlView" destination="Tni-Ul-bnw" id="b2o-Dm-HZN"/>
                 <outlet property="productImgView" destination="MOE-1z-t3z" id="HvR-0Z-0xV"/>
                 <outlet property="productInfoView" destination="byO-a7-2br" id="qIw-F7-5nx"/>
+                <outlet property="productTitleLabel" destination="9he-yJ-ENX" id="DRC-jM-HsU"/>
                 <outlet property="productView" destination="Itu-Cl-Abn" id="tzQ-Px-Se8"/>
                 <outlet property="productViewBg" destination="M8H-U4-yzs" id="hLL-RZ-CxR"/>
                 <outlet property="radarInfoBarView" destination="97n-17-LUm" id="sHg-cU-sZr"/>

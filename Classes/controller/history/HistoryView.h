@@ -7,15 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HistoryProductListView.h"
 
 @interface HistoryView : UIView<UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *productArray;
 
-@property (strong, nonatomic) IBOutlet UIPickerView *startTimeChooser;
-
-@property (strong, nonatomic) IBOutlet UIDatePicker *endTimeChooser;
+@property (strong, nonatomic) IBOutlet UIView *productConfigViewBg;
 @property (strong, nonatomic) IBOutlet UITableView *productTableView;
+
+@property (strong, nonatomic) IBOutlet UIView *conditionViewBg;
+@property (strong, nonatomic) IBOutlet UIView *conditionView;
+@property (strong, nonatomic) IBOutlet UIPickerView *startTimeChooser;
+@property (strong, nonatomic) IBOutlet UIPickerView *endTimeChooser;
+
+@property (strong, nonatomic) IBOutlet UIView *historyProductListViewBg;
+@property (strong, nonatomic) IBOutlet HistoryProductListView *historyProductListView;
 
 - (IBAction)predetemineTimeSearchControl:(id)sender;
 - (IBAction)customTimeSearchBtnClick:(id)sender;

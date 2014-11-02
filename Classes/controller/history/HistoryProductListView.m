@@ -9,7 +9,7 @@
 #import "HistoryProductListView.h"
 
 @implementation HistoryProductListView
-@synthesize productDataArray, delegate;
+@synthesize productDataArray, delegate, tableView;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -23,13 +23,13 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    tableView = [[UITableView alloc]
+    self.tableView = [[UITableView alloc]
                  initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    tableView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1.0];
-    [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [self addSubview:tableView];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1.0];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self addSubview:self.tableView];
 }
 
 - (void)didMoveToSuperview
@@ -49,9 +49,9 @@
 
 - (void)resizeTableView
 {
-    tableView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    [tableView reloadData];
-    [tableView reloadInputViews];
+    self.tableView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    [self.tableView reloadData];
+    [self.tableView reloadInputViews];
 }
 
 #pragma mark - Table view data source
@@ -73,15 +73,15 @@
 
 - (UIView *)tableView:(UITableView *)_tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView * sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 40)];
-    [sectionView setBackgroundColor:[UIColor whiteColor]];
+    UIView * sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 40)];
+    [sectionView setBackgroundColor:BackGroundBlueColor];
     UILabel * label = [[UILabel alloc] init];
-    label.frame = CGRectMake(0, 0, tableView.bounds.size.width, 40);
+    label.frame = CGRectMake(0, 0, self.tableView.bounds.size.width, 40);
     label.backgroundColor = [UIColor clearColor];
     label.font=[UIFont fontWithName:@"Helvetica-Bold" size:18];
     label.text = @"历史查询结果";
     label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = ProductTextColor;
+    label.textColor = [UIColor whiteColor];
     [sectionView addSubview:label];
     return sectionView;
 }

@@ -95,7 +95,7 @@
     UIGraphicsEndImageContext();
 }
 
--(void)getProductInfo:(UIView *)productInfoView andData:(NSData *) data
+-(void)getProductInfo:(UIView *) productInfoView TitleLabel:(UILabel*)titleLabel Data:(NSData *) data
 {
     
 }
