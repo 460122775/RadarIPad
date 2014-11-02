@@ -10,7 +10,7 @@
 
 @implementation HistoryView
 
-@synthesize startTimeChooser, endTimeChooser, productTableView, historyProductListView, productArray, productConfigViewBg, conditionView, conditionViewBg, historyProductListViewBg;
+@synthesize startTimeChooserView, endTimeChooserView, productTableView, historyProductListView, productArray, productConfigViewBg, conditionView, conditionViewBg, historyProductListViewBg, delegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -27,6 +27,15 @@
     [ProductView setShadowTaste:productConfigViewBg andForeView:productTableView];
     [ProductView setShadowTaste:conditionViewBg andForeView:conditionView];
     [ProductView setShadowTaste:self.historyProductListViewBg andForeView:self.historyProductListView];
+    
+    RBCustomDatePickerView *startTimeChooserPicker = [[RBCustomDatePickerView alloc] initWithFrame:CGRectMake(-5, -130, 305, 216)];
+    [self.startTimeChooserView addSubview:startTimeChooserPicker];
+    
+    RBCustomDatePickerView *endTimeChooserPicker = [[RBCustomDatePickerView alloc] initWithFrame:CGRectMake(-5, -130, 305, 216)];
+    [self.endTimeChooserView addSubview:endTimeChooserPicker];
+    
+    historyProductListView.delegate = self;
+    historyProductListView.showBackBtn = NO;
 }
 
 - (void)didMoveToSuperview
@@ -119,6 +128,17 @@ static NSString *Identifier = @"HistoryProductListCell";
     }
     [_tableView cellForRowAtIndexPath:indexPath].backgroundColor = BackGroundBlueColor;
     [_tableView cellForRowAtIndexPath:indexPath].textLabel.textColor = [UIColor whiteColor];
+}
+
+#pragma mark HistoryProductListProtocol
+- (void)selectProduct:(int) index inDataArray:(NSMutableArray*) dataArray
+{
+    [self.delegate selectProduct:index inDataArray:dataArray];
+}
+
+- (void)retryControl
+{
+    
 }
 
 @end

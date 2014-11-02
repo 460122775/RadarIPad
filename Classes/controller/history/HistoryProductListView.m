@@ -9,14 +9,14 @@
 #import "HistoryProductListView.h"
 
 @implementation HistoryProductListView
-@synthesize productDataArray, delegate, tableView;
+@synthesize productDataArray, delegate, tableView, backBtn;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self)
     {
-        
+        self.showBackBtn = NO;
     }
     return self;
 }
@@ -83,7 +83,26 @@
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor whiteColor];
     [sectionView addSubview:label];
+    
+    if (self.showBackBtn)
+    {
+        self.backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.backBtn setFrame: CGRectMake(10, 5, 30, 30)];
+        [self.backBtn setTitle:@"←" forState:UIControlStateNormal];
+        //    [backBtn setBackgroundImage:[UIImage imageNamed:@"login_tourist_normal"] forState:UIControlStateNormal];
+        //    [backBtn setBackgroundImage:[UIImage imageNamed:@"login_tourist_highlighted"] forState:UIControlStateHighlighted];
+        [self.backBtn.layer setBorderWidth:2];
+        [self.backBtn.layer setBorderColor:[[UIColor whiteColor] CGColor]];
+        [self.backBtn.layer setCornerRadius:15];
+        [self.backBtn addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [sectionView addSubview:self.backBtn];
+    }
     return sectionView;
+}
+
+- (void)backBtnClick
+{
+    [self.delegate retryControl];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -135,7 +154,7 @@
     ProductInfo *vo = [[ProductInfo alloc] initWithPosFileStr:[NSString stringWithFormat:@"/%@.zdb",[productStr substringWithRange:NSMakeRange(0, productStr.length - 5)]]];
     //Test End...
     
-    [self.delegate selectProduct:vo];
+    [self.delegate selectProduct:indexPath.row inDataArray:self.productDataArray];
     productStr = nil;
     vo = nil;
 }

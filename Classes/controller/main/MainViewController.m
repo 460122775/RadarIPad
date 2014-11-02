@@ -27,7 +27,7 @@ static MainViewController *instance;
     if (self) {
         // Custom initialization
         instance = self;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productAddressReceived:) name:ProductAddressArrived object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productAddressReceived:) name:ProductAddressArrived object:nil];
 //        DLog(@"%@", [DocumentsPath stringByAppendingPathComponent:@"/db/db0_0.db"]);
     }
     return self;
@@ -47,6 +47,7 @@ static MainViewController *instance;
     //Create Product View.
     [self setProductView:[[[NSBundle mainBundle] loadNibNamed:@"ProductView" owner:nil options:nil] objectAtIndex:0]];
     [self.productView setFrame:CGRectMake(RightViewXPoint, VPadding, RightViewWidth, RightViewHeight)];
+    [self.productView setDelegate:self];
     [self.view addSubview:self.productView];
 }
 
@@ -66,6 +67,7 @@ static MainViewController *instance;
         {
             self.historyView = [[[NSBundle mainBundle] loadNibNamed:@"HistoryView" owner:nil options:nil] objectAtIndex:0];
             self.historyView.frame = CGRectMake(RightViewXPoint, VPadding, RightViewWidth, 728);
+            self.historyView.delegate = self;
         }
         [self.view addSubview:self.historyView];
         [self.productView removeFromSuperview];
@@ -73,6 +75,7 @@ static MainViewController *instance;
         [ProductView setBtnSelectTaste:(UIButton*)sender];
         //Change the View.
         [self.view addSubview:self.productView];
+        [self.productView hideHistoryProductTable];
         [self.historyView removeFromSuperview];
     }
 }
@@ -187,6 +190,21 @@ static MainViewController *instance;
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+#pragma mark - HistoryViewProtocol
+- (void)selectProduct:(int) index inDataArray:(NSMutableArray*) dataArray
+{
+    [self.historyView removeFromSuperview];
+    [self.view addSubview:self.productView];
+    [self.productView showHistoryProductTable:dataArray andIndex:index];
+}
+
+#pragma mark - ProductViewProtocol
+- (void)historyQueryRetryControl
+{
+    [self.productView removeFromSuperview];
+    [self.view addSubview:self.historyView];
 }
 
 @end

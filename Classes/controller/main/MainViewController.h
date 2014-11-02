@@ -12,7 +12,7 @@
 #import "VoiceView.h"
 #import "SettingView.h"
 
-@interface MainViewController : UIViewController
+@interface MainViewController : UIViewController<ProductViewProtocol, HistoryViewProtocol>
 
 @property (strong, nonatomic) IBOutlet UIView *btn_scrollViewBg;
 @property (strong, nonatomic) IBOutlet UIScrollView *btn_scrollView;

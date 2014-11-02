@@ -191,10 +191,11 @@ static int lastIntValue = -1;
 
 -(void) playTimerFired:(id) sender
 {
+//    DLog(@"%f", self.slider.value);
     if (playTimer!= nil && self.slider.value > self.historyDataArray.count)
     {
         [playTimer invalidate];
-        playTimer = nil;
+//        playTimer = nil;
         return;
     }
     //Test Code...
@@ -212,33 +213,6 @@ static int lastIntValue = -1;
 }
 
 #pragma -mark Btn Click Control
-- (void)knifeBtnClick:(id) sender
-{
-    if(knifeBtn == nil) knifeBtn = (UIButton*)sender;
-    if (knifeBtn.tag != 1)
-    {
-        [ProductView setBtnSelectTaste:knifeBtn];
-        if (knifeGestureRecognizer == nil)
-        {
-            knifeGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(knifeDragControl:)];
-            knifeGestureRecognizer.minimumNumberOfTouches = 1;
-            knifeGestureRecognizer.maximumNumberOfTouches = 1;
-            [self.imgContainerView addGestureRecognizer:knifeGestureRecognizer];
-        }
-        if (self.knifeLineView == nil)
-        {
-            self.knifeLineView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ProductContainer_Width, ProductContainer_height)];
-            [self.knifeLineView setBackgroundColor:[UIColor clearColor]];
-            [self.imgContainerView addSubview:self.knifeLineView];
-        }
-    }else{
-        [ProductView setBtnSelectTaste:knifeBtn];
-        knifeGestureRecognizer = nil;
-        [self.knifeLineView removeFromSuperview];
-        self.knifeLineView = nil;
-    }
-}
-
 - (void)showCurrentProduct
 {
     currentProductListView = [[CurrentProductListView alloc] initWithFrame:CGRectMake(0, 0, self.productControlView.frame.size.width, self.productControlView.frame.size.height)];
@@ -297,6 +271,49 @@ static int lastIntValue = -1;
         [pulsingView removeFromSuperview];
         pulsingView = nil;
     }
+}
+
+- (void)knifeBtnClick:(id) sender
+{
+    if(knifeBtn == nil) knifeBtn = (UIButton*)sender;
+    if (knifeBtn.tag != 1)
+    {
+        [ProductView setBtnSelectTaste:knifeBtn];
+        if (knifeGestureRecognizer == nil)
+        {
+            knifeGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(knifeDragControl:)];
+            knifeGestureRecognizer.minimumNumberOfTouches = 1;
+            knifeGestureRecognizer.maximumNumberOfTouches = 1;
+            [self.imgContainerView addGestureRecognizer:knifeGestureRecognizer];
+        }
+        if (self.knifeLineView == nil)
+        {
+            self.knifeLineView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ProductContainer_Width, ProductContainer_height)];
+            [self.knifeLineView setBackgroundColor:[UIColor clearColor]];
+            [self.imgContainerView addSubview:self.knifeLineView];
+        }
+    }else{
+        [ProductView setBtnSelectTaste:knifeBtn];
+        [self.imgContainerView removeGestureRecognizer:knifeGestureRecognizer];
+        knifeGestureRecognizer = nil;
+        [self.knifeLineView removeFromSuperview];
+        self.knifeLineView = nil;
+    }
+}
+
+- (void)knifeAlertControl
+{
+    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"请确认" contentText:@"要沿此位置进行切割吗？" leftButtonTitle:@"切割" rightButtonTitle:@"取消"];
+    [alert show];
+    alert.leftBlock = ^() {
+        DLog(@"left button clicked");
+    };
+    alert.rightBlock = ^() {
+        DLog(@"right button clicked");
+    };
+    alert.dismissBlock = ^() {
+        DLog(@"Do something interesting after dismiss block");
+    };
 }
 
 #pragma -mark CLLocationManagerDelegate Method
@@ -378,13 +395,14 @@ static CGPoint dragLocation;
 -(void)imgSwitchcControl:(UIPanGestureRecognizer*)paramSender
 {
     if (knifeBtn != nil && knifeBtn.tag == 1) return;
-    CGPoint location = [paramSender locationInView:paramSender.view];
     if (paramSender.state == UIGestureRecognizerStateBegan)
     {
+        CGPoint location = [paramSender locationInView:paramSender.view];
         dragLocation.x = location.x;
         dragLocation.y = location.y;
     }else if (paramSender.state == UIGestureRecognizerStateEnded && paramSender.state != UIGestureRecognizerStateFailed){
         // Gesture Valid...
+        CGPoint location = [paramSender locationInView:paramSender.view];
         if (abs(dragLocation.x - location.x) >= 10 || abs(dragLocation.y - location.y) >= 10)
         {
             // Horizontal.
@@ -419,7 +437,6 @@ static CGPoint dragLocation;
     {
         dragLocation.x = location.x;
         dragLocation.y = location.y;
-        DLog(@"%f, %f",location.x, location.y);
     }else if (paramSender.state == UIGestureRecognizerStateEnded && paramSender.state != UIGestureRecognizerStateFailed){
         
         if (abs(dragLocation.x - location.x) >= 10 || abs(dragLocation.y - location.y) >= 10)
@@ -432,7 +449,6 @@ static CGPoint dragLocation;
         CGContextSetLineCap(context, kCGLineCapRound);
         CGContextSetLineWidth(context, 3);
         CGContextBeginPath(context);
-        DLog(@"%f, %f",location.x, location.y);
         CGContextMoveToPoint(context, dragLocation.x, dragLocation.y);
         CGContextAddLineToPoint(context, location.x, location.y);
         CGContextSetRGBStrokeColor(context, 1, 1, 1, 1);
@@ -440,7 +456,40 @@ static CGPoint dragLocation;
         // Show image...
         self.knifeLineView.image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
+        [self knifeAlertControl];
     }
+}
+
+#pragma mark - History Query Control
+- (void)showHistoryProductTable:(NSMutableArray*)historyDataArray andIndex:(int) index
+{
+    if(historyProductListView == nil)
+    {
+        historyProductListView = [[HistoryProductListView alloc] initWithFrame:CGRectMake(0, 0, self.productControlView.frame.size.width, self.productControlView.frame.size.height)];
+        historyProductListView.delegate = self;
+        historyProductListView.showBackBtn = YES;
+    }
+    [self.productControlView addSubview:historyProductListView];
+}
+
+- (void)hideHistoryProductTable
+{
+    if (historyProductListView != nil)
+    {
+        [historyProductListView removeFromSuperview];
+    }
+}
+
+- (void)selectProduct:(int) index inDataArray:(NSMutableArray*) dataArray
+{
+    NSString *productStr = (NSString*)[dataArray objectAtIndex:index];
+    ProductInfo *vo = [[ProductInfo alloc] initWithPosFileStr:[NSString stringWithFormat:@"/%@.zdb",[productStr substringWithRange:NSMakeRange(0, productStr.length - 5)]]];
+    [self selectProduct:vo];
+}
+
+- (void)retryControl
+{
+    [self.delegate historyQueryRetryControl];
 }
 
 @end

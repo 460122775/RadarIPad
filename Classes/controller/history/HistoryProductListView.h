@@ -14,15 +14,18 @@
 @protocol HistoryProductListProtocol <NSObject>
 
 @required
-- (void)selectProduct:(id) productObject;
+- (void)selectProduct:(int) index inDataArray:(NSMutableArray*) dataArray;
+- (void)retryControl;
 
 @end
 
 @interface HistoryProductListView : UIView<UITableViewDataSource, UITableViewDelegate>
 
-@property(nonatomic, retain) NSMutableArray *productDataArray;
-@property(nonatomic, assign) id<HistoryProductListProtocol> delegate;
+@property (nonatomic, retain) NSMutableArray *productDataArray;
+@property (nonatomic, assign) id<HistoryProductListProtocol> delegate;
 @property (strong, nonatomic) UITableView *tableView;
+@property (nonatomic, retain) UIButton *backBtn;
+@property (nonatomic, assign) BOOL showBackBtn;
 
 - (void)resizeTableView;
 

@@ -66,3 +66,4 @@
 
 #pragma -mark Notification Name Define
 #define ProductAddressArrived @"ProductAddressArrived"
+#define HistoryProductSelected @"HistoryProductSelected"

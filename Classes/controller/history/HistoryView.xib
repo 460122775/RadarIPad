@@ -152,18 +152,12 @@
                                             <color key="textColor" red="0.1960784314" green="0.27450980390000002" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4hw-Tf-Bal">
-                                            <rect key="frame" x="0.0" y="63" width="305" height="216"/>
-                                        </pickerView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="  结束时间：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LvN-Mw-Ajl">
                                             <rect key="frame" x="0.0" y="279" width="305" height="25"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.1960784314" green="0.27450980390000002" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6mg-1u-XY3">
-                                            <rect key="frame" x="0.0" y="304" width="305" height="216"/>
-                                        </pickerView>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TeL-gr-nza">
                                             <rect key="frame" x="0.0" y="522" width="305" height="36"/>
                                             <color key="backgroundColor" red="0.1960784314" green="0.27450980390000002" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -176,6 +170,14 @@
                                                 <action selector="customTimeSearchBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="mzj-SG-kJ8"/>
                                             </connections>
                                         </button>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yMN-Rd-1dI">
+                                            <rect key="frame" x="0.0" y="63" width="305" height="216"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tt1-53-5OE">
+                                            <rect key="frame" x="0.0" y="304" width="305" height="216"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -203,12 +205,12 @@
             <connections>
                 <outlet property="conditionView" destination="Sra-CK-U3L" id="Cbr-ks-lYa"/>
                 <outlet property="conditionViewBg" destination="8jG-gD-DPd" id="qKg-W7-fBx"/>
-                <outlet property="endTimeChooser" destination="6mg-1u-XY3" id="fHq-IG-3bx"/>
+                <outlet property="endTimeChooserView" destination="Tt1-53-5OE" id="zDe-Us-3Fu"/>
                 <outlet property="historyProductListView" destination="gPA-Pa-B43" id="uOa-OK-bhB"/>
                 <outlet property="historyProductListViewBg" destination="gAo-Xl-dla" id="tjk-Tc-3qb"/>
                 <outlet property="productConfigViewBg" destination="et0-VC-y0i" id="gM7-Dw-qR2"/>
                 <outlet property="productTableView" destination="9gg-Ht-Nql" id="O3a-LS-ndU"/>
-                <outlet property="startTimeChooser" destination="4hw-Tf-Bal" id="M0t-3I-hYq"/>
+                <outlet property="startTimeChooserView" destination="yMN-Rd-1dI" id="t9F-Jw-0XK"/>
             </connections>
         </view>
     </objects>

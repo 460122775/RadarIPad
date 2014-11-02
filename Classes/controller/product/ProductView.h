@@ -22,9 +22,17 @@
 #import "LXActivity.h"
 #import "SVPulsingAnnotationView.h"
 #import "ASValueTrackingSlider.h"
+#import "DXAlertView.h"
+
+@protocol ProductViewProtocol <NSObject>
+
+@required
+- (void)historyQueryRetryControl;
+
+@end
 
 @interface ProductView : UIView<CLLocationManagerDelegate, ASValueTrackingSliderDataSource,
-    ASValueTrackingSliderDelegate, HistoryProductListProtocol, CurrentProductListDelegate>{
+    ASValueTrackingSliderDelegate, CurrentProductListDelegate, HistoryProductListProtocol>{
     
         UIPinchGestureRecognizer *zoomGestureRecognizer;
         UIPanGestureRecognizer *dragGestureRecognizer;
@@ -33,6 +41,7 @@
         CLLocationManager *locationManager;
         SVPulsingAnnotationView *pulsingView;
         CurrentProductListView *currentProductListView;
+        HistoryProductListView *historyProductListView;
         NSTimer *playTimer;
         UIButton *knifeBtn;
 }
@@ -59,6 +68,7 @@
 @property (strong, nonatomic) ProductModel<ProductDrawDataProtocol>* currentProductModel;
 @property (strong, nonatomic) NSData* currentProductData;
 @property (strong, nonatomic) NSMutableArray *historyDataArray;
+@property (nonatomic, assign) id<ProductViewProtocol> delegate;
 
 - (void)showPosition;
 - (void)screenShot;
@@ -66,6 +76,8 @@
 - (void)drawProduct;
 - (void)knifeBtnClick:(id) sender;
 - (void)playBtnClick:(NSMutableArray*)historyDataArray;
+- (void)showHistoryProductTable:(NSMutableArray*)historyDataArray andIndex:(int) index;
+- (void)hideHistoryProductTable;
 
 + (void) setShadowTaste:(UIView *)backView andForeView:(UIView *)foreView;
 + (void) setBtnSelectTaste:(UIButton *)btn;
