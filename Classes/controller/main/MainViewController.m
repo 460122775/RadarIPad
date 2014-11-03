@@ -86,6 +86,8 @@ static MainViewController *instance;
     {
         [self.productView playBtnClick:self.historyView.historyProductListView.productDataArray];
     }
+    if (self.historyView != nil) [self.historyView removeFromSuperview];
+    [self.view addSubview:self.productView];
 }
 
 - (IBAction)camaraBtnClick:(id)sender

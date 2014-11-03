@@ -102,7 +102,58 @@
 
 - (CGPoint) getPointByPosition:(CGPoint) point andFrame:(CGRect)frame
 {
+    //经纬度转化成坐标点.
     point = CGPointMake(centX, centY);
+    float radarX = fileHeadStruct.addSec.LongitudeV / 360000.0;
+    float radarY = fileHeadStruct.addSec.LatitudeV / 360000.0;
+    point.x = radarX + 12;
+    point.y = radarY - 12;
+    
+    // Calculate angle.
+    float angle = sin(point.y * M_PI / 180.0)
+                * sin(radarY * M_PI / 180.0)
+                + cos(point.y * M_PI / 180.0)
+                * cos(radarY * M_PI / 180.0)
+                * cos((radarX - point.x) * M_PI / 180.0);
+    angle = sqrt(1 - angle * angle);
+    if (angle != 0)
+    {
+        angle = cos(radarY * M_PI / 180.0) * sin((radarX - point.x) * M_PI / 180.0) / angle;
+        angle = asin(angle) * 180.0 / M_PI;
+    }
+    if (point.x >= radarX && point.y >= radarY)
+    {
+        angle *= -1;
+    }else if(point.x >= radarX
+             && point.y <= radarY){
+        angle += 180;
+    }else if (point.x <= radarX
+              && point.y <= radarY){
+        angle += 180;
+    }else if(point.x <= radarX
+             && point.y >= radarY){
+        angle = 360 - angle;
+    }
+    
+    // Calculate Distance.
+    float distance = 6371.0
+            * acos(cos(radarY * M_PI / 180.0)
+            * cos(point.y * M_PI / 180.0)
+            * cos((radarX - point.x) * M_PI / 180.0)
+            + sin(radarY * M_PI / 180.0)
+            * sin(point.y * M_PI / 180.0));
+    // Calculate Position.
+    if (angle == 0)
+    {
+        point.x = 0 + centX;
+    }else{
+        point.x = distance / _detM * sin(angle) + centX;
+    }
+    point.y = distance / _detM * cos(angle) + centY;
+    
+    //Test...
+    point.x = 340 + centX;
+    point.y = 380 + centY;
     return point;
 }
 

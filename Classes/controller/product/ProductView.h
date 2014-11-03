@@ -40,6 +40,8 @@
         UIPanGestureRecognizer *knifeGestureRecognizer;
         CLLocationManager *locationManager;
         SVPulsingAnnotationView *pulsingView;
+        UIImageView *directionImgView;
+        UIImageView *knifeLineView;
         CurrentProductListView *currentProductListView;
         HistoryProductListView *historyProductListView;
         NSTimer *playTimer;
@@ -53,17 +55,14 @@
 @property (strong, nonatomic) IBOutlet UIImageView *productImgView;
 @property (strong, nonatomic) IBOutlet UIImageView *mapCircleView;
 @property (strong, nonatomic) IBOutlet UIImageView *colorImgView;
-
-@property (strong, nonatomic) UIImageView *knifeLineView;
 @property (strong, nonatomic) IBOutlet UIView *processControlView;
-@property (strong, nonatomic) ASValueTrackingSlider *slider;
-
 @property (strong, nonatomic) IBOutlet UIView *rightBarViewBg;
 @property (strong, nonatomic) IBOutlet UIView *rightBarView;
 @property (strong, nonatomic) IBOutlet UIView *radarInfoBarView;
 @property (strong, nonatomic) IBOutlet UIView *productInfoView;
 @property (strong, nonatomic) IBOutlet UIView *productControlView;
 
+@property (retain, nonatomic) ASValueTrackingSlider *slider;
 
 @property (strong, nonatomic) ProductModel<ProductDrawDataProtocol>* currentProductModel;
 @property (strong, nonatomic) NSData* currentProductData;

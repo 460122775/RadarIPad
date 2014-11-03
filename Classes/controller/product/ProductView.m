@@ -16,7 +16,7 @@
 
 @implementation ProductView
 
-@synthesize productImgView, productViewBg, mapCircleView, colorImgView, rightBarView, rightBarViewBg, radarInfoBarView, productInfoView, currentProductModel, currentProductData, productControlView, processControlView, slider, knifeLineView, imgContainerView, historyDataArray, productTitleLabel;
+@synthesize productImgView, productViewBg, mapCircleView, colorImgView, rightBarView, rightBarViewBg, radarInfoBarView, productInfoView, currentProductModel, currentProductData, productControlView, processControlView, slider, imgContainerView, historyDataArray, productTitleLabel;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -48,15 +48,15 @@
     zoomGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(imgZoomControl:)];
     [self.imgContainerView addGestureRecognizer:zoomGestureRecognizer];
     
-//    dragGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(imgDragControl:)];
-//    dragGestureRecognizer.minimumNumberOfTouches = 1;
-//    dragGestureRecognizer.maximumNumberOfTouches = 1;
-//    [self.imgContainerView addGestureRecognizer:dragGestureRecognizer];
+    dragGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(imgDragControl:)];
+    dragGestureRecognizer.minimumNumberOfTouches = 1;
+    dragGestureRecognizer.maximumNumberOfTouches = 1;
+    [self.imgContainerView addGestureRecognizer:dragGestureRecognizer];
     
-    switchGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(imgSwitchcControl:)];
-    switchGestureRecognizer.minimumNumberOfTouches = 1;
-    switchGestureRecognizer.maximumNumberOfTouches = 1;
-    [self.imgContainerView addGestureRecognizer:switchGestureRecognizer];
+//    switchGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(imgSwitchcControl:)];
+//    switchGestureRecognizer.minimumNumberOfTouches = 1;
+//    switchGestureRecognizer.maximumNumberOfTouches = 1;
+//    [self.imgContainerView addGestureRecognizer:switchGestureRecognizer];
     
     //Bottom
     self.slider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(18, 8, ProductContainer_Width - 40, 20)];
@@ -152,7 +152,10 @@
     [self.currentProductModel drawDistanceCircle:self.mapCircleView];
     if (locationManager != nil)
     {
+        // Current Position Point.
         [self updatePositionPoint];
+        // Current Position Direction.
+        
     }
 }
 
@@ -254,15 +257,25 @@ static int lastIntValue = -1;
 {
     if (nil == locationManager)
     {
-        locationManager = [[CLLocationManager alloc] init];
-        locationManager.delegate = self;
-        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+        // Create location Point.
         pulsingView = [[SVPulsingAnnotationView alloc] initWithFrame:CGRectMake(-100,-100,30,30)];
         pulsingView.annotationColor = RGBA(0, 0, 255, 1);
         pulsingView.canShowCallout = YES;
         [self.imgContainerView addSubview:pulsingView];
-        // Set a movement threshold for new events
+        //Create Direction Point.
+        directionImgView = [[UIImageView alloc] initWithFrame:CGRectMake(100, 100, 26, 26)];
+        [directionImgView setImage:[UIImage imageNamed:@"gps_btn.png"]];
+        directionImgView.userInteractionEnabled=YES;
+        UITapGestureRecognizer *singleTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(onClickImage)];
+        [directionImgView addGestureRecognizer:singleTap];
+        [self.imgContainerView addSubview:directionImgView];
+//        self.imgContainerView.transform = CGAffineTransformMakeRotation(M_PI);
+        // Create location manager.
+        locationManager = [[CLLocationManager alloc] init];
+        locationManager.delegate = self;
+        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
         locationManager.distanceFilter = 500;
+        // Set a movement threshold for new events
         [locationManager startUpdatingLocation];
         [self updatePositionPoint];
     }else{
@@ -270,7 +283,20 @@ static int lastIntValue = -1;
         locationManager = nil;
         [pulsingView removeFromSuperview];
         pulsingView = nil;
+        [directionImgView removeFromSuperview];
+        directionImgView = nil;
     }
+}
+
+- (void)onClickImage
+{
+    self.currentProductModel.centX = self.currentProductModel.centX - pulsingView.frame.origin.x + ProductContainer_Width / 2;
+    self.currentProductModel.centY = self.currentProductModel.centY - pulsingView.frame.origin.y + ProductContainer_height / 2;
+//    self.currentProductModel.centX -= (dragLocation.x - location.x);
+//    self.currentProductModel.centY -= (dragLocation.y - location.y);
+//    self.productImgView.frame = CGRectMake(0, 0, ProductContainer_Width, ProductContainer_height);
+//    self.mapCircleView.frame = CGRectMake(0, 0, ProductContainer_Width, ProductContainer_height);
+    [self drawProduct];
 }
 
 - (void)knifeBtnClick:(id) sender
@@ -286,18 +312,18 @@ static int lastIntValue = -1;
             knifeGestureRecognizer.maximumNumberOfTouches = 1;
             [self.imgContainerView addGestureRecognizer:knifeGestureRecognizer];
         }
-        if (self.knifeLineView == nil)
+        if (knifeLineView == nil)
         {
-            self.knifeLineView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ProductContainer_Width, ProductContainer_height)];
-            [self.knifeLineView setBackgroundColor:[UIColor clearColor]];
-            [self.imgContainerView addSubview:self.knifeLineView];
+            knifeLineView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ProductContainer_Width, ProductContainer_height)];
+            [knifeLineView setBackgroundColor:[UIColor clearColor]];
+            [self.imgContainerView addSubview:knifeLineView];
         }
     }else{
         [ProductView setBtnSelectTaste:knifeBtn];
         [self.imgContainerView removeGestureRecognizer:knifeGestureRecognizer];
         knifeGestureRecognizer = nil;
-        [self.knifeLineView removeFromSuperview];
-        self.knifeLineView = nil;
+        [knifeLineView removeFromSuperview];
+        knifeLineView = nil;
     }
 }
 
@@ -328,6 +354,7 @@ static CGPoint point;
     if (abs(howRecent) < 5.0)
     {
         point = CGPointMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude);
+        DLog(@"%f, %f", point.x, point.y);
         [self updatePositionPoint];
     }
 }
@@ -335,7 +362,39 @@ static CGPoint point;
 -(void) updatePositionPoint
 {
     point = [self.currentProductModel getPointByPosition:point andFrame:self.productImgView.frame];
-    pulsingView.frame = CGRectMake(point.x, point.y, 20, 20);
+    pulsingView.frame = CGRectMake(point.x - 10, point.y - 10, 20, 20);
+    
+    [directionImgView removeFromSuperview];
+    if ((pulsingView.frame.origin.x > 620
+        || pulsingView.frame.origin.x < 0)
+        || (pulsingView.frame.origin.y > ProductContainer_height
+        || pulsingView.frame.origin.y < 0))
+    {
+        float x = 26;
+        float y = 26;
+        if (pulsingView.frame.origin.x <= ProductContainer_Width
+            && pulsingView.frame.origin.x >= 0)
+        {
+            x = pulsingView.frame.origin.x;
+        }else if(pulsingView.frame.origin.x > ProductContainer_Width){
+            x = ProductContainer_Width - x;
+            [directionImgView setImage:[UIImage imageWithCGImage:[UIImage imageNamed:@"gps_btn.png"].CGImage scale:1 orientation:UIImageOrientationRight]];
+        }else{
+            [directionImgView setImage:[UIImage imageWithCGImage:[UIImage imageNamed:@"gps_btn.png"].CGImage scale:1 orientation:UIImageOrientationLeft]];
+        }
+        if (pulsingView.frame.origin.y <= ProductContainer_height
+            && pulsingView.frame.origin.y >= 0)
+        {
+            y = pulsingView.frame.origin.y;
+        }else if(pulsingView.frame.origin.y > ProductContainer_height){
+            y = ProductContainer_height - y;
+            [directionImgView setImage:[UIImage imageWithCGImage:[UIImage imageNamed:@"gps_btn.png"].CGImage scale:1 orientation:UIImageOrientationDown]];
+        }else{
+            [directionImgView setImage:[UIImage imageWithCGImage:[UIImage imageNamed:@"gps_btn.png"].CGImage scale:1 orientation:UIImageOrientationUp]];
+        }
+        [directionImgView setFrame:CGRectMake(x, y, 26, 26)];
+        [self.imgContainerView addSubview:directionImgView];
+    }
 }
 
 #pragma -mark UIGestureRecognizer Method
@@ -444,7 +503,7 @@ static CGPoint dragLocation;
             self.currentProductModel.centX -= (dragLocation.x - location.x);
             self.currentProductModel.centY -= (dragLocation.y - location.y);
         }
-        UIGraphicsBeginImageContext(self.knifeLineView.frame.size);
+        UIGraphicsBeginImageContext(knifeLineView.frame.size);
         CGContextRef context = UIGraphicsGetCurrentContext();
         CGContextSetLineCap(context, kCGLineCapRound);
         CGContextSetLineWidth(context, 3);
@@ -454,7 +513,7 @@ static CGPoint dragLocation;
         CGContextSetRGBStrokeColor(context, 1, 1, 1, 1);
         CGContextStrokePath(context);
         // Show image...
-        self.knifeLineView.image = UIGraphicsGetImageFromCurrentImageContext();
+        knifeLineView.image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         [self knifeAlertControl];
     }
