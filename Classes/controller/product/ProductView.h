@@ -62,7 +62,11 @@
 @property (strong, nonatomic) IBOutlet UIView *productInfoView;
 @property (strong, nonatomic) IBOutlet UIView *productControlView;
 
-@property (retain, nonatomic) ASValueTrackingSlider *slider;
+@property (retain, nonatomic) IBOutlet ASValueTrackingSlider *slider;
+@property (strong, nonatomic) IBOutlet UIButton *backMultipleBtn;
+@property (strong, nonatomic) IBOutlet UIButton *backBtn;
+@property (strong, nonatomic) IBOutlet UIButton *forwardBtn;
+@property (strong, nonatomic) IBOutlet UIButton *forwardMultipleBtn;
 
 @property (strong, nonatomic) ProductModel<ProductDrawDataProtocol>* currentProductModel;
 @property (strong, nonatomic) NSData* currentProductData;

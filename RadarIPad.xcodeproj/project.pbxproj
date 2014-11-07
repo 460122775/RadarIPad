@@ -180,13 +180,13 @@
 		01768B7219931BCD00EFF920 /* ASValuePopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01768B6F19931BCD00EFF920 /* ASValuePopUpView.m */; };
 		01768B7319931BCD00EFF920 /* ASValueTrackingSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 01768B7119931BCD00EFF920 /* ASValueTrackingSlider.m */; };
 		01768B761993283300EFF920 /* CurrentProductListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01768B751993283300EFF920 /* CurrentProductListView.m */; };
+		0179F2F51A0B59FA00971BF6 /* VoiceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0179F2F41A0B59FA00971BF6 /* VoiceView.xib */; };
+		0179F2F71A0B5A0700971BF6 /* SettingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0179F2F61A0B5A0700971BF6 /* SettingView.xib */; };
 		0198B6021991C82300A8A887 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0198B6011991C82300A8A887 /* CoreLocation.framework */; };
 		0198B6041991CD2900A8A887 /* readme.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0198B6031991CD2900A8A887 /* readme.rtf */; };
 		0198B6081991FF2B00A8A887 /* SVPulsingAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0198B6071991FF2B00A8A887 /* SVPulsingAnnotationView.m */; };
 		0198B60A199200EF00A8A887 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0198B609199200EF00A8A887 /* MapKit.framework */; };
 		01C067941A023CF60044CC95 /* MessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01C067931A023CF60044CC95 /* MessageView.xib */; };
-		01C067961A023D050044CC95 /* VoiceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01C067951A023D050044CC95 /* VoiceView.xib */; };
-		01C067981A023D100044CC95 /* SettingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01C067971A023D100044CC95 /* SettingView.xib */; };
 		01C0EA7519FFE6E000788876 /* DateAndTimePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C0EA7419FFE6E000788876 /* DateAndTimePickerViewController.m */; };
 		01E903CB197DEB3300CF24CB /* ProductFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E903CA197DEB3300CF24CB /* ProductFactory.m */; };
 		01E903CF197DEE3C00CF24CB /* DBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E903CE197DEE3C00CF24CB /* DBModel.m */; };
@@ -417,6 +417,8 @@
 		01768B7119931BCD00EFF920 /* ASValueTrackingSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASValueTrackingSlider.m; path = Classes/util/external/ASValueTrackingSlider/ASValueTrackingSlider.m; sourceTree = SOURCE_ROOT; };
 		01768B741993283300EFF920 /* CurrentProductListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurrentProductListView.h; path = Classes/controller/product/CurrentProductListView.h; sourceTree = SOURCE_ROOT; };
 		01768B751993283300EFF920 /* CurrentProductListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CurrentProductListView.m; path = Classes/controller/product/CurrentProductListView.m; sourceTree = SOURCE_ROOT; };
+		0179F2F41A0B59FA00971BF6 /* VoiceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VoiceView.xib; path = Classes/controller/voice/VoiceView.xib; sourceTree = SOURCE_ROOT; };
+		0179F2F61A0B5A0700971BF6 /* SettingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingView.xib; path = Classes/controller/setting/SettingView.xib; sourceTree = SOURCE_ROOT; };
 		0198B6011991C82300A8A887 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0198B6031991CD2900A8A887 /* readme.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = readme.rtf; sourceTree = SOURCE_ROOT; };
 		0198B6061991FF2B00A8A887 /* SVPulsingAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVPulsingAnnotationView.h; path = Classes/util/external/SVPulsingAnnotationView/SVPulsingAnnotationView.h; sourceTree = SOURCE_ROOT; };
@@ -424,8 +426,6 @@
 		0198B609199200EF00A8A887 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		01B51A5C198B3B58006B461A /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		01C067931A023CF60044CC95 /* MessageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MessageView.xib; path = Classes/controller/message/MessageView.xib; sourceTree = SOURCE_ROOT; };
-		01C067951A023D050044CC95 /* VoiceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VoiceView.xib; sourceTree = SOURCE_ROOT; };
-		01C067971A023D100044CC95 /* SettingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingView.xib; sourceTree = SOURCE_ROOT; };
 		01C0EA7319FFE6E000788876 /* DateAndTimePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateAndTimePickerViewController.h; path = Classes/controller/history/DateAndTimePickerViewController.h; sourceTree = SOURCE_ROOT; };
 		01C0EA7419FFE6E000788876 /* DateAndTimePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateAndTimePickerViewController.m; path = Classes/controller/history/DateAndTimePickerViewController.m; sourceTree = SOURCE_ROOT; };
 		01E903C9197DEB3300CF24CB /* ProductFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductFactory.h; path = Classes/model/product/common/ProductFactory.h; sourceTree = SOURCE_ROOT; };
@@ -701,9 +701,9 @@
 		016121C7198202CF00107D1E /* voice */ = {
 			isa = PBXGroup;
 			children = (
+				0179F2F41A0B59FA00971BF6 /* VoiceView.xib */,
 				016121D01982033500107D1E /* VoiceView.h */,
 				016121D11982033500107D1E /* VoiceView.m */,
-				01C067951A023D050044CC95 /* VoiceView.xib */,
 			);
 			name = voice;
 			sourceTree = "<group>";
@@ -721,9 +721,9 @@
 		016121C9198202DB00107D1E /* setting */ = {
 			isa = PBXGroup;
 			children = (
+				0179F2F61A0B5A0700971BF6 /* SettingView.xib */,
 				016121CA198202F700107D1E /* SettingView.h */,
 				016121CB198202F700107D1E /* SettingView.m */,
-				01C067971A023D100044CC95 /* SettingView.xib */,
 			);
 			name = setting;
 			sourceTree = "<group>";
@@ -1164,7 +1164,6 @@
 				017639491A00ECF6005E71FF /* ProductView.xib in Resources */,
 				016F0C8F1990D11E00D2E9E4 /* sns_icon_24@2x.png in Resources */,
 				016F0C631990D11E00D2E9E4 /* sns_icon_2@2x.png in Resources */,
-				01C067961A023D050044CC95 /* VoiceView.xib in Resources */,
 				016F0C151990CE8B00D2E9E4 /* Checkmark.png in Resources */,
 				016F0C971990D11E00D2E9E4 /* sns_icon_28@2x.png in Resources */,
 				016F0C751990D11E00D2E9E4 /* sns_icon_11@2x.png in Resources */,
@@ -1211,6 +1210,7 @@
 				016F0C651990D11E00D2E9E4 /* sns_icon_3@2x.png in Resources */,
 				012999531989DBF400F60F02 /* rowBtn.png in Resources */,
 				012999161989DBDF00F60F02 /* rocket.png in Resources */,
+				0179F2F51A0B59FA00971BF6 /* VoiceView.xib in Resources */,
 				012999171989DBDF00F60F02 /* rocket@2x.png in Resources */,
 				0129990B1989DBDF00F60F02 /* player@2x.png in Resources */,
 				016F0C7B1990D11E00D2E9E4 /* sns_icon_14@2x.png in Resources */,
@@ -1238,8 +1238,8 @@
 				0129994E1989DBF400F60F02 /* login_normal.png in Resources */,
 				012999451989DBF400F60F02 /* cellselectbtn_normal.png in Resources */,
 				0129993E1989DBF400F60F02 /* btn_buttom_highlighted.png in Resources */,
-				01C067981A023D100044CC95 /* SettingView.xib in Resources */,
 				012999591989DBF400F60F02 /* touxiang2@2x.png in Resources */,
+				0179F2F71A0B5A0700971BF6 /* SettingView.xib in Resources */,
 				016F0CA11990D11E00D2E9E4 /* sns_icon_37@2x.png in Resources */,
 				012999101989DBDF00F60F02 /* radar.png in Resources */,
 				016F0C791990D11E00D2E9E4 /* sns_icon_13@2x.png in Resources */,

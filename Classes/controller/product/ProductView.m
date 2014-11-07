@@ -59,7 +59,7 @@
 //    [self.imgContainerView addGestureRecognizer:switchGestureRecognizer];
     
     //Bottom
-    self.slider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(18, 8, ProductContainer_Width - 40, 20)];
+//    self.slider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(18, 8, ProductContainer_Width - 40, 20)];
     self.slider.font = [UIFont fontWithName:@"Futura-CondensedExtraBold" size:26];
     self.slider.popUpViewAnimatedColors = @[BackGroundBlueColor];
     self.slider.maximumValue = 100;
@@ -68,7 +68,7 @@
     self.slider.dataSource = self;
     self.slider.delegate = self;
     self.slider.enabled = NO;
-    [self.processControlView addSubview: self.slider];
+//    [self.processControlView addSubview: self.slider];
     
     UILabel *positionLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, 100, 20)];
     [positionLabel setTextColor:ProductTextColor];

@@ -46,6 +46,35 @@
                                         </imageView>
                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3bb-3A-4io">
                                             <rect key="frame" x="0.0" y="0.0" width="620" height="30"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oKb-63-y5z">
+                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                    <state key="normal" title="&lt;&lt;">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0BS-vL-BYm">
+                                                    <rect key="frame" x="40" y="0.0" width="30" height="30"/>
+                                                    <state key="normal" title="&lt;">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Js3-di-OQ2">
+                                                    <rect key="frame" x="550" y="0.0" width="30" height="30"/>
+                                                    <state key="normal" title="&gt;">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="neG-3f-vAM">
+                                                    <rect key="frame" x="590" y="0.0" width="30" height="30"/>
+                                                    <state key="normal" title="&gt;&gt;">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                                <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Z1t-wd-Cab" customClass="ASValueTrackingSlider">
+                                                    <rect key="frame" x="80" y="0.0" width="460" height="31"/>
+                                                </slider>
+                                            </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                     </subviews>
@@ -89,7 +118,11 @@
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="backBtn" destination="Js3-di-OQ2" id="cUM-Fn-rVE"/>
+                <outlet property="backMultipleBtn" destination="oKb-63-y5z" id="BU6-0w-Q3r"/>
                 <outlet property="colorImgView" destination="qt9-Bv-svI" id="3WD-sX-HXY"/>
+                <outlet property="forwardBtn" destination="Js3-di-OQ2" id="Rmd-iC-xOF"/>
+                <outlet property="forwardMultipleBtn" destination="neG-3f-vAM" id="ftR-wF-SB9"/>
                 <outlet property="imgContainerView" destination="pq8-Nv-aHV" id="ohz-d5-ecG"/>
                 <outlet property="mapCircleView" destination="4oE-NM-055" id="lKD-XX-ZlZ"/>
                 <outlet property="processControlView" destination="3bb-3A-4io" id="6It-7G-jxF"/>
@@ -102,6 +135,7 @@
                 <outlet property="radarInfoBarView" destination="97n-17-LUm" id="sHg-cU-sZr"/>
                 <outlet property="rightBarView" destination="K5Q-8b-Joo" id="TJq-18-huV"/>
                 <outlet property="rightBarViewBg" destination="nzC-ak-SV2" id="jJ9-qC-b4F"/>
+                <outlet property="slider" destination="Z1t-wd-Cab" id="KUv-d1-9zo"/>
             </connections>
             <point key="canvasLocation" x="428" y="261"/>
         </view>
