@@ -217,9 +217,10 @@
     // Stopping.
     if (self.continueBtn.tag == 0)
     {
-        if(self.slider.value == self.historyDataArray.count)
+        if(currentValue == self.historyDataArray.count)
         {
-            self.slider.value = 1;
+            currentValue = 1;
+            self.slider.value = -1;
             step = 1;
         }
         self.continueBtn.tag = 1;
@@ -248,12 +249,13 @@
 
 #pragma -mark ASValueTrackingSliderDataSource
 static int lastIntValue = -1;
+static int currentValue = 1;
 - (NSString *)slider:(ASValueTrackingSlider *)slider stringForValue:(float)value;
 {
-    int intValue = roundf(value);
-    if (self.slider.tag == 100 && lastIntValue != intValue) [self playTimerFired:nil];
+    currentValue = roundf(value);
+    if (self.slider.tag == 100 && lastIntValue != currentValue) [self playTimerFired:nil];
     lastIntValue = value;
-    return [NSString stringWithFormat:@"第%@帧", [self.slider.numberFormatter stringFromNumber:@(intValue)]];
+    return [NSString stringWithFormat:@"第%@帧", [self.slider.numberFormatter stringFromNumber:@(currentValue)]];
 }
 
 - (void)sliderWillDisplayPopUpView:(ASValueTrackingSlider *)slider
@@ -270,21 +272,25 @@ static int step = 1;
 -(void) playTimerFired:(id) sender
 {
     if (self.slider.tag != 100
-        && ((step > 0 && self.slider.value >= self.historyDataArray.count) || (step < 0 && self.slider.value <= 1)))
+        && ((step > 0 && currentValue >= self.historyDataArray.count) || (step < 0 && currentValue <= 1)))
     {
         [self continueBtnClick:nil];
     }
     //Test Code...
     [self drawProductBySliderValue];
+    self.slider.value = currentValue;
     if (self.slider.tag != 100)
     {
-        if (self.slider.value + step <= 0)
+        if (self.slider.value + step <= 1)
         {
-            self.slider.value = 1;
+//            self.slider.value = 1;
+            currentValue = 1;
         }else if(self.slider.value + step > self.historyDataArray.count){
-            self.slider.value = self.historyDataArray.count;
+//            self.slider.value = self.historyDataArray.count;
+            currentValue = self.historyDataArray.count;
         }else{
-            self.slider.value += step;
+//            self.slider.value += step;
+            currentValue += step;
         }
     }
     //Test End...
@@ -293,9 +299,9 @@ static int step = 1;
 - (void)drawProductBySliderValue
 {
     DLog(@">>>>>%f",self.slider.value);
-    if (self.slider.value <= self.historyDataArray.count && self.slider.value >= 1)
+    if (currentValue <= self.historyDataArray.count && currentValue >= 1)
     {
-        NSString *productStr = (NSString*)[self.historyDataArray objectAtIndex:self.slider.value - 1];
+        NSString *productStr = (NSString*)[self.historyDataArray objectAtIndex:currentValue - 1];
         ProductInfo *vo = [[ProductInfo alloc] initWithPosFileStr:[NSString stringWithFormat:@"/%@.zdb",[productStr substringWithRange:NSMakeRange(0, productStr.length - 5)]]];
         [self selectProduct:vo];
         productStr = nil;
