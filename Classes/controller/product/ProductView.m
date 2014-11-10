@@ -16,7 +16,7 @@
 
 @implementation ProductView
 
-@synthesize productImgView, productViewBg, mapCircleView, colorImgView, rightBarView, rightBarViewBg, radarInfoBarView, productInfoView, currentProductModel, currentProductData, productControlView, processControlView, slider, imgContainerView, historyDataArray, productTitleLabel;
+@synthesize productImgView, productViewBg, mapCircleView, colorImgView, rightBarView, rightBarViewBg, radarInfoBarView, productInfoView, currentProductModel, currentProductData, productControlView, processControlView, slider, imgContainerView, historyDataArray, productTitleLabel, backMultipleBtn, backBtn, forwardBtn, forwardMultipleBtn, continueBtn;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -51,19 +51,18 @@
     dragGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(imgDragControl:)];
     dragGestureRecognizer.minimumNumberOfTouches = 1;
     dragGestureRecognizer.maximumNumberOfTouches = 1;
-    [self.imgContainerView addGestureRecognizer:dragGestureRecognizer];
+//    [self.imgContainerView addGestureRecognizer:dragGestureRecognizer];
     
-//    switchGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(imgSwitchcControl:)];
-//    switchGestureRecognizer.minimumNumberOfTouches = 1;
-//    switchGestureRecognizer.maximumNumberOfTouches = 1;
-//    [self.imgContainerView addGestureRecognizer:switchGestureRecognizer];
+    switchGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(imgSwitchcControl:)];
+    switchGestureRecognizer.minimumNumberOfTouches = 1;
+    switchGestureRecognizer.maximumNumberOfTouches = 1;
+    [self.imgContainerView addGestureRecognizer:switchGestureRecognizer];
     
     //Bottom
 //    self.slider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(18, 8, ProductContainer_Width - 40, 20)];
     self.slider.font = [UIFont fontWithName:@"Futura-CondensedExtraBold" size:26];
     self.slider.popUpViewAnimatedColors = @[BackGroundBlueColor];
-    self.slider.maximumValue = 100;
-    self.slider.minimumValue = 0;
+    self.slider.minimumValue = 1;
     self.slider.popUpViewCornerRadius = 6;
     self.slider.dataSource = self;
     self.slider.delegate = self;
@@ -116,7 +115,6 @@
         btn.tag = 0;
         [btn.layer setBorderWidth:0];
     }
-
 }
 
 - (void)productAddressReceived
@@ -172,6 +170,82 @@
     [self drawProduct];
 }
 
+#pragma -mark historyControl btn click
+- (IBAction)backMultipleBtnClick:(id)sender
+{
+    if (step < 0)
+    {
+        step *= 2;
+    }else{
+        step /= 2;
+        if (step == 0) step = -1;
+    }
+}
+
+- (IBAction)backBtnClick:(id)sender
+{
+    if (self.slider.value > 1)
+    {
+        self.slider.value--;
+        [self drawProductBySliderValue];
+    }
+}
+
+- (IBAction)forwardBtnClick:(id)sender
+{
+    if (self.slider.value < self.historyDataArray.count)
+    {
+        self.slider.value++;
+        [self drawProductBySliderValue];
+    }
+}
+
+- (IBAction)forwardMultipleBtnClick:(id)sender
+{
+    if (step > 0)
+    {
+        step *= 2;
+        if (step >= 16) step = 16;
+    }else{
+        step /= 2;
+        if (step == 0) step = 1;
+    }
+}
+
+- (IBAction)continueBtnClick:(id)sender
+{
+    // Stopping.
+    if (self.continueBtn.tag == 0)
+    {
+        if(self.slider.value == self.historyDataArray.count)
+        {
+            self.slider.value = 1;
+            step = 1;
+        }
+        self.continueBtn.tag = 1;
+        [self.continueBtn setTitle:@"‖" forState:UIControlStateNormal];
+        self.backMultipleBtn.enabled = YES;
+        self.forwardMultipleBtn.enabled = YES;
+        playTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(playTimerFired:) userInfo:nil repeats:YES];
+        [playTimer fire];
+    // Playing.
+    }else{
+        self.continueBtn.tag = 0;
+        [self.continueBtn setTitle:@"▷" forState:UIControlStateNormal];
+        self.backMultipleBtn.enabled = NO;
+        self.forwardMultipleBtn.enabled = NO;
+        if(playTimer != nil) [playTimer invalidate];
+        playTimer = nil;
+    }
+}
+
+//- (IBAction)stopBtnClick:(id)sender
+//{
+//    self.continueBtn.tag = 1;
+//    [self continueBtnClick:nil];
+//    step = 1;
+//}
+
 #pragma -mark ASValueTrackingSliderDataSource
 static int lastIntValue = -1;
 - (NSString *)slider:(ASValueTrackingSlider *)slider stringForValue:(float)value;
@@ -192,27 +266,41 @@ static int lastIntValue = -1;
     self.slider.tag = 0;
 }
 
+static int step = 1;
 -(void) playTimerFired:(id) sender
 {
-//    DLog(@"%f", self.slider.value);
-    if (playTimer!= nil && self.slider.value > self.historyDataArray.count)
+    if (self.slider.tag != 100
+        && ((step > 0 && self.slider.value >= self.historyDataArray.count) || (step < 0 && self.slider.value <= 1)))
     {
-        [playTimer invalidate];
-//        playTimer = nil;
-        return;
+        [self continueBtnClick:nil];
     }
     //Test Code...
-    if (self.slider.value - 1 >= self.historyDataArray.count) return;
-    NSString *productStr = (NSString*)[self.historyDataArray objectAtIndex:self.slider.value - 1];
-    ProductInfo *vo = [[ProductInfo alloc] initWithPosFileStr:[NSString stringWithFormat:@"/%@.zdb",[productStr substringWithRange:NSMakeRange(0, productStr.length - 5)]]];
-    [self selectProduct:vo];
-    productStr = nil;
-    vo = nil;
+    [self drawProductBySliderValue];
     if (self.slider.tag != 100)
     {
-        self.slider.value++;
+        if (self.slider.value + step <= 0)
+        {
+            self.slider.value = 1;
+        }else if(self.slider.value + step > self.historyDataArray.count){
+            self.slider.value = self.historyDataArray.count;
+        }else{
+            self.slider.value += step;
+        }
     }
     //Test End...
+}
+
+- (void)drawProductBySliderValue
+{
+    DLog(@">>>>>%f",self.slider.value);
+    if (self.slider.value <= self.historyDataArray.count && self.slider.value >= 1)
+    {
+        NSString *productStr = (NSString*)[self.historyDataArray objectAtIndex:self.slider.value - 1];
+        ProductInfo *vo = [[ProductInfo alloc] initWithPosFileStr:[NSString stringWithFormat:@"/%@.zdb",[productStr substringWithRange:NSMakeRange(0, productStr.length - 5)]]];
+        [self selectProduct:vo];
+        productStr = nil;
+        vo = nil;
+    }
 }
 
 #pragma -mark Btn Click Control
@@ -229,12 +317,19 @@ static int lastIntValue = -1;
 - (void)playBtnClick:(NSMutableArray*)_historyDataArray
 {
     self.historyDataArray = _historyDataArray;
-    playTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(playTimerFired:) userInfo:nil repeats:YES];
-    self.slider.maximumValue = self.historyDataArray.count + 1;
-    self.slider.minimumValue = 1;
+    [historyProductListView.tableView reloadData];
+    self.slider.maximumValue = self.historyDataArray.count;
     self.slider.value = 1;
-    [playTimer fire];
+    step = 1;
+    self.continueBtn.tag = 0;
+    [self continueBtnClick:nil];
     self.slider.enabled = YES;
+    self.backMultipleBtn.enabled = YES;
+    self.backBtn.enabled = YES;
+    self.forwardMultipleBtn.enabled = YES;
+    self.forwardBtn.enabled = YES;
+    self.continueBtn.enabled = YES;
+//    self.stopBtn.enabled = YES;
 }
 
 - (void)screenShot
@@ -354,7 +449,7 @@ static CGPoint point;
     if (abs(howRecent) < 5.0)
     {
         point = CGPointMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude);
-        DLog(@"%f, %f", point.x, point.y);
+//        DLog(@"%f, %f", point.x, point.y);
         [self updatePositionPoint];
     }
 }
@@ -370,8 +465,8 @@ static CGPoint point;
         || (pulsingView.frame.origin.y > ProductContainer_height
         || pulsingView.frame.origin.y < 0))
     {
-        float x = 26;
-        float y = 26;
+        float x = 30;
+        float y = 30;
         if (pulsingView.frame.origin.x <= ProductContainer_Width
             && pulsingView.frame.origin.x >= 0)
         {
@@ -380,16 +475,22 @@ static CGPoint point;
             x = ProductContainer_Width - x;
             [directionImgView setImage:[UIImage imageWithCGImage:[UIImage imageNamed:@"gps_btn.png"].CGImage scale:1 orientation:UIImageOrientationRight]];
         }else{
+            x = 5;
             [directionImgView setImage:[UIImage imageWithCGImage:[UIImage imageNamed:@"gps_btn.png"].CGImage scale:1 orientation:UIImageOrientationLeft]];
         }
         if (pulsingView.frame.origin.y <= ProductContainer_height
             && pulsingView.frame.origin.y >= 0)
         {
             y = pulsingView.frame.origin.y;
+            if (y >= ProductContainer_height - 26)
+            {
+                y = ProductContainer_height - 26;
+            }
         }else if(pulsingView.frame.origin.y > ProductContainer_height){
             y = ProductContainer_height - y;
             [directionImgView setImage:[UIImage imageWithCGImage:[UIImage imageNamed:@"gps_btn.png"].CGImage scale:1 orientation:UIImageOrientationDown]];
         }else{
+            y = 5;
             [directionImgView setImage:[UIImage imageWithCGImage:[UIImage imageNamed:@"gps_btn.png"].CGImage scale:1 orientation:UIImageOrientationUp]];
         }
         [directionImgView setFrame:CGRectMake(x, y, 26, 26)];

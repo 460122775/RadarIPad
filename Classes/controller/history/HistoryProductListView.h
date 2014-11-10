@@ -28,6 +28,7 @@
 @property (nonatomic, assign) BOOL showBackBtn;
 
 - (void)resizeTableView;
+- (NSMutableArray*)getArrayByProductType:(int)productType;
 
 @end
 

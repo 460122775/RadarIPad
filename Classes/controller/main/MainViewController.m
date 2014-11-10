@@ -84,7 +84,8 @@ static MainViewController *instance;
 {
     if (self.productView != nil && self.historyView != nil)
     {
-        [self.productView playBtnClick:self.historyView.historyProductListView.productDataArray];
+        [self.productView showHistoryProductTable:[self.historyView.historyProductListView getArrayByProductType:[self.historyView getSelectedProductType]] andIndex:0];
+        [self.productView playBtnClick:[self.historyView.historyProductListView getArrayByProductType:[self.historyView getSelectedProductType]]];
     }
     if (self.historyView != nil) [self.historyView removeFromSuperview];
     [self.view addSubview:self.productView];

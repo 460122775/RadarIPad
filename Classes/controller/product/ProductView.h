@@ -67,11 +67,22 @@
 @property (strong, nonatomic) IBOutlet UIButton *backBtn;
 @property (strong, nonatomic) IBOutlet UIButton *forwardBtn;
 @property (strong, nonatomic) IBOutlet UIButton *forwardMultipleBtn;
+@property (strong, nonatomic) IBOutlet UIButton *continueBtn;
+//@property (strong, nonatomic) IBOutlet UIButton *stopBtn;
 
 @property (strong, nonatomic) ProductModel<ProductDrawDataProtocol>* currentProductModel;
 @property (strong, nonatomic) NSData* currentProductData;
 @property (strong, nonatomic) NSMutableArray *historyDataArray;
 @property (nonatomic, assign) id<ProductViewProtocol> delegate;
+
+
+- (IBAction)backMultipleBtnClick:(id)sender;
+- (IBAction)backBtnClick:(id)sender;
+- (IBAction)forwardBtnClick:(id)sender;
+- (IBAction)forwardMultipleBtnClick:(id)sender;
+- (IBAction)continueBtnClick:(id)sender;
+//- (IBAction)stopBtnClick:(id)sender;
+
 
 - (void)showPosition;
 - (void)screenShot;

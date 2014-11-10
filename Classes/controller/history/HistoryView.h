@@ -34,5 +34,6 @@
 
 - (IBAction)predetemineTimeSearchControl:(id)sender;
 - (IBAction)customTimeSearchBtnClick:(id)sender;
+- (int)getSelectedProductType;
 
 @end

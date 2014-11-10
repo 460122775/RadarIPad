@@ -40,6 +40,8 @@
 
 - (void)didMoveToSuperview
 {
+    [super didMoveToSuperview];
+
     self.productArray = [[NSMutableArray alloc] initWithObjects:@"基本反射率[Z]",@"基本速度[V]",@"基本谱宽[W]",
                          @"距离高度显示[RHI]",@"垂直最大反射率[MAXREF]",@"垂直累积液态含水量[VIL]",@"回波顶高[ET]",
                          @"回波底高[EB]",@"一小时降水量[OHP]",@"三小时降水量[THP]",@"等高平面位置显示[CAPPI]",
@@ -48,6 +50,9 @@
                          @"组合反射率最大值[LRM]",nil];
     self.productTableView.delegate = self;
     self.productTableView.dataSource = self;
+    [self.productTableView reloadData];
+    [self.productTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]    animated:YES scrollPosition:UITableViewScrollPositionTop];
+    
 }
 
 - (IBAction)predetemineTimeSearchControl:(id)sender
@@ -61,6 +66,21 @@
 - (IBAction)customTimeSearchBtnClick:(id)sender
 {
 
+}
+
+static int selectedIndex = 0;
+- (int)getSelectedProductType
+{
+    NSString *text = (NSString*)[self.productArray objectAtIndex:selectedIndex];
+    if ([text  isEqual: @"基本速度[V]"])
+    {
+        return ProductType_V;
+    }else if([text  isEqual: @"基本谱宽[W]"]){
+        return ProductType_W;
+    }else{
+        return ProductType_R;
+    }
+    text = nil;
 }
 
 #pragma mark - Table view data source
@@ -115,10 +135,10 @@ static NSString *Identifier = @"HistoryProductListCell";
 
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    int index = 0;
+    selectedIndex = 0;
     for(UITableViewCell *cell in _tableView.visibleCells)
     {
-        if (index++ % 2 == 1)
+        if (selectedIndex++ % 2 == 1)
         {
             cell.backgroundColor = [UIColor whiteColor];
         }else{
@@ -126,8 +146,13 @@ static NSString *Identifier = @"HistoryProductListCell";
         }
         [cell.textLabel setTextColor:ProductTextColor];
     }
-    [_tableView cellForRowAtIndexPath:indexPath].backgroundColor = BackGroundBlueColor;
+    selectedIndex = indexPath.row;
+    [_tableView cellForRowAtIndexPath:indexPath].backgroundColor = BackGroundBlueColorA;
     [_tableView cellForRowAtIndexPath:indexPath].textLabel.textColor = [UIColor whiteColor];
+    
+    // Test Start...
+    [self.historyProductListView getArrayByProductType:[self getSelectedProductType]];
+    // Test End...
 }
 
 #pragma mark HistoryProductListProtocol

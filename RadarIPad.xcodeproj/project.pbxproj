@@ -183,7 +183,6 @@
 		0179F2F51A0B59FA00971BF6 /* VoiceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0179F2F41A0B59FA00971BF6 /* VoiceView.xib */; };
 		0179F2F71A0B5A0700971BF6 /* SettingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0179F2F61A0B5A0700971BF6 /* SettingView.xib */; };
 		0198B6021991C82300A8A887 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0198B6011991C82300A8A887 /* CoreLocation.framework */; };
-		0198B6041991CD2900A8A887 /* readme.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0198B6031991CD2900A8A887 /* readme.rtf */; };
 		0198B6081991FF2B00A8A887 /* SVPulsingAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0198B6071991FF2B00A8A887 /* SVPulsingAnnotationView.m */; };
 		0198B60A199200EF00A8A887 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0198B609199200EF00A8A887 /* MapKit.framework */; };
 		01C067941A023CF60044CC95 /* MessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01C067931A023CF60044CC95 /* MessageView.xib */; };
@@ -420,7 +419,6 @@
 		0179F2F41A0B59FA00971BF6 /* VoiceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VoiceView.xib; path = Classes/controller/voice/VoiceView.xib; sourceTree = SOURCE_ROOT; };
 		0179F2F61A0B5A0700971BF6 /* SettingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingView.xib; path = Classes/controller/setting/SettingView.xib; sourceTree = SOURCE_ROOT; };
 		0198B6011991C82300A8A887 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		0198B6031991CD2900A8A887 /* readme.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = readme.rtf; sourceTree = SOURCE_ROOT; };
 		0198B6061991FF2B00A8A887 /* SVPulsingAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVPulsingAnnotationView.h; path = Classes/util/external/SVPulsingAnnotationView/SVPulsingAnnotationView.h; sourceTree = SOURCE_ROOT; };
 		0198B6071991FF2B00A8A887 /* SVPulsingAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVPulsingAnnotationView.m; path = Classes/util/external/SVPulsingAnnotationView/SVPulsingAnnotationView.m; sourceTree = SOURCE_ROOT; };
 		0198B609199200EF00A8A887 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -960,7 +958,6 @@
 				C798D01A17A02E9700326F1C /* RadarIPad-Info.plist */,
 				C798D02717A034ED00326F1C /* main.m */,
 				C798D06B17A0357100326F1C /* RadarIPad-Prefix.pch */,
-				0198B6031991CD2900A8A887 /* readme.rtf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1264,7 +1261,6 @@
 				012999121989DBDF00F60F02 /* radar2.png in Resources */,
 				016F0C8C1990D11E00D2E9E4 /* sns_icon_23.png in Resources */,
 				016F0C831990D11E00D2E9E4 /* sns_icon_18@2x.png in Resources */,
-				0198B6041991CD2900A8A887 /* readme.rtf in Resources */,
 				012998FE1989DBDF00F60F02 /* camara.png in Resources */,
 				016F0C6E1990D11E00D2E9E4 /* sns_icon_8.png in Resources */,
 				0129991E1989DBDF00F60F02 /* voice.png in Resources */,

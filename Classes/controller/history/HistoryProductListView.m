@@ -34,17 +34,51 @@
 
 - (void)didMoveToSuperview
 {
-    self.productDataArray = [[NSMutableArray alloc] initWithObjects:
-                             @"20140701_000218.02.003.000_2.40 97KB",
-                             @"20140701_000908.02.003.000_2.40 92KB",
-                             @"20140701_001556.02.003.000_2.40 96KB",
-                             @"20140701_002311.02.003.000_2.40 86KB",
-                             @"20140701_003003.02.003.000_2.40 78KB",
-                             @"20140701_002311.02.003.000_2.40 75KB",
-                             @"20140701_001556.02.003.000_2.40 68KB",
-                             @"20140701_000908.02.003.000_2.40 92KB",
-                             @"20140701_000218.02.003.000_2.40 97KB",
-                             nil];
+    [self getArrayByProductType:ProductType_R];
+}
+
+- (NSMutableArray*)getArrayByProductType:(int)productType
+{
+    if (productType == ProductType_V)
+    {
+        self.productDataArray = [[NSMutableArray alloc] initWithObjects:
+                                 @"20140701_000218.02.004.000_2.40 97KB",
+                                 @"20140701_000908.02.004.000_2.40 92KB",
+                                 @"20140701_001556.02.004.000_2.40 96KB",
+                                 @"20140701_002311.02.004.000_2.40 86KB",
+                                 @"20140701_003003.02.004.000_2.40 78KB",
+                                 @"20140701_002311.02.004.000_2.40 75KB",
+                                 @"20140701_001556.02.004.000_2.40 68KB",
+                                 @"20140701_000908.02.004.000_2.40 92KB",
+                                 @"20140701_000218.02.004.000_2.40 97KB",
+                                 nil];
+    }else if(productType == ProductType_W){
+        self.productDataArray = [[NSMutableArray alloc] initWithObjects:
+                                 @"20140701_000218.02.005.000_2.40 97KB",
+                                 @"20140701_000908.02.005.000_2.40 92KB",
+                                 @"20140701_001556.02.005.000_2.40 96KB",
+                                 @"20140701_002311.02.005.000_2.40 86KB",
+                                 @"20140701_003003.02.005.000_2.40 78KB",
+                                 @"20140701_002311.02.005.000_2.40 75KB",
+                                 @"20140701_001556.02.005.000_2.40 68KB",
+                                 @"20140701_000908.02.005.000_2.40 92KB",
+                                 @"20140701_000218.02.005.000_2.40 97KB",
+                                 nil];
+    }else{
+        self.productDataArray = [[NSMutableArray alloc] initWithObjects:
+                                 @"20140701_000218.02.003.000_2.40 97KB",
+                                 @"20140701_000908.02.003.000_2.40 92KB",
+                                 @"20140701_001556.02.003.000_2.40 96KB",
+                                 @"20140701_002311.02.003.000_2.40 86KB",
+                                 @"20140701_003003.02.003.000_2.40 78KB",
+                                 @"20140701_002311.02.003.000_2.40 75KB",
+                                 @"20140701_001556.02.003.000_2.40 68KB",
+                                 @"20140701_000908.02.003.000_2.40 92KB",
+                                 @"20140701_000218.02.003.000_2.40 97KB",
+                                 nil];
+    }
+    [self.tableView reloadData];
+    return self.productDataArray;
 }
 
 - (void)resizeTableView
@@ -117,11 +151,11 @@
         cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.bounds];
         UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, 0, 284, 40)];
         contentLabel.tag = 1;
-        [contentLabel setTextColor:ProductTextColor];
         [contentLabel setFont: [UIFont fontWithName:@"Helvetica" size:14.5]];
         [contentLabel setTextAlignment:NSTextAlignmentCenter];
         [cell addSubview:contentLabel];
     }
+    ((UILabel*)[cell viewWithTag:1]).textColor = ProductTextColor;
     if (indexPath.row % 2 == 1)
     {
         cell.backgroundColor = [UIColor whiteColor];
@@ -146,7 +180,7 @@
         }
         ((UILabel*)[cell viewWithTag:1]).textColor = ProductTextColor;
     }
-    [_tableView cellForRowAtIndexPath:indexPath].backgroundColor = BackGroundBlueColor;
+    [_tableView cellForRowAtIndexPath:indexPath].backgroundColor = BackGroundBlueColorA;
     ((UILabel*)[[_tableView cellForRowAtIndexPath:indexPath] viewWithTag:1]).textColor = [UIColor whiteColor];
 
     //Test Code...

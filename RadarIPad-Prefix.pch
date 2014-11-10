@@ -55,6 +55,7 @@
 #define ViewHeight 650
 #define ViewAlpha 0.8
 #define BackGroundBlueColor RGB(50, 70, 139)//47, 65, 127
+#define BackGroundBlueColorA RGBA(50, 70, 139, 0.8)
 #define ForeGroundBlueColor RGB(247, 247, 247)
 #define BackGroundGrayColor RGB(247, 247, 247)
 #define ProductTextColor RGB(50, 70, 139)//(50, 70, 139)
