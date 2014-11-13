@@ -29,7 +29,7 @@
     tagRealFile fileHeadStruct;
 }
 
-@property (nonatomic, assign) float zoomValue;
+@property (nonatomic, assign) int zoomValue;
 @property (nonatomic, assign) int centX;
 @property (nonatomic, assign) int centY;
 @property (nonatomic, retain) ProductInfo *productInfo;
@@ -37,5 +37,7 @@
 - (void) drawDistanceCircle:(UIImageView *) productImgView;
 - (void) constNeedCal:(UIImageView *) productImgView;
 - (CGPoint) getPointByPosition:(CGPoint) point andFrame:(CGRect)frame;
+- (CGPoint) getPositionByPoint:(CGPoint) point;
+- (CLLocationCoordinate2D) getRadarCenterPosition;
 
 @end

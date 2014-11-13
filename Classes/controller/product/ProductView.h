@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Mapbox.h"
 #import <CoreLocation/CoreLocation.h>
+#import "RMMapboxSource.h"
+#import "RMConfiguration.h"
 #import "QuartzCore/QuartzCore.h"
 
 #import "ProductModel.h"
@@ -31,14 +34,12 @@
 
 @end
 
-@interface ProductView : UIView<CLLocationManagerDelegate, ASValueTrackingSliderDataSource,
-    ASValueTrackingSliderDelegate, CurrentProductListDelegate, HistoryProductListProtocol>{
+@interface ProductView : UIView<CLLocationManagerDelegate, RMMapViewDelegate, ASValueTrackingSliderDataSource,ASValueTrackingSliderDelegate, CurrentProductListDelegate, HistoryProductListProtocol>{
     
         UIPinchGestureRecognizer *zoomGestureRecognizer;
         UIPanGestureRecognizer *dragGestureRecognizer;
         UIPanGestureRecognizer *switchGestureRecognizer;
         UIPanGestureRecognizer *knifeGestureRecognizer;
-        CLLocationManager *locationManager;
         SVPulsingAnnotationView *pulsingView;
         UIImageView *directionImgView;
         UIImageView *knifeLineView;
@@ -46,7 +47,11 @@
         HistoryProductListView *historyProductListView;
         NSTimer *playTimer;
         UIButton *knifeBtn;
+        
+//        MKMapView *mapView;
+        CLLocationManager *locationManager;
 }
+@property (strong, nonatomic) IBOutlet RMMapView *mapView;
 
 @property (strong, nonatomic) IBOutlet UILabel *productTitleLabel;
 @property (strong, nonatomic) IBOutlet UIView *productViewBg;
@@ -86,7 +91,6 @@
 
 - (void)showPosition;
 - (void)screenShot;
-- (void)showCurrentProduct;
 - (void)drawProduct;
 - (void)knifeBtnClick:(id) sender;
 - (void)playBtnClick:(NSMutableArray*)historyDataArray;

@@ -16,7 +16,7 @@
 
 @implementation ProductView
 
-@synthesize productImgView, productViewBg, mapCircleView, colorImgView, rightBarView, rightBarViewBg, radarInfoBarView, productInfoView, currentProductModel, currentProductData, productControlView, processControlView, slider, imgContainerView, historyDataArray, productTitleLabel, backMultipleBtn, backBtn, forwardBtn, forwardMultipleBtn, continueBtn;
+@synthesize productImgView, productViewBg, mapCircleView, colorImgView, rightBarView, rightBarViewBg, radarInfoBarView, productInfoView, currentProductModel, currentProductData, productControlView, processControlView, slider, imgContainerView, historyDataArray, productTitleLabel, backMultipleBtn, backBtn, forwardBtn, forwardMultipleBtn, continueBtn,mapView;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -43,6 +43,11 @@
     [self.radarInfoBarView setBackgroundColor:ProductThemeColor];
     [self.productInfoView setBackgroundColor:ProductThemeColor];
     [self.productControlView setBackgroundColor:ProductThemeColor];
+    
+    self.mapView.tileSource = [[RMMapboxSource alloc] initWithMapID:@"daiyachen.k71impl7"];
+    self.mapView.delegate = self;
+    self.mapView.zoom = 8;
+    [self.mapView setBackgroundColor:[UIColor clearColor]];
 
     // Set Guesture.
     zoomGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(imgZoomControl:)];
@@ -51,15 +56,14 @@
     dragGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(imgDragControl:)];
     dragGestureRecognizer.minimumNumberOfTouches = 1;
     dragGestureRecognizer.maximumNumberOfTouches = 1;
-//    [self.imgContainerView addGestureRecognizer:dragGestureRecognizer];
+    [self.imgContainerView addGestureRecognizer:dragGestureRecognizer];
     
     switchGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(imgSwitchcControl:)];
     switchGestureRecognizer.minimumNumberOfTouches = 1;
     switchGestureRecognizer.maximumNumberOfTouches = 1;
-    [self.imgContainerView addGestureRecognizer:switchGestureRecognizer];
+//    [self.imgContainerView addGestureRecognizer:switchGestureRecognizer];
     
     //Bottom
-//    self.slider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(18, 8, ProductContainer_Width - 40, 20)];
     self.slider.font = [UIFont fontWithName:@"Futura-CondensedExtraBold" size:26];
     self.slider.popUpViewAnimatedColors = @[BackGroundBlueColor];
     self.slider.minimumValue = 1;
@@ -67,7 +71,6 @@
     self.slider.dataSource = self;
     self.slider.delegate = self;
     self.slider.enabled = NO;
-//    [self.processControlView addSubview: self.slider];
     
     UILabel *positionLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, 100, 20)];
     [positionLabel setTextColor:ProductTextColor];
@@ -87,7 +90,13 @@
     [speedLabel setFont:[UIFont systemFontOfSize:17]];
     [self.radarInfoBarView addSubview:speedLabel];
     
-    [self showCurrentProduct];
+    // Show Current Product
+    currentProductListView = [[CurrentProductListView alloc] initWithFrame:CGRectMake(0, 0, self.productControlView.frame.size.width, self.productControlView.frame.size.height)];
+    currentProductListView.delegate = self;
+    [self.productControlView addSubview:currentProductListView];
+    self.currentProductModel = nil;
+    [self productAddressReceived];
+    self.slider.enabled = NO;
 }
 
 + (void) setShadowTaste:(UIView *)backView andForeView:(UIView *)foreView
@@ -119,29 +128,20 @@
 
 - (void)productAddressReceived
 {
-    // Test Code.....
-    if (self.currentProductModel == nil)
-    {
-        self.currentProductModel = [ProductFactory getProductModel:ProductType_R];
-        self.currentProductModel.productInfo = [[ProductInfo alloc] initWithPosFileStr:@"/20140701_001556.06.003.000_6.19.zdb"];
-    }
-    self.currentProductData = [ProductFactory uncompressZippedData:[NSData dataWithContentsOfFile:
-                                [DataPath stringByAppendingString:self.currentProductModel.productInfo.dataAddress]]];
-    [ColorModel drawColor:self.currentProductModel.productInfo.productType andColorImgView:self.colorImgView];
-    [self.currentProductModel getProductInfo: self.productInfoView TitleLabel:self.productTitleLabel Data:self.currentProductData];
-    self.currentProductModel.centX = self.productImgView.frame.size.width / 2;
-    self.currentProductModel.centY = self.productImgView.frame.size.height / 2;
-    [self drawProduct];
-    return;
-    // Test end....
+    // ************** Test Code Start **************
+    ProductInfo *productInfo = [[ProductInfo alloc] initWithPosFileStr:@"/20140701_001556.06.003.000_6.19.zdb"];
+    [productInfo setProductType:ProductType_R];
+    [self selectProduct:productInfo];
+    productInfo = nil;
+    // ************** Test Code End **************
     
-    [ProductFactory cacheFileByUrl:self.currentProductModel.productInfo.dataAddress block:^(NSData *data)
-     {
-         self.currentProductModel = [ProductFactory getProductModel:self.currentProductModel.productInfo.productType];
-         [ColorModel drawColor:self.currentProductModel.productInfo.productType andColorImgView:self.colorImgView];
-         [self.currentProductModel getProductInfo: self.productInfoView TitleLabel:self.productTitleLabel Data:data];
-         [self.currentProductModel getImageData:self.productImgView andData:data];
-     }];
+//    [ProductFactory cacheFileByUrl:self.currentProductModel.productInfo.dataAddress block:^(NSData *data)
+//     {
+//         self.currentProductModel = [ProductFactory getProductModel:self.currentProductModel.productInfo.productType];
+//         [ColorModel drawColor:self.currentProductModel.productInfo.productType andColorImgView:self.colorImgView];
+//         [self.currentProductModel getProductInfo: self.productInfoView TitleLabel:self.productTitleLabel Data:data];
+//         [self.currentProductModel getImageData:self.productImgView andData:data];
+//     }];
 }
 
 - (void)drawProduct
@@ -152,8 +152,6 @@
     {
         // Current Position Point.
         [self updatePositionPoint];
-        // Current Position Direction.
-        
     }
 }
 
@@ -168,6 +166,7 @@
     self.currentProductModel.centX = self.productImgView.frame.size.width / 2;
     self.currentProductModel.centY = self.productImgView.frame.size.height / 2;
     [self drawProduct];
+    [self.mapView setCenterCoordinate:[self.currentProductModel getRadarCenterPosition] animated:YES];
 }
 
 #pragma -mark historyControl btn click
@@ -298,7 +297,7 @@ static int step = 1;
 
 - (void)drawProductBySliderValue
 {
-    DLog(@">>>>>%f",self.slider.value);
+//    DLog(@">>>>>%f",self.slider.value);
     if (currentValue <= self.historyDataArray.count && currentValue >= 1)
     {
         NSString *productStr = (NSString*)[self.historyDataArray objectAtIndex:currentValue - 1];
@@ -310,16 +309,6 @@ static int step = 1;
 }
 
 #pragma -mark Btn Click Control
-- (void)showCurrentProduct
-{
-    currentProductListView = [[CurrentProductListView alloc] initWithFrame:CGRectMake(0, 0, self.productControlView.frame.size.width, self.productControlView.frame.size.height)];
-    currentProductListView.delegate = self;
-    [self.productControlView addSubview:currentProductListView];
-    self.currentProductModel = nil;
-    [self productAddressReceived];
-    self.slider.enabled = NO;
-}
-
 - (void)playBtnClick:(NSMutableArray*)_historyDataArray
 {
     self.historyDataArray = _historyDataArray;
@@ -371,11 +360,17 @@ static int step = 1;
         [directionImgView addGestureRecognizer:singleTap];
         [self.imgContainerView addSubview:directionImgView];
 //        self.imgContainerView.transform = CGAffineTransformMakeRotation(M_PI);
+    
         // Create location manager.
         locationManager = [[CLLocationManager alloc] init];
         locationManager.delegate = self;
         locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
         locationManager.distanceFilter = 500;
+        
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters; // 100 m
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+            [locationManager requestAlwaysAuthorization];
+        }
         // Set a movement threshold for new events
         [locationManager startUpdatingLocation];
         [self updatePositionPoint];
@@ -393,10 +388,6 @@ static int step = 1;
 {
     self.currentProductModel.centX = self.currentProductModel.centX - pulsingView.frame.origin.x + ProductContainer_Width / 2;
     self.currentProductModel.centY = self.currentProductModel.centY - pulsingView.frame.origin.y + ProductContainer_height / 2;
-//    self.currentProductModel.centX -= (dragLocation.x - location.x);
-//    self.currentProductModel.centY -= (dragLocation.y - location.y);
-//    self.productImgView.frame = CGRectMake(0, 0, ProductContainer_Width, ProductContainer_height);
-//    self.mapCircleView.frame = CGRectMake(0, 0, ProductContainer_Width, ProductContainer_height);
     [self drawProduct];
 }
 
@@ -444,6 +435,13 @@ static int step = 1;
 }
 
 #pragma -mark CLLocationManagerDelegate Method
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0)
+{
+    DLog(@">>>>>>Call?");
+}
+
+
 static CGPoint point;
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
@@ -455,7 +453,7 @@ static CGPoint point;
     if (abs(howRecent) < 5.0)
     {
         point = CGPointMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude);
-//        DLog(@"%f, %f", point.x, point.y);
+        DLog(@">>>!!!:%f, %f", point.x, point.y);
         [self updatePositionPoint];
     }
 }
@@ -520,41 +518,46 @@ static CGPoint point;
         {
             self.currentProductModel.zoomValue = 10;
         }else if(self.currentProductModel.zoomValue < 0.6){
-            self.currentProductModel.zoomValue = 0.6;
+            self.currentProductModel.zoomValue = 1;
         }
+        self.mapView.zoom = self.currentProductModel.zoomValue + 7;
         [self drawProduct];
     }
 }
 
-static CGPoint dragLocation;
+static CGPoint fromLocation;
+static CGPoint toLocation;
 -(void)imgDragControl:(UIPanGestureRecognizer*)paramSender
 {
     if (knifeBtn != nil && knifeBtn.tag == 1) return;
     CGPoint location = [paramSender locationInView:paramSender.view];
     if (paramSender.state == UIGestureRecognizerStateBegan)
     {
-        dragLocation.x = location.x;
-        dragLocation.y = location.y;
+        fromLocation.x = toLocation.x = location.x;
+        fromLocation.y = toLocation.y = location.y;
         if (locationManager != nil)
         {
             pulsingView.frame = CGRectMake(-100, -100, 20, 20);
         }
     }else if (paramSender.state == UIGestureRecognizerStateEnded && paramSender.state != UIGestureRecognizerStateFailed){
-        if (abs(dragLocation.x - location.x) >= 10 || abs(dragLocation.y - location.y) >= 10)
+        if (abs(fromLocation.x - location.x) >= 10 || abs(fromLocation.y - location.y) >= 10)
         {
-            self.currentProductModel.centX -= (dragLocation.x - location.x);
-            self.currentProductModel.centY -= (dragLocation.y - location.y);
+            self.currentProductModel.centX -= (fromLocation.x - location.x);
+            self.currentProductModel.centY -= (fromLocation.y - location.y);
         }
         self.productImgView.frame = CGRectMake(0, 0, ProductContainer_Width, ProductContainer_height);
         self.mapCircleView.frame = CGRectMake(0, 0, ProductContainer_Width, ProductContainer_height);
         [self drawProduct];
     }else{
-        self.productImgView.frame = CGRectMake(location.x - dragLocation.x,
-                                               location.y - dragLocation.y,
+        [self.mapView moveBy:CGSizeMake(toLocation.x - location.x, toLocation.y - location.y)];
+        self.productImgView.frame = CGRectMake(location.x - fromLocation.x,
+                                               location.y - fromLocation.y,
                                                ProductContainer_Width, ProductContainer_height);
         self.mapCircleView.frame = CGRectMake(self.productImgView.frame.origin.x,
                                               self.productImgView.frame.origin.y,
                                               ProductContainer_Width, ProductContainer_height);
+        toLocation.x = location.x;
+        toLocation.y = location.y;
     }
 }
 
@@ -564,18 +567,18 @@ static CGPoint dragLocation;
     if (paramSender.state == UIGestureRecognizerStateBegan)
     {
         CGPoint location = [paramSender locationInView:paramSender.view];
-        dragLocation.x = location.x;
-        dragLocation.y = location.y;
+        fromLocation.x = location.x;
+        fromLocation.y = location.y;
     }else if (paramSender.state == UIGestureRecognizerStateEnded && paramSender.state != UIGestureRecognizerStateFailed){
         // Gesture Valid...
         CGPoint location = [paramSender locationInView:paramSender.view];
-        if (abs(dragLocation.x - location.x) >= 10 || abs(dragLocation.y - location.y) >= 10)
+        if (abs(fromLocation.x - location.x) >= 10 || abs(fromLocation.y - location.y) >= 10)
         {
             // Horizontal.
-            if (abs(dragLocation.x - location.x) > abs(dragLocation.y - location.y))
+            if (abs(fromLocation.x - location.x) > abs(fromLocation.y - location.y))
             {
                 // Turn left.
-                if (dragLocation.x - location.x > 0)
+                if (fromLocation.x - location.x > 0)
                 {
                     self.currentProductModel.productInfo.dataAddress = [DBModel getProductData:3 andCurrentData:self.currentProductModel.productInfo.dataAddress];
                 }else{ // Turn right.
@@ -583,7 +586,7 @@ static CGPoint dragLocation;
                 }
             }else{// Vertical.
                 // Turn up.
-                if (dragLocation.y - location.y > 0)
+                if (fromLocation.y - location.y > 0)
                 {
                     self.currentProductModel.productInfo.dataAddress = [DBModel getProductData:1 andCurrentData:self.currentProductModel.productInfo.dataAddress];
                 }else{// Turn down.
@@ -601,21 +604,21 @@ static CGPoint dragLocation;
     CGPoint location = [paramSender locationInView:paramSender.view];
     if (paramSender.state == UIGestureRecognizerStateBegan)
     {
-        dragLocation.x = location.x;
-        dragLocation.y = location.y;
+        fromLocation.x = location.x;
+        fromLocation.y = location.y;
     }else if (paramSender.state == UIGestureRecognizerStateEnded && paramSender.state != UIGestureRecognizerStateFailed){
         
-        if (abs(dragLocation.x - location.x) >= 10 || abs(dragLocation.y - location.y) >= 10)
+        if (abs(fromLocation.x - location.x) >= 10 || abs(fromLocation.y - location.y) >= 10)
         {
-            self.currentProductModel.centX -= (dragLocation.x - location.x);
-            self.currentProductModel.centY -= (dragLocation.y - location.y);
+            self.currentProductModel.centX -= (fromLocation.x - location.x);
+            self.currentProductModel.centY -= (fromLocation.y - location.y);
         }
         UIGraphicsBeginImageContext(knifeLineView.frame.size);
         CGContextRef context = UIGraphicsGetCurrentContext();
         CGContextSetLineCap(context, kCGLineCapRound);
         CGContextSetLineWidth(context, 3);
         CGContextBeginPath(context);
-        CGContextMoveToPoint(context, dragLocation.x, dragLocation.y);
+        CGContextMoveToPoint(context, fromLocation.x, fromLocation.y);
         CGContextAddLineToPoint(context, location.x, location.y);
         CGContextSetRGBStrokeColor(context, 1, 1, 1, 1);
         CGContextStrokePath(context);
@@ -636,6 +639,8 @@ static CGPoint dragLocation;
         historyProductListView.showBackBtn = YES;
     }
     [self.productControlView addSubview:historyProductListView];
+    historyProductListView.productDataArray = historyDataArray;
+    [historyProductListView.tableView reloadData];
 }
 
 - (void)hideHistoryProductTable

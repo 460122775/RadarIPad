@@ -157,4 +157,14 @@
     return point;
 }
 
+- (CGPoint)getPositionByPoint:(CGPoint) point
+{
+    
+}
+
+- (CLLocationCoordinate2D) getRadarCenterPosition
+{
+    return CLLocationCoordinate2DMake(fileHeadStruct.addSec.LatitudeV / 360000.0, fileHeadStruct.addSec.LongitudeV / 360000.0);
+}
+
 @end

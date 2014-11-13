@@ -61,9 +61,9 @@
                     CGContextFillRect(context, CGRectMake(x, y, 1, 1));
                     CGContextStrokePath(context);
                 }else{
-                    CGContextSetRGBFillColor(context, 0, 0, 0, 1.0);
-                    CGContextFillRect(context, CGRectMake(x, y, 1, 1));
-                    CGContextStrokePath(context);
+//                    CGContextSetRGBFillColor(context, 0, 0, 0, 1.0);
+//                    CGContextFillRect(context, CGRectMake(x, y, 1, 1));
+//                    CGContextStrokePath(context);
                 }
             }
         }

@@ -17,13 +17,18 @@
                         <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Itu-Cl-Abn">
                             <rect key="frame" x="0.0" y="0.0" width="620" height="728"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9he-yJ-ENX">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9he-yJ-ENX">
                                     <rect key="frame" x="0.0" y="0.0" width="620" height="35"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O81-AZ-SeW" customClass="RMMapView">
+                                    <rect key="frame" x="0.0" y="35" width="620" height="620"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pq8-Nv-aHV">
                                     <rect key="frame" x="0.0" y="35" width="620" height="620"/>
                                     <subviews>
@@ -65,6 +70,9 @@
                                                         <action selector="backBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="7rm-oA-eQX"/>
                                                     </connections>
                                                 </button>
+                                                <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Z1t-wd-Cab" customClass="ASValueTrackingSlider">
+                                                    <rect key="frame" x="80" y="0.0" width="420" height="31"/>
+                                                </slider>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Js3-di-OQ2">
                                                     <rect key="frame" x="510" y="0.0" width="30" height="30"/>
                                                     <state key="normal" title="&gt;">
@@ -83,10 +91,7 @@
                                                         <action selector="forwardMultipleBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="eA5-ao-Mju"/>
                                                     </connections>
                                                 </button>
-                                                <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Z1t-wd-Cab" customClass="ASValueTrackingSlider">
-                                                    <rect key="frame" x="80" y="0.0" width="420" height="31"/>
-                                                </slider>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7hB-O5-8FZ">
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7hB-O5-8FZ">
                                                     <rect key="frame" x="590" y="0.0" width="30" height="30"/>
                                                     <state key="normal" title="▷">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -147,6 +152,7 @@
                 <outlet property="forwardMultipleBtn" destination="neG-3f-vAM" id="ftR-wF-SB9"/>
                 <outlet property="imgContainerView" destination="pq8-Nv-aHV" id="ohz-d5-ecG"/>
                 <outlet property="mapCircleView" destination="4oE-NM-055" id="lKD-XX-ZlZ"/>
+                <outlet property="mapView" destination="O81-AZ-SeW" id="6pA-72-mVu"/>
                 <outlet property="processControlView" destination="3bb-3A-4io" id="6It-7G-jxF"/>
                 <outlet property="productControlView" destination="Tni-Ul-bnw" id="b2o-Dm-HZN"/>
                 <outlet property="productImgView" destination="MOE-1z-t3z" id="HvR-0Z-0xV"/>
