@@ -21,7 +21,7 @@
 
 @interface HistoryProductListView : UIView<UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, retain) NSMutableArray *productDataArray;
+@property (nonatomic, strong) NSMutableArray *productDataArray;
 @property (nonatomic, assign) id<HistoryProductListProtocol> delegate;
 @property (strong, nonatomic) UITableView *tableView;
 @property (nonatomic, retain) UIButton *backBtn;

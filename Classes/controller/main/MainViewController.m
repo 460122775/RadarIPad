@@ -17,7 +17,7 @@
 
 @implementation MainViewController
 
-@synthesize productView, historyView, messageView, voiceView, settingView, btn_scrollView;
+@synthesize productView, historyView, messageView, voiceView, settingView, btn_scrollView, historyBtn, messageBtn, voiceBtn, settingBtn;
 
 static MainViewController *instance;
 
@@ -62,22 +62,17 @@ static MainViewController *instance;
 {
     if ([(UIButton*)sender tag] != 1)
     {
-        [ProductView setBtnSelectTaste:(UIButton*)sender];
         if(self.historyView == nil)
         {
             self.historyView = [[[NSBundle mainBundle] loadNibNamed:@"HistoryView" owner:nil options:nil] objectAtIndex:0];
             self.historyView.frame = CGRectMake(RightViewXPoint, VPadding, RightViewWidth, 728);
             self.historyView.delegate = self;
         }
-        [self.view addSubview:self.historyView];
-        [self.productView removeFromSuperview];
     }else{
-        [ProductView setBtnSelectTaste:(UIButton*)sender];
         //Change the View.
-        [self.view addSubview:self.productView];
         [self.productView hideHistoryProductTable];
-        [self.historyView removeFromSuperview];
     }
+    [self showViewsControl:self.historyView andBtn:(UIButton*)sender];
 }
 
 - (IBAction)playBtnClick:(id)sender
@@ -103,15 +98,26 @@ static MainViewController *instance;
 {
     if (self.productView != nil)
     {
+        if ([(UIButton*)sender tag] != 1)
+        {
+            [self setBtnSelectTaste:(UIButton*)sender andSelected:YES];
+        }else{
+            [self setBtnSelectTaste:(UIButton*)sender andSelected:NO];
+        }
         [self.productView knifeBtnClick:sender];
     }
 }
 
 - (IBAction)positionBtnClick:(id)sender
 {
-    [ProductView setBtnSelectTaste:(UIButton*)sender];
     if (self.productView != nil)
     {
+        if ([(UIButton*)sender tag] != 1)
+        {
+            [self setBtnSelectTaste:(UIButton*)sender andSelected:YES];
+        }else{
+            [self setBtnSelectTaste:(UIButton*)sender andSelected:NO];
+        }
         [self.productView showPosition];
     }
 }
@@ -120,57 +126,56 @@ static MainViewController *instance;
 {
     if ([(UIButton*)sender tag] != 1)
     {
-        [ProductView setBtnSelectTaste:(UIButton*)sender];
         if(self.messageView == nil)
         {
             self.messageView = [[[NSBundle mainBundle] loadNibNamed:@"MessageView" owner:nil options:nil] objectAtIndex:0];
             self.messageView.frame = CGRectMake(RightViewXPoint, VPadding, RightViewWidth, RightViewHeight);
         }
-        [self removeSubviewsExceptView:self.messageView];
-    }else{
-        [ProductView setBtnSelectTaste:(UIButton*)sender];
-        [self.messageView removeFromSuperview];
     }
+    [self showViewsControl:self.messageView andBtn:(UIButton*)sender];
 }
 
 - (IBAction)voiceBtnClick:(id)sender
 {
     if ([(UIButton*)sender tag] != 1)
     {
-        [ProductView setBtnSelectTaste:(UIButton*)sender];
         if(self.voiceView == nil)
         {
             self.voiceView = [[[NSBundle mainBundle] loadNibNamed:@"VoiceView" owner:nil options:nil] objectAtIndex:0];
             self.voiceView.frame = CGRectMake(RightViewXPoint, VPadding, RightViewWidth, RightViewHeight);
         }
-
-        [self removeSubviewsExceptView:self.voiceView];
-    }else{
-        [ProductView setBtnSelectTaste:(UIButton*)sender];
-        [self.voiceView removeFromSuperview];
     }
-    
+    [self showViewsControl:self.voiceView andBtn:(UIButton*)sender];
 }
 
 - (IBAction)settingBtnClick:(id)sender
 {
     if ([(UIButton*)sender tag] != 1)
     {
-        [ProductView setBtnSelectTaste:(UIButton*)sender];
         if(self.settingView == nil)
         {
-            
             self.settingView = [[[NSBundle mainBundle] loadNibNamed:@"SettingView" owner:nil options:nil] objectAtIndex:0];
             self.settingView.frame = CGRectMake(RightViewXPoint, VPadding, RightViewWidth, RightViewHeight);
         }
-        [self removeSubviewsExceptView:self.settingView];
+    }
+    [self showViewsControl:self.settingView andBtn:(UIButton*)sender];
+}
+
+- (void) setBtnSelectTaste:(UIButton *)btn andSelected:(BOOL)selectedValue
+{
+    if (selectedValue == YES)
+    {
+        btn.tag = 1;
+        [btn.layer setBorderColor:[BackGroundBlueColor CGColor]];
+        [btn.layer setBorderWidth:4];
+        [btn.layer setCornerRadius:10.0];
     }else{
-        [ProductView setBtnSelectTaste:(UIButton*)sender];
-        [self.settingView removeFromSuperview];
+        btn.tag = 0;
+        [btn.layer setBorderWidth:0];
     }
 }
 
-- (void)removeSubviewsExceptView:(UIView*) addView
+- (void)showViewsControl:(UIView*) addView andBtn:(UIButton*) btn
 {
     for(UIView *view in [self.view subviews])
     {
@@ -178,15 +183,18 @@ static MainViewController *instance;
         {
             [view removeFromSuperview];
         }
-//            self.voiceView = nil;
-//        else if (view == self.settingView) self.settingView = nil;
-//        else if (view == self.messageView) self.messageView = nil;
-//        else if (view == self.btn_scrollViewBg) continue;
     }
-    [self.view addSubview:addView];
-    if (addView != self.productView)
+    int tagValue = btn.tag;
+    [self setBtnSelectTaste:self.historyBtn andSelected:NO];
+    [self setBtnSelectTaste:self.messageBtn andSelected:NO];
+    [self setBtnSelectTaste:self.voiceBtn andSelected:NO];
+    [self setBtnSelectTaste:self.settingBtn andSelected:NO];
+    if (tagValue != 1)
     {
-        
+        [self.view addSubview:addView];
+        [self setBtnSelectTaste:btn andSelected:YES];
+    }else{
+        [self.view addSubview:self.productView];
     }
 }
 

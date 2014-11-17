@@ -26,8 +26,10 @@
 #define connect_fail 15.0
 
 #define DocumentsPath [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
-#define docsdir [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES) lastObject]
-#define DBPath [DocumentsPath stringByAppendingPathComponent:@"/db/db0_0.db"]
+//#define docsdir [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES) lastObject]
+#define defaultDBPath [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/predata/db/db0_2.db"]
+#define DBPath [DocumentsPath stringByAppendingPathComponent:@"/db/db0_2.db"]
+#define defaultDataPath [[NSBundle mainBundle] resourcePath]
 #define DataPath [DocumentsPath stringByAppendingPathComponent:@"/data"]
 
 #ifdef __OBJC__

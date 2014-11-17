@@ -59,9 +59,9 @@
     [self.imgContainerView addGestureRecognizer:dragGestureRecognizer];
     
     switchGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(imgSwitchcControl:)];
-    switchGestureRecognizer.minimumNumberOfTouches = 1;
-    switchGestureRecognizer.maximumNumberOfTouches = 1;
-//    [self.imgContainerView addGestureRecognizer:switchGestureRecognizer];
+    switchGestureRecognizer.minimumNumberOfTouches = 2;
+    switchGestureRecognizer.maximumNumberOfTouches = 2;
+    [self.imgContainerView addGestureRecognizer:switchGestureRecognizer];
     
     //Bottom
     self.slider.font = [UIFont fontWithName:@"Futura-CondensedExtraBold" size:26];
@@ -110,20 +110,6 @@
     [backView.layer setShadowOpacity:1.0];
     //阴影圆角度数
     [backView.layer setShadowRadius:8.0];
-}
-
-+ (void) setBtnSelectTaste:(UIButton *)btn
-{
-    if (btn.tag != 1)
-    {
-        btn.tag = 1;
-        [btn.layer setBorderColor:[BackGroundBlueColor CGColor]];
-        [btn.layer setBorderWidth:4];
-        [btn.layer setCornerRadius:10.0];
-    }else{
-        btn.tag = 0;
-        [btn.layer setBorderWidth:0];
-    }
 }
 
 - (void)productAddressReceived
@@ -394,9 +380,8 @@ static int step = 1;
 - (void)knifeBtnClick:(id) sender
 {
     if(knifeBtn == nil) knifeBtn = (UIButton*)sender;
-    if (knifeBtn.tag != 1)
+    if (knifeBtn.tag == 1)
     {
-        [ProductView setBtnSelectTaste:knifeBtn];
         if (knifeGestureRecognizer == nil)
         {
             knifeGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(knifeDragControl:)];
@@ -411,7 +396,6 @@ static int step = 1;
             [self.imgContainerView addSubview:knifeLineView];
         }
     }else{
-        [ProductView setBtnSelectTaste:knifeBtn];
         [self.imgContainerView removeGestureRecognizer:knifeGestureRecognizer];
         knifeGestureRecognizer = nil;
         [knifeLineView removeFromSuperview];

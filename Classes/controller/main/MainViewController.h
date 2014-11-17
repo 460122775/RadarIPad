@@ -16,6 +16,10 @@
 
 @property (strong, nonatomic) IBOutlet UIView *btn_scrollViewBg;
 @property (strong, nonatomic) IBOutlet UIScrollView *btn_scrollView;
+@property (strong, nonatomic) IBOutlet UIButton *historyBtn;
+@property (strong, nonatomic) IBOutlet UIButton *messageBtn;
+@property (strong, nonatomic) IBOutlet UIButton *voiceBtn;
+@property (strong, nonatomic) IBOutlet UIButton *settingBtn;
 
 @property (strong, nonatomic) ProductView *productView;
 @property (strong, nonatomic) HistoryView *historyView;

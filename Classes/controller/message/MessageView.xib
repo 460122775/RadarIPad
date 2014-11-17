@@ -12,10 +12,10 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7cj-d4-QKK">
-                    <rect key="frame" x="0.0" y="0.0" width="300" height="728"/>
+                    <rect key="frame" x="0.0" y="0.0" width="200" height="728"/>
                     <subviews>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="WOY-bj-AEY">
-                            <rect key="frame" x="0.0" y="0.0" width="300" height="728"/>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="WOY-bj-AEY" customClass="FriendListTableView">
+                            <rect key="frame" x="0.0" y="0.0" width="200" height="728"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="separatorColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
@@ -24,22 +24,22 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iA4-e6-U0p">
-                    <rect key="frame" x="315" y="0.0" width="609" height="728"/>
+                    <rect key="frame" x="215" y="0.0" width="709" height="728"/>
                     <subviews>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iN0-l3-epB">
-                            <rect key="frame" x="0.0" y="0.0" width="609" height="728"/>
+                            <rect key="frame" x="0.0" y="0.0" width="709" height="728"/>
                             <subviews>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HN8-H7-2qJ">
-                                    <rect key="frame" x="0.0" y="0.0" width="609" height="40"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="709" height="40"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6sE-QI-kar">
-                                            <rect key="frame" x="555" y="0.0" width="46" height="40"/>
+                                            <rect key="frame" x="655" y="0.0" width="46" height="40"/>
                                             <state key="normal" title="。。。">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="戴亚晨" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dcv-vW-X2o">
-                                            <rect key="frame" x="279" y="0.0" width="51" height="40"/>
+                                            <rect key="frame" x="229" y="0.0" width="251" height="40"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -47,14 +47,14 @@
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="eK5-Pn-Ga2">
-                                    <rect key="frame" x="0.0" y="40" width="609" height="635"/>
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="eK5-Pn-Ga2" customClass="MessageListTableView">
+                                    <rect key="frame" x="0.0" y="40" width="709" height="635"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                 </tableView>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JVE-Zl-YKk">
-                                    <rect key="frame" x="0.0" y="674" width="609" height="53"/>
+                                    <rect key="frame" x="0.0" y="675" width="709" height="53"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qhe-FO-f3O">
                                             <rect key="frame" x="0.0" y="0.0" width="53" height="53"/>
@@ -63,11 +63,17 @@
                                             </state>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yi8-gt-F7C">
-                                            <rect key="frame" x="556" y="0.0" width="53" height="53"/>
+                                            <rect key="frame" x="656" y="0.0" width="53" height="53"/>
                                             <state key="normal" title="发送">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="请输入聊天内容。。。" translatesAutoresizingMaskIntoConstraints="NO" id="lYw-tp-Ndp">
+                                            <rect key="frame" x="53" y="0.0" width="603" height="53"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" spellCheckingType="yes" keyboardType="phonePad" keyboardAppearance="light" returnKeyType="send" enablesReturnKeyAutomatically="YES"/>
+                                        </textView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
@@ -89,8 +95,12 @@
                 <outlet property="leftTableView" destination="WOY-bj-AEY" id="ge1-25-XwY"/>
                 <outlet property="rightView" destination="iN0-l3-epB" id="zoR-eE-f5D"/>
                 <outlet property="rightViewBg" destination="iA4-e6-U0p" id="7Vd-yi-5n7"/>
+                <outlet property="sendBtn" destination="Yi8-gt-F7C" id="MwO-77-4rz"/>
+                <outlet property="speakBar" destination="JVE-Zl-YKk" id="SPs-Wv-xIC"/>
+                <outlet property="userNameLabel" destination="dcv-vW-X2o" id="AoC-GN-mjg"/>
+                <outlet property="userNameTitleView" destination="HN8-H7-2qJ" id="NME-uQ-eMg"/>
             </connections>
-            <point key="canvasLocation" x="346.5" y="323"/>
+            <point key="canvasLocation" x="346" y="323"/>
         </view>
     </objects>
     <resources>

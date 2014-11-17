@@ -98,6 +98,5 @@
 - (void)hideHistoryProductTable;
 
 + (void) setShadowTaste:(UIView *)backView andForeView:(UIView *)foreView;
-+ (void) setBtnSelectTaste:(UIButton *)btn;
 
 @end

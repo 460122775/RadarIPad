@@ -7,19 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ProductView.h"
+#import "FriendListTableView.h"
 
-@interface MessageView : UIView{
-    UITableView *tableView;
-    UIButton *switchBtn;
-    UIButton *voiceBtn;
-    UIButton *sendBtn;
-    UITextView *textView;
+@interface MessageView : UIView<FriendListTableViewProtocol>{
+    
 }
 
 @property (strong, nonatomic) IBOutlet UIView *leftListViewBg;
-@property (strong, nonatomic) IBOutlet UITableView *leftTableView;
+@property (strong, nonatomic) IBOutlet FriendListTableView *leftTableView;
 @property (strong, nonatomic) IBOutlet UIView *rightViewBg;
 @property (strong, nonatomic) IBOutlet UIView *rightView;
+@property (strong, nonatomic) IBOutlet UIView *userNameTitleView;
+@property (strong, nonatomic) IBOutlet UILabel *userNameLabel;
+@property (strong, nonatomic) IBOutlet UIView *speakBar;
+@property (strong, nonatomic) IBOutlet UIButton *sendBtn;
 
 @end

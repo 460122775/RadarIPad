@@ -81,7 +81,7 @@ static ProductFactory* _instance;
     //save file to the disk
     BOOL bo = [[NSFileManager defaultManager] createDirectoryAtPath:DataPath withIntermediateDirectories:YES attributes:nil error:nil];
     if (bo == false) return nil;
-    NSString *filePath = [DocumentsPath stringByAppendingPathComponent:fileUrl];
+    NSString *filePath = [DataPath stringByAppendingPathComponent:fileUrl];
     //    DLog(@"%@",fileName);
     [[request responseData] writeToFile:filePath atomically:NO];
     //save image to the NSUserDefaults
