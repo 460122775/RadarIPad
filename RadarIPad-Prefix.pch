@@ -27,8 +27,8 @@
 
 #define DocumentsPath [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 //#define docsdir [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES) lastObject]
-#define defaultDBPath [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/predata/db/db0_2.db"]
-#define DBPath [DocumentsPath stringByAppendingPathComponent:@"/db/db0_2.db"]
+#define defaultDBPath [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"/predata/db/db0_3.db"]
+#define DBPath [DocumentsPath stringByAppendingPathComponent:@"/db/db0_3.db"]
 #define defaultDataPath [[NSBundle mainBundle] resourcePath]
 #define DataPath [DocumentsPath stringByAppendingPathComponent:@"/data"]
 

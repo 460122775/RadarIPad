@@ -95,7 +95,7 @@
     currentProductListView.delegate = self;
     [self.productControlView addSubview:currentProductListView];
     self.currentProductModel = nil;
-    [self productAddressReceived];
+    [self productAddressReceived:nil];
     self.slider.enabled = NO;
 }
 
@@ -112,11 +112,16 @@
     [backView.layer setShadowRadius:8.0];
 }
 
-- (void)productAddressReceived
+- (void)productAddressReceived:(NSString*) addressStr
 {
     // ************** Test Code Start **************
-    ProductInfo *productInfo = [[ProductInfo alloc] initWithPosFileStr:@"/20140701_001556.06.003.000_6.19.zdb"];
-    [productInfo setProductType:ProductType_R];
+    ProductInfo *productInfo = nil;
+    if (addressStr != nil)
+    {
+        productInfo = [[ProductInfo alloc] initWithPosFileStr:addressStr];
+    }else{
+        productInfo = [[ProductInfo alloc] initWithPosFileStr:@"/20140701_001556.06.003.000_6.19.zdb"];
+    }
     [self selectProduct:productInfo];
     productInfo = nil;
     // ************** Test Code End **************
@@ -564,20 +569,19 @@ static CGPoint toLocation;
                 // Turn left.
                 if (fromLocation.x - location.x > 0)
                 {
-                    self.currentProductModel.productInfo.dataAddress = [DBModel getProductData:3 andCurrentData:self.currentProductModel.productInfo.dataAddress];
+                    [self productAddressReceived:[DBModel getProductData:3 andCurrentData:self.currentProductModel.productInfo.dataAddress]];
                 }else{ // Turn right.
-                    self.currentProductModel.productInfo.dataAddress = [DBModel getProductData:4 andCurrentData:self.currentProductModel.productInfo.dataAddress];
+                    [self productAddressReceived:[DBModel getProductData:4 andCurrentData:self.currentProductModel.productInfo.dataAddress]];
                 }
             }else{// Vertical.
                 // Turn up.
                 if (fromLocation.y - location.y > 0)
                 {
-                    self.currentProductModel.productInfo.dataAddress = [DBModel getProductData:1 andCurrentData:self.currentProductModel.productInfo.dataAddress];
+                    [self productAddressReceived:[DBModel getProductData:1 andCurrentData:self.currentProductModel.productInfo.dataAddress]];
                 }else{// Turn down.
-                    self.currentProductModel.productInfo.dataAddress = [DBModel getProductData:2 andCurrentData:self.currentProductModel.productInfo.dataAddress];
+                    [self productAddressReceived:[DBModel getProductData:2 andCurrentData:self.currentProductModel.productInfo.dataAddress]];
                 }
             }
-            [self productAddressReceived];
         }
     }
 }
