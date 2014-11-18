@@ -100,15 +100,13 @@
     
 }
 
-- (CGPoint) getPointByPosition:(CGPoint) point andFrame:(CGRect)frame
+- (CGPoint) getPointByPosition:(CLLocation*) location andFrame:(CGRect)frame
 {
-    //经纬度转化成坐标点.
-    point = CGPointMake(centX, centY);
+    // Add offset.
+    CGPoint point = CGPointMake(location.coordinate.longitude + 12,
+                                location.coordinate.latitude - 12);
     float radarX = fileHeadStruct.addSec.LongitudeV / 360000.0;
     float radarY = fileHeadStruct.addSec.LatitudeV / 360000.0;
-    point.x = radarX + 12;
-    point.y = radarY - 12;
-    
     // Calculate angle.
     float angle = sin(point.y * M_PI / 180.0)
                 * sin(radarY * M_PI / 180.0)
@@ -152,19 +150,43 @@
     point.y = distance / _detM * cos(angle) + centY;
     
     //Test...
-    point.x = 340 + centX;
-    point.y = 380 + centY;
+//    point.x = 340 + centX;
+//    point.y = 380 + centY;
     return point;
 }
 
-- (CGPoint)getPositionByPoint:(CGPoint) point
+static const float RJ = 6356725;//极半径
+static const float RC = 6378137;//赤道半径
+
+- (CLLocationCoordinate2D)getPositionByPoint:(CGPoint) point
 {
+    float radarX = fileHeadStruct.addSec.LongitudeV / 360000.0;
+    float radarY = fileHeadStruct.addSec.LatitudeV / 360000.0;
+    float r = sqrtf(powf((point.x - centX), 2) + powf((point.y - centY), 2));
+    float distance = r * _detM;
+    //求方位角角度。
+    float azimuth = atan2f((centX - point.x), (point.y - centY)) * 180.0 / M_PI;
+    if (azimuth < 0) azimuth += 360.0;
+    //JWD
+    float dx = distance * sinf(azimuth * M_PI / 180.0);
+    float dy = distance * cosf(azimuth * M_PI / 180.0);
+    float ec = RJ + (RC - RJ) * (90 - radarY) / 90.0;
+    float ed = ec * cosf(radarY * M_PI / 180);
     
+    float longitude = (dx / ed + radarX * M_PI / 180.0) * 180.0 / M_PI;
+    float latitude = (dy / ec + radarY * M_PI / 180.0) * 180.0 / M_PI;
+    
+    return CLLocationCoordinate2DMake(latitude, longitude);
 }
 
 - (CLLocationCoordinate2D) getRadarCenterPosition
 {
     return CLLocationCoordinate2DMake(fileHeadStruct.addSec.LatitudeV / 360000.0, fileHeadStruct.addSec.LongitudeV / 360000.0);
+}
+
+- (float)getDetM
+{
+    return _detM;
 }
 
 @end

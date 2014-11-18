@@ -46,7 +46,8 @@
     
     self.mapView.tileSource = [[RMMapboxSource alloc] initWithMapID:@"daiyachen.k71impl7"];
     self.mapView.delegate = self;
-    self.mapView.zoom = 8;
+    self.mapView.zoom = 9.5;
+    [self.mapView showsUserLocation];
     [self.mapView setBackgroundColor:[UIColor clearColor]];
 
     // Set Guesture.
@@ -217,7 +218,7 @@
         [self.continueBtn setTitle:@"‖" forState:UIControlStateNormal];
         self.backMultipleBtn.enabled = YES;
         self.forwardMultipleBtn.enabled = YES;
-        playTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(playTimerFired:) userInfo:nil repeats:YES];
+        playTimer = [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(playTimerFired:) userInfo:nil repeats:YES];
         [playTimer fire];
     // Playing.
     }else{
@@ -243,7 +244,6 @@ static int currentValue = 1;
 - (NSString *)slider:(ASValueTrackingSlider *)slider stringForValue:(float)value;
 {
     currentValue = roundf(value);
-    if (self.slider.tag == 100 && lastIntValue != currentValue) [self playTimerFired:nil];
     lastIntValue = value;
     return [NSString stringWithFormat:@"第%@帧", [self.slider.numberFormatter stringFromNumber:@(currentValue)]];
 }
@@ -251,11 +251,14 @@ static int currentValue = 1;
 - (void)sliderWillDisplayPopUpView:(ASValueTrackingSlider *)slider
 {
     self.slider.tag = 100;
+    self.continueBtn.tag = 1;
+    [self continueBtnClick:nil];
 }
 
 - (void)sliderDidHidePopUpView:(ASValueTrackingSlider *)slider
 {
     self.slider.tag = 0;
+    [self playTimerFired:nil];
 }
 
 static int step = 1;
@@ -268,9 +271,9 @@ static int step = 1;
     }
     //Test Code...
     [self drawProductBySliderValue];
-    self.slider.value = currentValue;
     if (self.slider.tag != 100)
     {
+        self.slider.value = currentValue;
         if (self.slider.value + step <= 1)
         {
 //            self.slider.value = 1;
@@ -347,8 +350,8 @@ static int step = 1;
         directionImgView = [[UIImageView alloc] initWithFrame:CGRectMake(100, 100, 26, 26)];
         [directionImgView setImage:[UIImage imageNamed:@"gps_btn.png"]];
         directionImgView.userInteractionEnabled=YES;
-        UITapGestureRecognizer *singleTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(onClickImage)];
-        [directionImgView addGestureRecognizer:singleTap];
+        positionBtnGestureRecognizer =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(onClickImage)];
+        [directionImgView addGestureRecognizer:positionBtnGestureRecognizer];
         [self.imgContainerView addSubview:directionImgView];
 //        self.imgContainerView.transform = CGAffineTransformMakeRotation(M_PI);
     
@@ -357,7 +360,6 @@ static int step = 1;
         locationManager.delegate = self;
         locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
         locationManager.distanceFilter = 500;
-        
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters; // 100 m
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
             [locationManager requestAlwaysAuthorization];
@@ -377,8 +379,11 @@ static int step = 1;
 
 - (void)onClickImage
 {
+//    point = [self.currentProductModel getPointByPosition:currentLocation andFrame:self.productImgView.frame];
+    [self.mapView setCenterCoordinate:currentLocation.coordinate animated:YES];
     self.currentProductModel.centX = self.currentProductModel.centX - pulsingView.frame.origin.x + ProductContainer_Width / 2;
     self.currentProductModel.centY = self.currentProductModel.centY - pulsingView.frame.origin.y + ProductContainer_height / 2;
+    
     [self drawProduct];
 }
 
@@ -427,7 +432,10 @@ static int step = 1;
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0)
 {
-    DLog(@">>>>>>Call?");
+    currentLocation = (CLLocation*)[locations objectAtIndex:0];
+    DLog(@">>>>>>%f, %f", currentLocation.coordinate.latitude,
+         currentLocation.coordinate.longitude);
+    [self updatePositionPoint];
 }
 
 
@@ -449,7 +457,7 @@ static CGPoint point;
 
 -(void) updatePositionPoint
 {
-    point = [self.currentProductModel getPointByPosition:point andFrame:self.productImgView.frame];
+    point = [self.currentProductModel getPointByPosition:currentLocation andFrame:self.productImgView.frame];
     pulsingView.frame = CGRectMake(point.x - 10, point.y - 10, 20, 20);
     
     [directionImgView removeFromSuperview];
@@ -510,6 +518,16 @@ static CGPoint point;
             self.currentProductModel.zoomValue = 1;
         }
         self.mapView.zoom = self.currentProductModel.zoomValue + 7;
+        DLog(@"detm:%f", [self.currentProductModel getDetM]);
+//        [self.mapView setMetersPerPixel:[self.currentProductModel getDetM]];
+        DLog(@"scaledMetersPerPixel:%f", self.mapView.scaledMetersPerPixel)
+        DLog(@"metersPerPixel:%f", self.mapView.metersPerPixel)
+        DLog(@"scaleDenominator:%f", self.mapView.scaleDenominator)
+        
+        
+//        [self.mapView setZoom:self.currentProductModel.zoomValue + 7 atCoordinate:self.mapView.centerCoordinate animated:NO];
+//        DLog(@"%f, %f", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude);
+//        [self.mapView setCenterCoordinate:[self.currentProductModel getPositionByPoint:CGPointMake(ProductContainer_Width / 2, ProductContainer_height / 2)] animated:YES];
         [self drawProduct];
     }
 }
@@ -637,6 +655,18 @@ static CGPoint toLocation;
     {
         [historyProductListView removeFromSuperview];
     }
+    self.continueBtn.tag = 0;
+    [self.continueBtn setTitle:@"▷" forState:UIControlStateNormal];
+    self.continueBtn.enabled = NO;
+    self.slider.value = 0;
+    self.backMultipleBtn.enabled = NO;
+    self.backBtn.enabled = NO;
+    self.forwardBtn.enabled = NO;
+    self.forwardMultipleBtn.enabled = NO;
+    self.slider.enabled = NO;
+    if(playTimer != nil) [playTimer invalidate];
+    playTimer = nil;
+    historyProductListView.productDataArray = nil;
 }
 
 - (void)selectProduct:(int) index inDataArray:(NSMutableArray*) dataArray

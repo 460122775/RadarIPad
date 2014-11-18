@@ -36,8 +36,8 @@
 
 - (void) drawDistanceCircle:(UIImageView *) productImgView;
 - (void) constNeedCal:(UIImageView *) productImgView;
-- (CGPoint) getPointByPosition:(CGPoint) point andFrame:(CGRect)frame;
-- (CGPoint) getPositionByPoint:(CGPoint) point;
+- (CGPoint) getPointByPosition:(CLLocation*) point andFrame:(CGRect)frame;
+- (CLLocationCoordinate2D) getPositionByPoint:(CGPoint) point;
 - (CLLocationCoordinate2D) getRadarCenterPosition;
-
+- (float)getDetM;
 @end

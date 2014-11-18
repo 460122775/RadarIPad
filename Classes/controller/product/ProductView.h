@@ -40,6 +40,7 @@
         UIPanGestureRecognizer *dragGestureRecognizer;
         UIPanGestureRecognizer *switchGestureRecognizer;
         UIPanGestureRecognizer *knifeGestureRecognizer;
+        UITapGestureRecognizer *positionBtnGestureRecognizer;
         SVPulsingAnnotationView *pulsingView;
         UIImageView *directionImgView;
         UIImageView *knifeLineView;
@@ -50,6 +51,7 @@
         
 //        MKMapView *mapView;
         CLLocationManager *locationManager;
+        CLLocation *currentLocation;
 }
 @property (strong, nonatomic) IBOutlet RMMapView *mapView;
 

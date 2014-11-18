@@ -25,12 +25,12 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O81-AZ-SeW" customClass="RMMapView">
-                                    <rect key="frame" x="0.0" y="35" width="620" height="620"/>
+                                    <rect key="frame" x="0.0" y="36" width="620" height="620"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pq8-Nv-aHV">
-                                    <rect key="frame" x="0.0" y="35" width="620" height="620"/>
+                                    <rect key="frame" x="0.0" y="36" width="620" height="620"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MOE-1z-t3z">
                                             <rect key="frame" x="0.0" y="0.0" width="620" height="620"/>
@@ -44,16 +44,16 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vhE-mj-nwh">
-                                    <rect key="frame" x="0.0" y="656" width="620" height="72"/>
+                                    <rect key="frame" x="0.0" y="657" width="620" height="72"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qt9-Bv-svI">
-                                            <rect key="frame" x="0.0" y="30" width="620" height="42"/>
+                                            <rect key="frame" x="0.0" y="32" width="620" height="40"/>
                                         </imageView>
                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3bb-3A-4io">
-                                            <rect key="frame" x="0.0" y="0.0" width="620" height="30"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="620" height="34"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oKb-63-y5z">
-                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="34"/>
                                                     <state key="normal" title="&lt;&lt;">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -62,7 +62,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0BS-vL-BYm">
-                                                    <rect key="frame" x="40" y="0.0" width="30" height="30"/>
+                                                    <rect key="frame" x="40" y="0.0" width="30" height="34"/>
                                                     <state key="normal" title="&lt;">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -71,10 +71,10 @@
                                                     </connections>
                                                 </button>
                                                 <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Z1t-wd-Cab" customClass="ASValueTrackingSlider">
-                                                    <rect key="frame" x="80" y="0.0" width="420" height="31"/>
+                                                    <rect key="frame" x="80" y="3" width="420" height="31"/>
                                                 </slider>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Js3-di-OQ2">
-                                                    <rect key="frame" x="510" y="0.0" width="30" height="30"/>
+                                                    <rect key="frame" x="510" y="0.0" width="30" height="34"/>
                                                     <state key="normal" title="&gt;">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -83,7 +83,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="neG-3f-vAM">
-                                                    <rect key="frame" x="550" y="0.0" width="30" height="30"/>
+                                                    <rect key="frame" x="550" y="0.0" width="30" height="34"/>
                                                     <state key="normal" title="&gt;&gt;">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -92,7 +92,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7hB-O5-8FZ">
-                                                    <rect key="frame" x="590" y="0.0" width="30" height="30"/>
+                                                    <rect key="frame" x="590" y="0.0" width="30" height="34"/>
                                                     <state key="normal" title="▷">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>

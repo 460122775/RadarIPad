@@ -26,15 +26,15 @@
 - (void)initControl
 {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    BOOL success;
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error = nil;
     
 //    DLog(@">>>>>>DBPath:%@", DBPath);
 //    DLog(@">>>>>>DataPath:%@", DataPath);
-    DLog(@">>>>>>defaultDataPath:%@", defaultDataPath);
+//    DLog(@">>>>>>defaultDataPath:%@", defaultDataPath);
 //    DLog(@">>>>>>defaultDBPath:%@", defaultDBPath);
     
+    BOOL success;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error = nil;
     NSDirectoryEnumerator *direnum = [fileManager enumeratorAtPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@""]];//枚举目录
     NSString *filename = nil;
     [[NSFileManager defaultManager] createDirectoryAtPath:DataPath withIntermediateDirectories:YES attributes:nil error:nil];
@@ -46,15 +46,13 @@
             if (success == NO)
             {
                 success = [fileManager copyItemAtPath:[NSString stringWithFormat:@"%@/%@", defaultDataPath, filename] toPath:[NSString stringWithFormat:@"%@/%@", DataPath, filename] error:&error];
+//                if (!success)
+//                {
+//                    NSAssert1(0, @"Failed to create writable database file with message '%@'.", @"/predata/db/db0_0.db" );
+//                }
             }
         }
     }
-    
-//    if (!success)
-//    {
-//        NSAssert1(0, @"Failed to create writable database file with message '%@'.", @"/predata/db/db0_0.db" );
-//    }
-    
     [DBModel initDB];
 }
 
