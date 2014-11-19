@@ -68,7 +68,6 @@
     return cell;
 }
 
-static int selectIndex = 0;
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     int index = 0;

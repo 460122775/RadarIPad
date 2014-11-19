@@ -44,7 +44,7 @@
     [self.productInfoView setBackgroundColor:ProductThemeColor];
     [self.productControlView setBackgroundColor:ProductThemeColor];
     
-    self.mapView.tileSource = [[RMMapboxSource alloc] initWithMapID:@"daiyachen.k71impl7"];
+    self.mapView.tileSource = [[RMMapboxSource alloc] initWithMapID:@"daiyachen.k6kcbldc"];
     self.mapView.delegate = self;
     self.mapView.zoom = 9.5;
     [self.mapView showsUserLocation];
@@ -280,7 +280,7 @@ static int step = 1;
             currentValue = 1;
         }else if(self.slider.value + step > self.historyDataArray.count){
 //            self.slider.value = self.historyDataArray.count;
-            currentValue = self.historyDataArray.count;
+            currentValue = (int)self.historyDataArray.count;
         }else{
 //            self.slider.value += step;
             currentValue += step;
@@ -518,12 +518,11 @@ static CGPoint point;
             self.currentProductModel.zoomValue = 1;
         }
         self.mapView.zoom = self.currentProductModel.zoomValue + 7;
-        DLog(@"detm:%f", [self.currentProductModel getDetM]);
+//        DLog(@"detm:%f", [self.currentProductModel getDetM]);
 //        [self.mapView setMetersPerPixel:[self.currentProductModel getDetM]];
-        DLog(@"scaledMetersPerPixel:%f", self.mapView.scaledMetersPerPixel)
-        DLog(@"metersPerPixel:%f", self.mapView.metersPerPixel)
-        DLog(@"scaleDenominator:%f", self.mapView.scaleDenominator)
-        
+//        DLog(@"scaledMetersPerPixel:%f", self.mapView.scaledMetersPerPixel)
+//        DLog(@"metersPerPixel:%f", self.mapView.metersPerPixel)
+//        DLog(@"scaleDenominator:%f", self.mapView.scaleDenominator)
         
 //        [self.mapView setZoom:self.currentProductModel.zoomValue + 7 atCoordinate:self.mapView.centerCoordinate animated:NO];
 //        DLog(@"%f, %f", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude);

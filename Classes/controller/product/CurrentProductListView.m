@@ -113,7 +113,7 @@ static int selectIndex = 0;
     
     //Test Code...
     ProductInfo *vo = nil;
-    selectIndex = indexPath.row;
+    selectIndex = (int)indexPath.row;
     switch (((ProductVo*)[self.productArray objectAtIndex:indexPath.row]).type)
     {
         case ProductType_R:
