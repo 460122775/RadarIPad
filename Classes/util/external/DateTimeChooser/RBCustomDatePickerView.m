@@ -208,39 +208,39 @@
     UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, scrollView.bounds.size.width, scrollView.bounds.size.height/5)];
     l.tag = index+1;
     if (scrollView == yearScrollView) {
-        l.text = [NSString stringWithFormat:@"%d年",2000+index];
+        l.text = [NSString stringWithFormat:@"%d年",2000+(int)index];
     }
     else if (scrollView == monthScrollView)
     {
-        l.text = [NSString stringWithFormat:@"%d月",1+index];
+        l.text = [NSString stringWithFormat:@"%d月",1+(int)index];
     }
     else if (scrollView == dayScrollView)
     {
         while (1+index <= 0) {index+= 31;}
-        l.text = [NSString stringWithFormat:@"%d日",1+index];
+        l.text = [NSString stringWithFormat:@"%d日",1+(int)index];
     }
     else if (scrollView == hourScrollView)
     {
         if (index < 10) {
-            l.text = [NSString stringWithFormat:@"0%d",index];
+            l.text = [NSString stringWithFormat:@"0%d",(int)index];
         }
         else
-            l.text = [NSString stringWithFormat:@"%d",index];
+            l.text = [NSString stringWithFormat:@"%d",(int)index];
     }
     else if (scrollView == minuteScrollView)
     {
         if (index < 10) {
-            l.text = [NSString stringWithFormat:@"0%d",index];
+            l.text = [NSString stringWithFormat:@"0%d",(int)index];
         }
         else
-            l.text = [NSString stringWithFormat:@"%d",index];
+            l.text = [NSString stringWithFormat:@"%d",(int)index];
     }
     else
         if (index < 10) {
-            l.text = [NSString stringWithFormat:@"0%d",index];
+            l.text = [NSString stringWithFormat:@"0%d",(int)index];
         }
         else
-            l.text = [NSString stringWithFormat:@"%d",index];
+            l.text = [NSString stringWithFormat:@"%d",(int)index];
     
     l.font = [UIFont systemFontOfSize:12];
     l.textAlignment = NSTextAlignmentCenter;

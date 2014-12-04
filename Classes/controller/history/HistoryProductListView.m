@@ -188,7 +188,7 @@
     ProductInfo *vo = [[ProductInfo alloc] initWithPosFileStr:[NSString stringWithFormat:@"/%@.zdb",[productStr substringWithRange:NSMakeRange(0, productStr.length - 5)]]];
     //Test End...
     
-    [self.delegate selectProduct:indexPath.row inDataArray:self.productDataArray];
+    [self.delegate selectProduct:(int)indexPath.row inDataArray:self.productDataArray];
     productStr = nil;
     vo = nil;
 }

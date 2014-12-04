@@ -505,6 +505,7 @@ static CGPoint point;
     if([sender state] == UIGestureRecognizerStateEnded)
     {
         float currentScale = [(UIPinchGestureRecognizer*)sender scale];
+        DLog(@"%f", currentScale);
         if (currentScale > 1.0)
         {
             self.currentProductModel.zoomValue += (ZoomStep * (int)currentScale);
